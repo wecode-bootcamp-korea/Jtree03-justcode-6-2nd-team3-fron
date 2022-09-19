@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 // 메인페이지
-import Main from "../components/Main";
+import Main from "./components/Main";
 
 function Router() {
   return (
