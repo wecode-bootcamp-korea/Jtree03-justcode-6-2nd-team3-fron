@@ -1,15 +1,17 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-
-// 메인페이지
-import Main from "./pages/Main";
+import Header from "./components/LayOut/Header/Header";
+import Footer from "./components/LayOut/Footer/Footer";
+import Main from "./components/LayOut/Main";
 
 function Router() {
   return (
     <BrowserRouter>
+    <Header />
       <Routes>
         {/* 메인페이지 */}
         <Route path="/" element={<Main />} />
       </Routes>
+    <Footer />
     </BrowserRouter>
   );
 }
