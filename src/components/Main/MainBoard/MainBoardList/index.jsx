@@ -6,8 +6,13 @@ function MainBoardList() {
       <Boardcontent>
         <ListTitle>
           <DFlex>
-            <p>닉네임</p>
-            <span> 번개</span>
+            <User>
+              <span />
+              닉네임
+            </User>
+            <Point>
+              <span /> 번개
+            </Point>
             <p>시간</p>
           </DFlex>
           <DFlex>
@@ -25,6 +30,32 @@ const Boardcontent = styled.div`
 `;
 const DFlex = styled.div`
   display: flex;
+  align-items: center;
+`;
+const User = styled.div`
+  display: flex;
+  align-items: center;
+  margin-right: 5px;
+  span {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+    border-radius: 50%;
+    background: #ddd;
+  }
+`;
+const Point = styled.div`
+  display: flex;
+  align-items: center;
+  span {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    margin-right: 5px;
+    border-radius: 50%;
+    background: #ddd;
+  }
 `;
 const ListTitle = styled.div`
   display: flex;
