@@ -1,12 +1,16 @@
 import styled from 'styled-components';
-import Nbutton from './buttons/Nbutton';
-import React from 'react';
+import Nbutton from './component/Nbutton';
+import React, { useState } from 'react';
+import CommentInComment from './component/CommentInComment';
+import WriteCommentSpace from './component/WriteCommentSpace';
 //import Modal from 'react-modal';
-// import { useState, useEffect } from 'react';
 // import axios from 'axios';
 
 export default function CommentList(props) {
   const { comment } = props;
+  const [openComment, setOpenComment] = useState(false);
+  const [iWantWrite, setIWantWrite] = useState(false);
+
   return (
     <Comment>
       <Betweendiv>
@@ -28,12 +32,30 @@ export default function CommentList(props) {
       </Betweendiv>
       <CommentContent>{comment.comment}</CommentContent>
       <Rowdiv>
-        <OpenComment>
+        <OpenComment onClick={() => setOpenComment(f => !f)}>
           <Viewimg src="https://w7.pngwing.com/pngs/523/1012/png-transparent-arrow-computer-icons-encapsulated-postscript-drop-down-list-arrow-blue-angle-text.png" />
           댓글보기
         </OpenComment>
-        <WriteComment>댓글쓰기</WriteComment>
+        <WriteComment onClick={() => setIWantWrite(f => !f)}>
+          댓글쓰기
+        </WriteComment>
       </Rowdiv>
+      <div>
+        {iWantWrite && (
+          <CommentinCommentwrapper>
+            <BlankLine />
+            <div>
+              <WriteCommentSpace />
+            </div>
+          </CommentinCommentwrapper>
+        )}
+        {openComment && (
+          <CommentinCommentwrapper>
+            <BlankLine />
+            <CommentInComment />
+          </CommentinCommentwrapper>
+        )}
+      </div>
     </Comment>
   );
 }
@@ -106,4 +128,21 @@ const Writeinfor = styled.div`
 const CommentContent = styled.div`
   line-height: 1.3;
   margin: 15px 0;
+  color: gray;
+`;
+
+const CommentinCommentwrapper = styled.div`
+  margin-top: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+`;
+
+const BlankLine = styled.div`
+  margin-left: 10px;
+  padding-left: 16px;
+  border-left: 2px solid lightgray;
+  height: 100px;
+  width: 0;
 `;

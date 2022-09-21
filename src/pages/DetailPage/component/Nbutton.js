@@ -2,23 +2,27 @@ import styled from 'styled-components';
 import { useState } from 'react';
 
 export default function Nbutton() {
-  const [like, setLike] = useState(0);
+  const [like, setLike] = useState(0); // 서버에서 받아오는 데이터 반영
+  const [leftClick, setLeftClick] = useState(false); //해당하는 boolean data도 서버에서 관리한다? 유저 => 해당댓글
+  const [rightClick, setRightClick] = useState(false); //마찬가지?
 
   function clickDown() {
-    setLike(like - 1);
+    leftClick ? setLike(like + 1) : setLike(like - 1);
+    setLeftClick(f => !f);
   }
 
   function clickUp() {
-    setLike(like + 1);
+    rightClick ? setLike(like - 1) : setLike(like + 1);
+    setRightClick(f => !f);
   }
 
   return (
     <Reaction>
-      <Nbtton onClick={clickDown}>
+      <Nbtton onClick={clickDown} disabled={rightClick && true}>
         <Likeimg src="https://cdn-icons-png.flaticon.com/512/271/271210.png" />
       </Nbtton>
       <View>{like}</View>
-      <Nbtton onClick={clickUp}>
+      <Nbtton onClick={clickUp} disabled={leftClick && true}>
         <Likeimg src="https://cdn-icons-png.flaticon.com/512/271/271239.png" />
       </Nbtton>
     </Reaction>

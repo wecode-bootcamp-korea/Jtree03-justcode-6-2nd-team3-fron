@@ -3,7 +3,6 @@ import Nbutton from './buttons/Nbutton';
 
 export default function Content(props) {
   const { data } = props;
-  console.log('test', data.tag);
   return (
     <Body>
       <h2>{data.title}</h2>
