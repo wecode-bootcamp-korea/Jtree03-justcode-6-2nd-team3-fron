@@ -4,7 +4,7 @@ import styled from 'styled-components'
 export default function FormTop() {
   return (
     <Wrapper>
-        <Logo>Logo</Logo>
+        <Logo>OKIDOKI</Logo>
         <Welcome>오키도키에 오신 것을 환영합니다.</Welcome>
         <WebsiteDesc>OKIDOKI는 소프트웨어 개발자를 위한 지식공유 플랫폼입니다.</WebsiteDesc>
         <SocialMediaTitle>SNS 회원가입</SocialMediaTitle>
@@ -14,8 +14,8 @@ export default function FormTop() {
           <SocialMediaBtn><Icon img src='image/google.png' alt='구글' /></SocialMediaBtn>
         </BtnWrapper>
         <SecondBtnWrapper>
-          <SocialMediaBtn><Icon /></SocialMediaBtn>
-          <SocialMediaBtn><Icon /></SocialMediaBtn>
+          <SocialMediaBtn><Icon img src='image/N.png' alt='네이버' /></SocialMediaBtn>
+          <SocialMediaBtn><Icon imr src='image/kakao-talk.png' alt='카카오톡' /></SocialMediaBtn>
         </SecondBtnWrapper>
     </Wrapper>
   )
@@ -72,6 +72,7 @@ const SocialMediaBtn = styled.button `
   justify-content: center;
   align-items: center;
   border: 0.5px solid gray;
+  cursor: pointer;
 `
 const Icon = styled.img `
   width: 20px;

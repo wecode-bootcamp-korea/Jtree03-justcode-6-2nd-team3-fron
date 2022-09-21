@@ -1,6 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Signup from "./pages/Login/Signup/Signup";
-// 메인페이지
 import Main from "./pages/Main";
 import NewPost from './pages/NewPost';
 
