@@ -1,7 +1,8 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 // 메인페이지
-import Main from "./pages/Main";
+import Main from './pages/Main';
+import NewPost from './pages/NewPost';
 
 function Router() {
   return (
@@ -9,6 +10,7 @@ function Router() {
       <Routes>
         {/* 메인페이지 */}
         <Route path="/" element={<Main />} />
+        <Route path="/new" element={<NewPost />} />
       </Routes>
     </BrowserRouter>
   );
