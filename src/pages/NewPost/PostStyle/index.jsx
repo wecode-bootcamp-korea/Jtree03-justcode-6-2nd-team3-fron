@@ -1,18 +1,28 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './quillCustom.css';
 
 function PostStyle() {
-  // const CustomToolbar = () => (
-  //   <div id="toolbar">
-  //     <span class="ql-formats">
-  //     <button value='1' className="ql-header"></button>
-  //       <button value='2'></button>
-  //       <button value='3'></button>
-  //     </span>
-
-  //     </div>)
+  const [content, setContent] = useState();
+  const getContent = value => {
+    console.log(value);
+    setContent(value);
+  };
+  const formats = [
+    'header',
+    'font',
+    'size',
+    'bold',
+    'italic',
+    'underline',
+    'list',
+    'bullet',
+    'align',
+    'color',
+    'background',
+    'image',
+  ];
   const modules = useMemo(
     () => ({
       toolbar: {
@@ -34,13 +44,12 @@ function PostStyle() {
   return (
     <div>
       <ReactQuill
-        // ref={quillRef}
-        // value={htmlContent}
-        // onChange={setHtmlContent}
+        formats={formats}
+        value={content}
+        onChange={getContent}
         modules={modules}
         theme="snow"
         placeholder="내용을 입력하세요."
-        // className={styles.quillEditor}
       />
     </div>
   );

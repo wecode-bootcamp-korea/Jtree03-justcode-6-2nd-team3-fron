@@ -9,22 +9,24 @@ function NewPost() {
         <span>닉네임</span>님 지식공유 플랫폼 OKKY에서 최고의 개발자들과 함께
         궁금증을 해결하세요.
       </SubTitle>
-      <Label>토픽</Label>
-      <Select defaultValue={''}>
-        <option value={''}>토픽을 선택해주세요.</option>
-        <option>내용1</option>
-        <option>내용2</option>
-      </Select>
-      <Label>제목</Label>
-      <Input type="text" placeholder="제목을 입력해주세요." />
-      <Label>태그</Label>
-      <Input />
-      <Label>상세정보</Label>
-      <PostStyle />
-      <ButtonArea>
-        <Button>취소</Button>
-        <BlueButton>등록</BlueButton>
-      </ButtonArea>
+      <form>
+        <Label>토픽</Label>
+        <Select defaultValue={''}>
+          <option value={''}>토픽을 선택해주세요.</option>
+          <option>내용1</option>
+          <option>내용2</option>
+        </Select>
+        <Label>제목</Label>
+        <Input type="text" placeholder="제목을 입력해주세요." />
+        <Label>태그</Label>
+        <Input />
+        <Label>상세정보</Label>
+        <PostStyle />
+        <ButtonArea>
+          <Button>취소</Button>
+          <BlueButton>등록</BlueButton>
+        </ButtonArea>
+      </form>
     </NewContainer>
   );
 }
