@@ -21,6 +21,10 @@ function NewPost() {
       <Input />
       <Label>상세정보</Label>
       <PostStyle />
+      <ButtonArea>
+        <Button>취소</Button>
+        <BlueButton>등록</BlueButton>
+      </ButtonArea>
     </NewContainer>
   );
 }
@@ -55,5 +59,31 @@ const Select = styled.select`
 const Label = styled.label`
   display: block;
   margin: 30px 0 10px;
+`;
+const ButtonArea = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 50px;
+`;
+const Button = styled.button`
+  padding: 10px 30px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background: none;
+  &:hover {
+    background: rgb(249 250 251);
+  }
+`;
+const BlueButton = styled.button`
+  margin-left: 10px;
+  padding: 10px 30px;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  background: rgb(0 144 249);
+  opacity: 0.7;
+  &:hover {
+    opacity: 1;
+  }
 `;
 export default NewPost;
