@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import './quillCustom.css';
+import styled from 'styled-components';
 
 function PostStyle() {
   const [content, setContent] = useState();
@@ -11,16 +11,17 @@ function PostStyle() {
   };
   const formats = [
     'header',
-    'font',
-    'size',
     'bold',
     'italic',
     'underline',
+    'strike',
     'list',
+    'ordered',
     'bullet',
-    'align',
-    'color',
-    'background',
+    'blockquote',
+    'link',
+    'code-block',
+    'video',
     'image',
   ];
   const modules = useMemo(
@@ -42,7 +43,7 @@ function PostStyle() {
   );
 
   return (
-    <div>
+    <QuillContainer>
       <ReactQuill
         formats={formats}
         value={content}
@@ -51,8 +52,26 @@ function PostStyle() {
         theme="snow"
         placeholder="내용을 입력하세요."
       />
-    </div>
+    </QuillContainer>
   );
 }
+
+const QuillContainer = styled.div`
+  .ql-toolbar {
+    border-radius: 5px 5px 0 0;
+    border-color: #ddd !important;
+    border-bottom: 1px solid #ddd !important;
+    background: rgb(249 250 251);
+  }
+  .ql-container {
+    height: 350px;
+    overflow-y: scroll;
+    border-color: #ddd !important;
+    border-radius: 0 0 5px 5px;
+  }
+  .ql-editor {
+    font-size: 14px;
+  }
+`;
 
 export default PostStyle;

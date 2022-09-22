@@ -1,7 +1,31 @@
 import styled from 'styled-components';
 import PostStyle from './PostStyle';
+import CreatableSelect from 'react-select/creatable';
+import { useState } from 'react';
 
 function NewPost() {
+  const [tagValue, setTag] = useState([]);
+  const [selectValue, setValue] = useState('');
+  const [inputValue, setInputValue] = useState('');
+  const tagVal = tagValue.map(data => {
+    return data.value;
+  });
+  console.log('test', tagVal);
+  const handleChange = value => {
+    console.log(value);
+    setTag(value);
+  };
+  const selectVal = e => {
+    setValue(e.target.value);
+  };
+  const inputVal = e => {
+    setInputValue(e.target.value);
+  };
+  const formSubmit = e => {
+    e.preventDefault();
+  };
+  console.log(selectValue);
+  console.log(inputValue);
   return (
     <NewContainer>
       <Title>제목</Title>
@@ -9,19 +33,35 @@ function NewPost() {
         <span>닉네임</span>님 지식공유 플랫폼 OKKY에서 최고의 개발자들과 함께
         궁금증을 해결하세요.
       </SubTitle>
-      <form>
+      <form onSubmit={formSubmit}>
         <Label>토픽</Label>
-        <Select defaultValue={''}>
+        <Select defaultValue={''} onChange={selectVal}>
           <option value={''}>토픽을 선택해주세요.</option>
-          <option>내용1</option>
-          <option>내용2</option>
+          <option value="1">내용1</option>
+          <option value="2">내용2</option>
         </Select>
         <Label>제목</Label>
-        <Input type="text" placeholder="제목을 입력해주세요." />
+        <Input
+          type="text"
+          placeholder="제목을 입력해주세요."
+          onChange={inputVal}
+        />
         <Label>태그</Label>
-        <Input />
+        <CreatableSelect
+          isMulti
+          placeholder="태그를 입력해주세요."
+          onChange={handleChange}
+          valueKey="value"
+          value={tagValue.value}
+          // options={colourOptions}
+        />
         <Label>상세정보</Label>
         <PostStyle />
+        {/* <div
+          className="g-recaptcha"
+          data-sitekey="6LeedxgiAAAAAK4Qt-X-eL1uJre415TP0b-YEsSv"
+        />
+        <script src="https://www.google.com/recaptcha/api.js" async defer /> */}
         <ButtonArea>
           <Button>취소</Button>
           <BlueButton>등록</BlueButton>
