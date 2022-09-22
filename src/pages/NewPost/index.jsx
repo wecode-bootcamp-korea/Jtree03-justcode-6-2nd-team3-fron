@@ -1,20 +1,19 @@
 import styled from 'styled-components';
 import PostStyle from './PostStyle';
-import CreatableSelect from 'react-select/creatable';
+
+import SelectTag from '../../components/SelectTag';
 import { useState } from 'react';
 
 function NewPost() {
-  const [tagValue, setTag] = useState([]);
   const [selectValue, setValue] = useState('');
   const [inputValue, setInputValue] = useState('');
-  const tagVal = tagValue.map(data => {
-    return data.value;
-  });
-  console.log('test', tagVal);
-  const handleChange = value => {
-    console.log(value);
-    setTag(value);
-  };
+
+  const options = [
+    { id: 1, value: '1', label: '1' },
+    { id: 2, value: '2', label: '2' },
+    { id: 3, value: '3', label: '3' },
+  ];
+  const placeholder = '태그를 입력해주세요';
   const selectVal = e => {
     setValue(e.target.value);
   };
@@ -47,14 +46,7 @@ function NewPost() {
           onChange={inputVal}
         />
         <Label>태그</Label>
-        <CreatableSelect
-          isMulti
-          placeholder="태그를 입력해주세요."
-          onChange={handleChange}
-          valueKey="value"
-          value={tagValue.value}
-          // options={colourOptions}
-        />
+        <SelectTag options={options} placeholder={placeholder} />
         <Label>상세정보</Label>
         <PostStyle />
         {/* <div

@@ -65,7 +65,6 @@ const QuillContainer = styled.div`
   }
   .ql-container {
     height: 350px;
-    overflow-y: scroll;
     border-color: #ddd !important;
     border-radius: 0 0 5px 5px;
   }
