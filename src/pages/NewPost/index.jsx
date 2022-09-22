@@ -4,12 +4,28 @@ import PostStyle from '../../components/NewPost/PostStyle';
 import SelectTag from '../../components/SelectTag';
 import { useState } from 'react';
 import ReCaptcha from '../../components/ReCaptcha';
+// import axios from 'axios';
 
-function NewPost() {
+function NewPost(props) {
   const [selectValue, setValue] = useState('');
   const [inputValue, setInputValue] = useState('');
+  const [tagValue, setTag] = useState([]);
+  const [styledContent, setContent] = useState('');
 
   const placeholder = '태그를 입력해주세요';
+  const data = {
+    tags: tagValue,
+    content: styledContent,
+    sub_category_id: selectValue,
+    title: inputValue,
+  };
+
+  const getSelectValue = data => {
+    setTag(data);
+  };
+  const getStyledContent = data => {
+    setContent(data);
+  };
 
   const selectVal = e => {
     setValue(e.target.value);
@@ -17,11 +33,11 @@ function NewPost() {
   const inputVal = e => {
     setInputValue(e.target.value);
   };
+  console.log(data);
   const formSubmit = e => {
     e.preventDefault();
   };
-  console.log(selectValue);
-  console.log(inputValue);
+
   return (
     <NewContainer>
       <Title>제목</Title>
@@ -43,9 +59,9 @@ function NewPost() {
           onChange={inputVal}
         />
         <Label>태그</Label>
-        <SelectTag placeholder={placeholder} />
+        <SelectTag placeholder={placeholder} getSelectValue={getSelectValue} />
         <Label>상세정보</Label>
-        <PostStyle />
+        <PostStyle getStyledContent={getStyledContent} />
         <ReCaptcha />
         <ButtonArea>
           <Button type="reset">취소</Button>

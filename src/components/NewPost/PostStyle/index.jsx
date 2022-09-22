@@ -1,14 +1,16 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import styled from 'styled-components';
 
-function PostStyle() {
+function PostStyle(props) {
   const [content, setContent] = useState();
   const getContent = value => {
-    console.log(value);
     setContent(value);
   };
+  useEffect(() => {
+    props.getStyledContent(content);
+  }, [content, props]);
   const formats = [
     'header',
     'bold',
