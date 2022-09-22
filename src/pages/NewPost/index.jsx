@@ -1,19 +1,16 @@
 import styled from 'styled-components';
-import PostStyle from './PostStyle';
+import PostStyle from '../../components/NewPost/PostStyle';
 
 import SelectTag from '../../components/SelectTag';
 import { useState } from 'react';
+import ReCaptcha from '../../components/ReCaptcha';
 
 function NewPost() {
   const [selectValue, setValue] = useState('');
   const [inputValue, setInputValue] = useState('');
 
-  const options = [
-    { id: 1, value: '1', label: '1' },
-    { id: 2, value: '2', label: '2' },
-    { id: 3, value: '3', label: '3' },
-  ];
   const placeholder = '태그를 입력해주세요';
+
   const selectVal = e => {
     setValue(e.target.value);
   };
@@ -46,17 +43,13 @@ function NewPost() {
           onChange={inputVal}
         />
         <Label>태그</Label>
-        <SelectTag options={options} placeholder={placeholder} />
+        <SelectTag placeholder={placeholder} />
         <Label>상세정보</Label>
         <PostStyle />
-        {/* <div
-          className="g-recaptcha"
-          data-sitekey="6LeedxgiAAAAAK4Qt-X-eL1uJre415TP0b-YEsSv"
-        />
-        <script src="https://www.google.com/recaptcha/api.js" async defer /> */}
+        <ReCaptcha />
         <ButtonArea>
-          <Button>취소</Button>
-          <BlueButton>등록</BlueButton>
+          <Button type="reset">취소</Button>
+          <BlueButton type="submit">등록</BlueButton>
         </ButtonArea>
       </form>
     </NewContainer>
