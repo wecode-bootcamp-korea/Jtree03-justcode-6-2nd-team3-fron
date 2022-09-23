@@ -1,10 +1,19 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 // 메인페이지
-import Main from './pages/Main';
+import Main from "./pages/Main";
+
+// 글 목록
+import { QnA } from './pages/List';
 // 상세페이지
 import Detail from './pages/DetailPage/Detail';
-import NewPost from './pages/NewPost';
+
+// 내 프로필
+import Settings from "./pages/Settings";
+// 비밀번호 변경
+import ChangePasswordConfirm from "./pages/Settings/ProfileSetting/ChangePassWord/ChangePasswordConfirm";
+// 회원 탈퇴
+import SecessionTab from "./pages/Settings/ProfileSetting/Secession/SecessionTab";
 
 function Router() {
   return (
@@ -14,7 +23,16 @@ function Router() {
         <Route path="/" element={<Main />} />
         {/* 상세페이지 */}
         <Route path="/articles/1" element={<Detail />} />
-        <Route path="/new" element={<NewPost />} />
+
+        {/* 카테고리 */}
+        <Route path="/questions" element={<QnA />} />
+
+        {/* 내 프로필 */}
+        <Route path="/settings" element={<Settings />} />
+        {/* 비밀번호 변경 */}
+        <Route path="/settings/password-changes" element={<ChangePasswordConfirm />} />
+        {/* 회원 탈퇴 */}
+        <Route path="/user/withdrawConfirm" element={<SecessionTab />} />
       </Routes>
     </BrowserRouter>
   );
