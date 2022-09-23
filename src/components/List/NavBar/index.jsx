@@ -4,6 +4,7 @@ import Category from './Category';
 
 import img from '../../../image/list/sort.png';
 import pencil from '../../../image/list/pencil.png';
+import { Link, useLocation } from 'react-router-dom';
 
 function NavBar(props) {
   const { subMenu, setSortId, setSubMenuId } = props;
@@ -18,10 +19,11 @@ function NavBar(props) {
 
   const [sortName, setSortName] = useState('최신순');
   const [view, SetView] = useState(false);
+  const location = useLocation();
 
   return (
     <CategoryBox>
-      <WriteBtn>
+      <WriteBtn to={`${location.pathname}/new`}>
         <Pencil />
         작성하기
       </WriteBtn>
@@ -73,7 +75,7 @@ const CategoryBox = styled.div`
   height: 40px;
   margin: 24px 0;
 `;
-const WriteBtn = styled.a`
+const WriteBtn = styled(Link)`
   display: flex;
   align-items: center;
   height: 32px;
@@ -81,6 +83,7 @@ const WriteBtn = styled.a`
   border-radius: 5px;
   font-size: 12px;
   font-weight: 500;
+  text-decoration: none;
   color: #ffffff;
   background: rgba(0, 144, 249, 0.9);
   cursor: pointer;
