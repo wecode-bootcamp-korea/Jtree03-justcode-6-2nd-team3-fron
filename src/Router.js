@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Main from "./pages/Main";
 
 // 글 목록
-import List from "./components/List";
+import { QnA } from './pages/List';
 
 // 내 프로필
 import Settings from "./pages/Settings";
@@ -20,8 +20,8 @@ function Router() {
         {/* 메인페이지 */}
         <Route path="/" element={<Main />} />
 
-        {/* 글 목록 */}
-        <Route path="/list" element={<List />} />
+        {/* 카테고리 */}
+        <Route path="/questions" element={<QnA />} />
 
         {/* 내 프로필 */}
         <Route path="/settings" element={<Settings />} />

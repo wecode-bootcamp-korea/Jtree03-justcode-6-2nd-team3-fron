@@ -10,48 +10,51 @@ import arrow from '../../../image/list/arrow.png';
 
 function PostList(props) {
   const {
-    content_id,
-    user_img,
-    user_id,
-    rate,
-    date,
-    content,
+    unique_id,
+    profile_image,
+    nickname,
+    score,
+    create_at,
+    title,
     check,
-    category,
-    tag,
-    read_count,
-    comments,
-    like,
+    sub_category_name,
+    tags,
+    views,
+    comment_cnt,
+    recommend_cnt,
   } = props.list;
 
   const info = [
-    { url: view, num: read_count },
-    { url: comment, num: comments },
-    { url: arrow, num: like },
+    { url: view, num: views },
+    { url: comment, num: comment_cnt },
+    { url: arrow, num: recommend_cnt },
   ];
 
   return (
     <Box>
       <Top>
         <TopLeft>
-          <Img to={''} user_img={user_img} />
-          <UserId to={''}>{user_id}</UserId>
+          <Img to={''} profile_image={profile_image} />
+          <UserId to={''}>{nickname}</UserId>
           <Etc>
             <Point>·</Point>
             <Thunder />
-            <span>{rate}</span>
+            <span>{score}</span>
             <Point>·</Point>
-            {date}
+            {create_at}
           </Etc>
         </TopLeft>
         {check ? <BlueCheck /> : <Check />}
       </Top>
       <Middle>
-        <Content to={''}>{content}</Content>
+        <Content to={''}>{title}</Content>
       </Middle>
       <Bottom>
         <span>
-          <Tag>{tag}</Tag>
+          <Tags>{sub_category_name}</Tags>
+          {tags.map((tag)=>{
+            <Tag>{tag.tag_name}</Tag>
+          })}
         </span>
         <Info>
           {info.map(info => {
@@ -91,7 +94,7 @@ const Img = styled(Link)`
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: url(${props => props.user_img}) center center no-repeat;
+  background: url(${props => props.profile_image}) center center no-repeat;
   background-size: cover;
 `;
 
@@ -147,8 +150,12 @@ const Middle = styled.div`
 const Content = styled(Link)`
   font-size: 16px;
   font-weight: 600;
-  color: #374151;
+  color: #111827;
   text-decoration: none;
+
+  &:hover {
+    color: #374151;
+  }
 `;
 
 const Bottom = styled.div`
@@ -157,7 +164,7 @@ const Bottom = styled.div`
   height: 20px;
 `;
 
-const Tag = styled.div`
+const Tags = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -167,6 +174,14 @@ const Tag = styled.div`
   font-size: 12px;
   color: #0090f9;
 `;
+
+const Tag = styled.span`
+  display: flex;
+  align-items: center;
+  height: 100%;
+  color: #6b7280;
+  font-size: 14px;
+`
 
 const Info = styled.span`
   display: flex;
@@ -185,14 +200,9 @@ const InfoImg = styled.span`
   display: inline-block;
   width: 18px;
   height: 18px;
-  margin: 0 3px 0 9px;
+  margin: 0 5px 0 8px;
   background: url(${props => props.infoUrl}) center center no-repeat;
   background-size: cover;
-
-    &:nth-child(2) {
-      width: 15px;
-      height: 15px;
-    }
 `;
 
 export default PostList;

@@ -1,15 +1,12 @@
 import styled from "styled-components";
 
 function Category(props) {
-  const {categoryValue, category, setCategory} = props;
+  const {categoryValue, category,  setSubMenuId} = props;
 
   const onClick = () => {
-    for (let i in category) {
-      let arr = [...category];
-      arr[i].view = false;
-      setCategory(arr);
-    }
+
     categoryValue.view = true;
+    setSubMenuId(categoryValue.unique_id)
   }
   
   return (
@@ -20,7 +17,7 @@ function Category(props) {
         color: categoryValue.view && '#000000'
       }}
     >
-      {categoryValue.name}
+      {categoryValue.sub_category_name}
     </Button>
   );
 };
