@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Nbutton from './buttons/Nbutton';
+import Nbutton from './component/Nbutton';
 
 export default function Content(props) {
   const { data } = props;

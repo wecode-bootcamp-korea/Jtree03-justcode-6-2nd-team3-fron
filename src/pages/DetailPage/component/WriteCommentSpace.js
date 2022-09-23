@@ -11,7 +11,9 @@ export default function WriteCommentSpace() {
           <ProfileImg src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" />
         </Profile>
         {login ? (
-          <Texteditor />
+          <TextEditorWrapper className="ql-snow">
+            <Texteditor />
+          </TextEditorWrapper>
         ) : (
           <Writeinput>
             댓글을 쓰려면
@@ -26,6 +28,11 @@ export default function WriteCommentSpace() {
     </>
   );
 }
+
+const TextEditorWrapper = styled.div`
+  margin-left: 0px;
+  width: 100%;
+`;
 
 const Writeinput = styled.div`
   margin-left: 0px;
@@ -47,16 +54,6 @@ const Loginbtton = styled.button`
   text-decoration: underline;
 `;
 
-const Writespace = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  border: 1px solid rgb(229 231 235);
-  border-radius: 7px;
-  margin-top: 40px;
-  padding: 20px;
-`;
-
 const Inputspace = styled.div`
   width: 100%;
   display: flex;
@@ -69,8 +66,8 @@ const Profile = styled.span`
 `;
 
 const ProfileImg = styled.img`
-  width: 35px;
-  height: 35px;
+  width: 40px;
+  height: 40px;
 `;
 
 const Buttonspace = styled.div`

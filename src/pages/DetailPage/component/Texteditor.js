@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import ReactQuill from 'react-quill';
 import styled from 'styled-components';
-import 'react-quill/dist/quill.snow.css';
+import './quill.snow.scss';
 
 function Texteditor() {
   const modules = useMemo(
@@ -28,7 +28,7 @@ function Texteditor() {
     []
   );
   return (
-    <div>
+    <div className="texteditor">
       <ReactQuill
         // ref={quillRef}
         // value={htmlContent}
@@ -44,6 +44,8 @@ function Texteditor() {
 }
 
 const Editing = styled.div`
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
   width: 100%;
   height: 70%;
 `;

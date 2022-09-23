@@ -7,7 +7,7 @@ export default function CommentInComment(comment) {
       <Betweendiv>
         <Rowdiv>
           <Profilebutton1>
-            <Profileimg src={comment.profileurl} />
+            <Profileimg src="https://cdn-icons-png.flaticon.com/512/3001/3001758.png" />
           </Profilebutton1>
           <Writeinfor>
             <Profilebutton2>{comment.nickname}</Profilebutton2>

@@ -28,16 +28,32 @@ export default function CommentList(props) {
             </div>
           </Writeinfor>
         </Rowdiv>
-        <Nbutton />
+        <Rowdiv>
+          <SelectionButton>
+            <CheckCircle src="https://cdn-icons-png.flaticon.com/512/1756/1756625.png" />
+          </SelectionButton>
+          <Nbutton />
+        </Rowdiv>
       </Betweendiv>
       <CommentContent>{comment.comment}</CommentContent>
       <Rowdiv>
-        <OpenComment onClick={() => setOpenComment(f => !f)}>
-          <Viewimg src="https://w7.pngwing.com/pngs/523/1012/png-transparent-arrow-computer-icons-encapsulated-postscript-drop-down-list-arrow-blue-angle-text.png" />
-          댓글보기
-        </OpenComment>
+        {openComment ? (
+          <OpenComment onClick={() => setOpenComment(f => !f)}>
+            <Viewimg src="https://i.esdrop.com/d/f/NlKPuBbCgn/Gduesjldbw.png" />
+            <UnderLine>댓글 모두 숨기기</UnderLine>
+          </OpenComment>
+        ) : (
+          <OpenComment onClick={() => setOpenComment(f => !f)}>
+            <Viewimg src="https://i.esdrop.com/d/f/NlKPuBbCgn/VAShgqqw5f.png" />
+            <UnderLine>댓글보기</UnderLine>
+          </OpenComment>
+        )}
         <WriteComment onClick={() => setIWantWrite(f => !f)}>
-          댓글쓰기
+          {iWantWrite ? (
+            <UnderLine>댓글취소</UnderLine>
+          ) : (
+            <UnderLine>댓글쓰기</UnderLine>
+          )}
         </WriteComment>
       </Rowdiv>
       <div>
@@ -59,6 +75,28 @@ export default function CommentList(props) {
     </Comment>
   );
 }
+
+const SelectionButton = styled.button`
+  //QnA카테고리만 해당
+  display: flex;
+  flex-direction: row;
+  margin-top: 13px;
+  margin-right: 23px;
+  background-color: transparent;
+  border: none;
+`;
+
+const CheckCircle = styled.img`
+  width: 20px;
+  height: 20px;
+  opacity: 40%;
+`;
+
+const UnderLine = styled.span`
+  &:hover {
+    text-decoration: underline;
+  }
+`;
 
 const Bttonstyle = styled.button`
   background-color: transparent;
@@ -97,11 +135,13 @@ const Rowdiv = styled.div`
 
 const Profilebutton1 = styled(Bttonstyle)`
   width: 50px;
+  margin-right: 4px;
 `;
 
 const Profileimg = styled.img`
-  height: 25px;
-  width: 25px;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
 `;
 
 const Profilebutton2 = styled(Bttonstyle)`
@@ -109,8 +149,8 @@ const Profilebutton2 = styled(Bttonstyle)`
 `;
 
 const Viewimg = styled.img`
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   margin-right: 3px;
 `;
 
@@ -137,12 +177,13 @@ const CommentinCommentwrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
+  height: 100%;
 `;
 
 const BlankLine = styled.div`
   margin-left: 10px;
   padding-left: 16px;
   border-left: 2px solid lightgray;
-  height: 100px;
+  height: 90px;
   width: 0;
 `;

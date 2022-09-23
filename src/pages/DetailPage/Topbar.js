@@ -69,11 +69,12 @@ const Small = styled.span`
 
 const Profilebutton1 = styled(Bttonstyle)`
   width: 50px;
+  margin-right: 5px;
 `;
 
 const ProfileImg = styled.img`
-  width: 23px;
-  height: 23px;
+  width: 40px;
+  height: 40px;
 `;
 
 const Profilebutton2 = styled(Bttonstyle)`

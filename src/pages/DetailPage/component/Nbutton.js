@@ -18,13 +18,21 @@ export default function Nbutton() {
 
   return (
     <Reaction>
-      <Nbtton onClick={clickDown} disabled={rightClick && true}>
-        <Likeimg src="https://cdn-icons-png.flaticon.com/512/271/271210.png" />
-      </Nbtton>
+      <NbttonLeft onClick={clickDown} disabled={rightClick && true}>
+        {leftClick ? (
+          <Likeimg src="https://i.esdrop.com/d/f/NlKPuBbCgn/ylxHgr9SRT.png" />
+        ) : (
+          <Likeimg src="https://i.esdrop.com/d/f/NlKPuBbCgn/E76ZUUcq0j.png" />
+        )}
+      </NbttonLeft>
       <View>{like}</View>
-      <Nbtton onClick={clickUp} disabled={leftClick && true}>
-        <Likeimg src="https://cdn-icons-png.flaticon.com/512/271/271239.png" />
-      </Nbtton>
+      <NbttonRight onClick={clickUp} disabled={leftClick && true}>
+        {rightClick ? (
+          <Likeimg src="https://i.esdrop.com/d/f/NlKPuBbCgn/Gduesjldbw.png" />
+        ) : (
+          <Likeimg src="https://i.esdrop.com/d/f/NlKPuBbCgn/W1nNMDCmwA.png" />
+        )}
+      </NbttonRight>
     </Reaction>
   );
 }
@@ -34,8 +42,6 @@ const Reaction = styled.div`
   height: 30px;
   display: flex;
   flex-direction: row;
-  border: 1px solid lightgray;
-  border-radius: 5px;
 `;
 
 const Bttonstyle = styled.button`
@@ -43,17 +49,39 @@ const Bttonstyle = styled.button`
   border: none;
 `;
 
-const Nbtton = styled(Bttonstyle)`
+const NbttonLeft = styled(Bttonstyle)`
   height: 100%;
   width: 24px;
+  border: 1px solid lightgray;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
   cursor: pointer;
+  &:hover {
+    border: 1px solid black;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+  }
+`;
+
+const NbttonRight = styled(Bttonstyle)`
+  height: 100%;
+  width: 24px;
+  border: 1px solid lightgray;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  cursor: pointer;
+  &:hover {
+    border: 1px solid black;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
 `;
 
 const View = styled.span`
   font-size: 12px;
   padding: 7px 15px 3px 15px;
-  border-left: 1px solid lightgray;
-  border-right: 1px solid lightgray;
+  border-top: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
 `;
 
 const Likeimg = styled.img`
