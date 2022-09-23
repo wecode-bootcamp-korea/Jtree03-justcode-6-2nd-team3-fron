@@ -8,6 +8,10 @@ import List from "./components/List";
 
 // 내 프로필
 import Settings from "./pages/Settings";
+// 비밀번호 변경
+import ChangePasswordConfirm from "./pages/Settings/ProfileSetting/ChangePassWord/ChangePasswordConfirm";
+// 회원 탈퇴
+import SecessionTab from "./pages/Settings/ProfileSetting/Secession/SecessionTab";
 
 function Router() {
   return (
@@ -21,6 +25,10 @@ function Router() {
 
         {/* 내 프로필 */}
         <Route path="/settings" element={<Settings />} />
+        {/* 비밀번호 변경 */}
+        <Route path="/settings/password-changes" element={<ChangePasswordConfirm />} />
+        {/* 회원 탈퇴 */}
+        <Route path="/user/withdrawConfirm" element={<SecessionTab />} />
       </Routes>
     </BrowserRouter>
   );

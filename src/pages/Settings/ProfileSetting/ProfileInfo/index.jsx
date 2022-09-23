@@ -1,13 +1,20 @@
+import axios from 'axios';
+import { useRef, useState } from 'react';
 import styled from 'styled-components';
-import InterestTag from './InterestTag';
+import ProfileImg from './ProfileImg';
+import Tags from './Tags';
 
 function ProfileInfo(props) {
-  const { name, nickname, interest, profile_img } = props.profile;
+  const { profile, setProfile } = props;
+  const { user_name, nickname, profile_image, tags } = profile;
+
+  const input = useRef([]);
+  const [saveBtn, setSaveBtn] = useState(true);
 
   const value = [
     {
       title: '이름',
-      input: name,
+      input: user_name,
     },
     {
       title: '닉네임',
@@ -15,21 +22,55 @@ function ProfileInfo(props) {
     },
   ];
 
+  let inputValue = input.current;
+  const changeValue = () => {
+    if (inputValue[0].value !== user_name || inputValue[1].value !== nickname) {
+      setSaveBtn(false);
+    }
+  };
+
+  const postApi = () => {
+    axios
+      .patch(
+        'http://localhost:8000/profile',
+        {
+          user_name: inputValue[0].value,
+          nickname: inputValue[1].value,
+          tags: [],
+        },
+        {
+          headers: {
+            Authorization:
+              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTY2MzgzMjgwOSwiZXhwIjoxNjYzODQzNjA5fQ.Pun_4BHb45wixa6uhUiE8X_gOfuJVRk16zbX7k8RxPM',
+          },
+        }
+      )
+      .then(res => console.log(res));
+  };
+
   return (
     <Profile>
       <Info>회원정보</Info>
       <Detail>
-        {value.map(value => {
+        {value.map((value, i) => {
           return (
             <Name key={value.title}>
               {value.title}
-              <NameInput defaultValue={value.input} />
+              <NameInput
+                ref={e => (input.current[i] = e)}
+                defaultValue={value.input}
+                onChange={changeValue}
+              />
             </Name>
           );
         })}
-        <InterestTag />
-        <ProfileImg profile_img={profile_img} />
-        <SaveBtn>저장</SaveBtn>
+        {/* <Tags tags={tags} /> */}
+        <ProfileImg profile_image={profile_image} />
+        {/* <ProfileImg profile_img={profile_image} />
+        <input ref={img} type={'file'} accept={'image/*'} onChange={()=>console.log(img.current.value)} /> */}
+        <SaveBtn disabled={saveBtn} onClick={postApi}>
+          저장
+        </SaveBtn>
       </Detail>
     </Profile>
   );
@@ -75,31 +116,25 @@ const NameInput = styled.input`
   }
 `;
 
-const ProfileImg = styled.span`
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 160px;
-  height: 160px;
-  border: 1.5px solid #d9d9d9;
-  border-radius: 50%;
-  background: url(${props => props.profile_img}) center center no-repeat;
-  background-size: cover;
-`;
-
 const SaveBtn = styled.button`
   width: 88px;
   height: 40px;
-  margin: 20px 0 0 calc(100% - 88px);
+  margin: 20px 0 0 425px;
   border: none;
   border-radius: 5px;
-  background: rgba(0, 144, 249, 0.7);
-  color: #FFFFFF;
+  background: rgba(0, 144, 249, 1);
+  color: #ffffff;
+  cursor: pointer;
 
-    &:hover {
-      background: #2b75aa;
-      transition: all ease 0.5s;
-    }
+  &:disabled {
+    background: rgba(0, 144, 249, 0.7);
+    cursor: default;
+  }
+
+  &:hover {
+    background: #2b75aa;
+    transition: all ease 0.5s;
+  }
 `;
 
 export default ProfileInfo;

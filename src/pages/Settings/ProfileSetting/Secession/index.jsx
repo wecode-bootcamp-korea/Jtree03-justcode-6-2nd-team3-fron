@@ -1,11 +1,13 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import user from '../../../../image/settings/user.png';
 
-function Exit() {
-
+function Secession() {
   const [check, setCheck] = useState(false);
+  const changeCheck = () => setCheck(!check);
+  const navigate = useNavigate();
   return (
     <PassWord>
       <div>계정삭제</div>
@@ -14,16 +16,21 @@ function Exit() {
         진달래꽃 아름 따다 가실길에 뿌리오리다.
       </p>
       <Div>
-         <Span onClick={()=>setCheck(!check)}>
-        <input type={'checkbox'} name={'asdf'} value={'adsf'} checked={check} />
-        진짜 탈퇴 할거면 눌러..
-      </Span>
-      <button>
-        <span />
-        회원탈퇴
-      </button>
+        <Span onClick={changeCheck}>
+          <input
+            type={'checkbox'}
+            name={'asdf'}
+            value={'adsf'}
+            onChange={changeCheck}
+            checked={check}
+          />
+          진짜 탈퇴 할거면 눌러..
+        </Span>
+        <button disabled={!check} onClick={()=>{navigate('/user/withdrawConfirm')}}>
+          <span />
+          회원탈퇴
+        </button>
       </Div>
-     
     </PassWord>
   );
 }
@@ -31,9 +38,8 @@ function Exit() {
 const PassWord = styled.div`
   width: 100%;
   padding: 40px 0 40px 80px;
-  border-bottom: 1px solid #d9d9d9;
   font-size: 20px;
-  color: #111827;
+  color: #111827af;
 
   p {
     margin: 25px 0 15px 10px;
@@ -42,8 +48,6 @@ const PassWord = styled.div`
     padding: 20px;
     font-size: 14px;
   }
-
-  
 `;
 
 const Div = styled.div`
@@ -57,11 +61,25 @@ const Div = styled.div`
     width: 192px;
     height: 38px;
     border: none;
-    border-radius: 5px;
+    opacity: 1;
     background: #dc2626;
+    border-radius: 5px;
     color: #fff;
-    opacity: 0.5;
     cursor: pointer;
+
+    &:disabled {
+      background: #dc2626;
+      opacity: 0.5;
+      cursor: default;
+
+      &:hover {
+        background: #dc2626;
+      }
+    }
+
+    &:hover {
+      background: #b91c1c;
+    }
 
     span {
       position: absolute;
@@ -71,10 +89,6 @@ const Div = styled.div`
       height: 20px;
       background: url(${user}) center center no-repeat;
       background-size: cover;
-    }
-
-    &:hover {
-      background: #b91c1c;
     }
   }
 `;
@@ -86,8 +100,8 @@ const Span = styled.span`
   width: 160px;
   margin: 0 0 10px 10px;
   font-size: 14px;
-  color: #111827;
+  color: #111827e2;
   font-weight: 100;
 `;
 
-export default Exit;
+export default Secession;

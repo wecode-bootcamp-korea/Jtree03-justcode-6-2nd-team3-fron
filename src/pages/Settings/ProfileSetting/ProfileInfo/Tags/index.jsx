@@ -1,14 +1,23 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import deleteTag from '../../../../../image/settings/x.png';
 
-function InterestTag() {
-  const arr = ['자바', '자바스크립트', '리액트', '머리', '아프게', '어렵다..'];
-
-  const [btn, setBtn] = useState(false);
+function Tags(props) {
+  const { tags } = props;
 
   const [newA, setNewA] = useState([]);
+  useEffect(()=>{
+    for(let i in tags){
+      setNewA([])
+      let arr = [...newA]
+      arr.push(tags[i].tag_name)
+      setNewA(arr);
+    };
+  }, [])
+  
+  const [btn, setBtn] = useState(false);
+
 
   return (
     <Tag>
@@ -32,11 +41,11 @@ function InterestTag() {
         <TagBtn onClick={() => setBtn(!btn)}>
           <TabBtnImg />
         </TagBtn>
-        {btn ? (
-          arr.length ? (
+        {/* {btn ? (
+          tags.length ? (
             <SkillList>
               <ul>
-                {arr.map(el => (
+                {tags.map(el => (
                   <li
                     onClick={() => {
                       let arr = [...newA];
@@ -56,7 +65,7 @@ function InterestTag() {
           )
         ) : (
           <></>
-        )}
+        )} */}
       </Box>
     </Tag>
   );
@@ -82,6 +91,7 @@ const TagListTitle = styled.div`
   display: flex;
   width: 100%;
   margin-top: 25px;
+  height: 30px;
 `;
 
 const ListName = styled.div`
@@ -193,4 +203,4 @@ const SkillList = styled(Skill)`
   }
 `;
 
-export default InterestTag;
+export default Tags;

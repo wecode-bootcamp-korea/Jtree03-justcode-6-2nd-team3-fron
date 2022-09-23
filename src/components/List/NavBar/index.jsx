@@ -7,18 +7,24 @@ import pencil from '../../../image/list/pencil.png';
 
 function NavBar() {
   const [category, setCategory] = useState([
-    { name: '기술', view: false },
-    { name: '커리어', view: false },
-    { name: '일상', view: false },
-    { name: '전체', view: true },
+    { sub_category_name: '기술', unique_id: 1, view: false },
+    { sub_category_name: '커리어', unique_id: 2, view: false },
+    { sub_category_name: '일상', unique_id: 3, view: false },
+    { sub_category_name: '전체', unique_id: '', view: true },
   ]);
 
+  for (let i in category){
+    if(category[i].view){
+      
+    }
+  }
+
   const [sort, setSort] = useState([
-    { name: '최신순', view: true },
-    { name: '추천순', view: false },
-    { name: '댓글순', view: false },
-    { name: '스크랩순', view: false },
-    { name: '조회순', view: false },
+    { sub_category_name: '최신순', view: true },
+    { sub_category_name: '추천순', view: false },
+    { sub_category_name: '댓글순', view: false },
+    { sub_category_name: '스크랩순', view: false },
+    { sub_category_name: '조회순', view: false },
   ]);
 
   const [sortName, setSortName] = useState('최신순');
@@ -33,7 +39,7 @@ function NavBar() {
       <CategoryList>
         {category.map(categoryValue => (
           <Category
-            key={categoryValue.name}
+            key={categoryValue.sub_category_name}
             categoryValue={categoryValue}
             category={category}
             setCategory={setCategory}
@@ -48,7 +54,7 @@ function NavBar() {
             {sort.map(sortValue => {
               return (
                 <Li
-                  key={sortValue.name}
+                  key={sortValue.sub_category_name}
                   sortValue={sortValue}
                   onClick={() => {
                     for (let i in sort) {
@@ -57,10 +63,10 @@ function NavBar() {
                       setSort(arr);
                     }
                     sortValue.view = true;
-                    setSortName(sortValue.name);
+                    setSortName(sortValue.sub_category_name);
                   }}
                 >
-                  {sortValue.name}
+                  {sortValue.sub_category_name}
                 </Li>
               );
             })}

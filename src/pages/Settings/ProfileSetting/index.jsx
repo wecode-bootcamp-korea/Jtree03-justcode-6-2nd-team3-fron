@@ -4,31 +4,22 @@ import styled from 'styled-components';
 
 import ProfileInfo from './ProfileInfo';
 import ChangePassWord from './ChangePassWord';
-import Exit from './Exit';
+import Secession from './Secession';
 
-function ProfileSetting() {
-  const [profile, setProfile] = useState();
-
-  useEffect(() => {
-    axios
-      .get('/data/List/Profile.json')
-      .then(res => setProfile(res.data.profile));
-  }, []);
+function ProfileSetting(props) {
+  const { profile, setProfile } = props;
 
   return (
-    profile && (
-      <Container>
-        <ProfileInfo profile={profile} />
-        <ChangePassWord />
-        <Exit />
-      </Container>
-    )
+    <Container>
+      <ProfileInfo profile={profile} setProfile={setProfile} />
+      <ChangePassWord />
+      <Secession />
+    </Container>
   );
 }
 
 const Container = styled.div`
   width: 959px;
-  height: 1000px;
 `;
 
 export default ProfileSetting;
