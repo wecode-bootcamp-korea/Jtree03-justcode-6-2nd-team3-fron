@@ -43,6 +43,8 @@ function Router() {
         />
         {/* 회원 탈퇴 */}
         <Route path="/user/withdrawConfirm" element={<SecessionTab />} />
+        {/* 회원가입 페이지 */}
+        <Route path="/signup" element={<Signup />} />
       </Routes>
       <Footer />
     </BrowserRouter>
