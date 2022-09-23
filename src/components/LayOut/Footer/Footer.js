@@ -9,11 +9,9 @@ export default function Footer() {
     <Container>
       {' '}
       <Wrapper>
-        <Style>
-          <FooterLeft />
-          <FooterCenter />
-          <FooterRight />
-        </Style>
+        <FooterLeft />
+        <FooterCenter />
+        <FooterRight />
       </Wrapper>
     </Container>
   );
@@ -30,12 +28,5 @@ const Wrapper = styled.div`
   padding: 28px 0px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
   width: 1280px;
-`;
-
-const Style = styled.div`
-  width: auto;
-  height: 104px;
-  display: flex;
 `;
