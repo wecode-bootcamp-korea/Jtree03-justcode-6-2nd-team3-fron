@@ -1,13 +1,14 @@
 import styled from 'styled-components';
-import PostStyle from '../../components/NewPost/PostStyle';
+import PostStyle from '../PostStyle';
 
-import SelectTag from '../../components/SelectTag';
+import SelectTag from '../../SelectTag';
 import { useState } from 'react';
-import ReCaptcha from '../../components/ReCaptcha';
-// import axios from 'axios';
+import ReCaptcha from '../../ReCaptcha';
+import axios from 'axios';
 
-function NewPost(props) {
-  const [selectValue, setValue] = useState('');
+function NewPostLayout(props) {
+  const { title, subTitle, topicOptions, mainId } = props;
+  const [selectValue, setValue] = useState(0);
   const [inputValue, setInputValue] = useState('');
   const [tagValue, setTag] = useState([]);
   const [styledContent, setContent] = useState('');
@@ -18,15 +19,16 @@ function NewPost(props) {
     content: styledContent,
     sub_category_id: selectValue,
     title: inputValue,
+    main_category_id: mainId,
   };
-
+  console.log(data);
   const getSelectValue = data => {
     setTag(data);
   };
   const getStyledContent = data => {
     setContent(data);
   };
-
+  console.log(tagValue);
   const selectVal = e => {
     setValue(e.target.value);
   };
@@ -36,21 +38,33 @@ function NewPost(props) {
   console.log(data);
   const formSubmit = e => {
     e.preventDefault();
+    axios
+      .post(
+        'http://localhost:8000/posts',
+        { data },
+        {
+          header: {
+            'Content-type': 'application/json',
+            token: localStorage.getItem('login-token'),
+          },
+        }
+      )
+      .then(res => {});
   };
 
   return (
     <NewContainer>
-      <Title>제목</Title>
+      <Title>{title}</Title>
       <SubTitle>
-        <span>닉네임</span>님 지식공유 플랫폼 OKKY에서 최고의 개발자들과 함께
-        궁금증을 해결하세요.
+        <span>닉네임</span>
+        {subTitle}
       </SubTitle>
       <form onSubmit={formSubmit}>
         <Label>토픽</Label>
         <Select defaultValue={''} onChange={selectVal}>
-          <option value={''}>토픽을 선택해주세요.</option>
-          <option value="1">내용1</option>
-          <option value="2">내용2</option>
+          {topicOptions.map(data => {
+            return <option value={data.sub_category_id}>{data.name}</option>;
+          })}
         </Select>
         <Label>제목</Label>
         <Input
@@ -81,12 +95,11 @@ const Title = styled.h1`
 `;
 const SubTitle = styled.p`
   font-size: 14px;
-
+  color: rgb(107 114 128);
   span {
-    font-weight: bold;
+    font-weight: 900;
   }
 `;
-
 const Input = styled.input`
   width: 100%;
   padding: 10px;
@@ -129,4 +142,5 @@ const BlueButton = styled.button`
     opacity: 1;
   }
 `;
-export default NewPost;
+
+export default NewPostLayout;
