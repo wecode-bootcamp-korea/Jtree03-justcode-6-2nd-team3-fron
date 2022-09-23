@@ -21,7 +21,7 @@ function NewPostLayout(props) {
     title: inputValue,
     main_category_id: mainId,
   };
-
+  console.log(data);
   const getSelectValue = data => {
     setTag(data);
   };
