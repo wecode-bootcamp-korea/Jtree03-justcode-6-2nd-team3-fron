@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-
-// 메인페이지
-import Main from './pages/Main';
+import Header from './components/LayOut/Header/Header';
+import Footer from './components/LayOut/Footer/Footer';
+import Main from './components/LayOut/Main';
 import QuestionsNew from './pages/NewPost/QuestionsNew';
 import EventsNew from './pages/NewPost/EventsNew';
 import KnowledgeNew from './pages/NewPost/KnowledgeNew';
@@ -21,6 +21,7 @@ import SecessionTab from './pages/Settings/ProfileSetting/Secession/SecessionTab
 function Router() {
   return (
     <BrowserRouter>
+      <Header />
       <Routes>
         {/* 메인페이지 */}
         <Route path="/" element={<Main />} />
@@ -43,6 +44,7 @@ function Router() {
         {/* 회원 탈퇴 */}
         <Route path="/user/withdrawConfirm" element={<SecessionTab />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }
