@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "nickname": "Chanyoungcheon",
+    "title": "PS프로젝트 Day 1, 프로젝트 의뢰 받다",
+    "content": "얼마전 골프용품 브랜드를 운영중인 대표님으로부터 프로젝트 의뢰가 들어왔다. 의뢰 내용은 홈페이지를 만들어 달라는 것이었다. 어떤 홈페이지를 만들어 달라는 등 구체적인 요구사항은 없었다. 그도 그럴것이 아직 브랜드가 아직 신생 브랜드이고 이제 막 브랜드의 기틀이 잡혀가는 단계이기 때문에 디테일한 주문은 어려울 것이다. 그리고 서로를 잘 알기에 아마도 대표님은 알아서 잘 만들어주길 바라시는 것 같다.",
+    "comment": [
+      {
+        "profileurl": "https://cdn-icons-png.flaticon.com/512/3001/3001758.png",
+        "nickname": "okidoki",
+        "comment": "와우!"
+      },
+      {
+        "profileurl": "https://cdn-icons-png.flaticon.com/512/2202/2202112.png",
+        "nickname": "yoonjava",
+        "comment": "굿굿!"
+      },
+      {
+        "profileurl": "https://cdn-icons-png.flaticon.com/512/1144/1144709.png",
+        "nickname": "kimcode",
+        "comment": "어썸! "
+      },
+      {
+        "profileurl": "https://cdn-icons-png.flaticon.com/512/3001/3001758.png",
+        "nickname": "Leeact",
+        "comment": "와우!"
+      }
+    ]
+  }
+]

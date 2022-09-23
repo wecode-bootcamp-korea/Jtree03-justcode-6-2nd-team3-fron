@@ -1,8 +1,9 @@
 import { useMemo } from 'react';
 import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+import styled from 'styled-components';
+import './quill.snow.scss';
 
-function PostStyle() {
+function Texteditor() {
   const modules = useMemo(
     () => ({
       toolbar: {
@@ -27,7 +28,7 @@ function PostStyle() {
     []
   );
   return (
-    <div>
+    <div className="texteditor">
       <ReactQuill
         // ref={quillRef}
         // value={htmlContent}
@@ -35,9 +36,18 @@ function PostStyle() {
         modules={modules}
         theme="snow"
         // className={styles.quillEditor}
-      />
+      >
+        <Editing />
+      </ReactQuill>
     </div>
   );
 }
 
-export default PostStyle;
+const Editing = styled.div`
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+  width: 100%;
+  height: 70%;
+`;
+
+export default Texteditor;
