@@ -1,7 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Header from './components/LayOut/Header/Header';
 import Footer from './components/LayOut/Footer/Footer';
-import Main from './components/LayOut/Main';
 import QuestionsNew from './pages/NewPost/QuestionsNew';
 import EventsNew from './pages/NewPost/EventsNew';
 import KnowledgeNew from './pages/NewPost/KnowledgeNew';
@@ -24,7 +23,6 @@ function Router() {
       <Header />
       <Routes>
         {/* 메인페이지 */}
-        <Route path="/" element={<Main />} />
         <Route path="/questions/new" element={<QuestionsNew />} />
         <Route path="events/new" element={<EventsNew />} />
         <Route path="knowledge/new" element={<KnowledgeNew />} />
@@ -45,6 +43,7 @@ function Router() {
         <Route path="/user/withdrawConfirm" element={<SecessionTab />} />
         {/* 회원가입 페이지 */}
         <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
       <Footer />
     </BrowserRouter>
