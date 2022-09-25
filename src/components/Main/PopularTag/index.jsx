@@ -1,16 +1,28 @@
 import styled from 'styled-components';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 function PopularTag() {
-  const tags = ['1', '2', '3', '4', '5'];
+  const [tagsInfo, setTag] = useState([]);
+  useEffect(() => {
+    axios({
+      url: 'http://localhost:8000/ranking/topTags',
+      method: 'get',
+    }).then(res => {
+      setTag(res.data.topTags);
+    });
+  }, []);
+
+  // const tags = ['1', '2', '3', '4', '5'];
   return (
     <PopularContainer>
-      <Title>인기태그</Title>
+      <Title>#인기태그</Title>
       <List>
-        {tags.map(data => {
+        {tagsInfo.map(data => {
           return (
-            <Tags>
-              <p>#스택</p>
-              <span>0</span>
+            <Tags key={data.id}>
+              <p>#{data.tag_name}</p>
+              <span>{data.cnt}</span>
             </Tags>
           );
         })}
@@ -20,7 +32,7 @@ function PopularTag() {
 }
 const PopularContainer = styled.div`
   width: 180px;
-  margin-right: 50px;
+  margin-right: 40px;
 `;
 const Title = styled.p`
   padding: 15px 0;
@@ -33,7 +45,10 @@ const List = styled.div`
 const Tags = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 5px;
+  padding: 10px 0;
   font-size: 14px;
+  span {
+    color: rgb(0 144 249);
+  }
 `;
 export default PopularTag;
