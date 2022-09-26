@@ -4,6 +4,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 import Form from '../../LayOut/Form';
 import FormTop from '../../LayOut/FormTop';
+import ReCaptcha from '../../ReCaptcha';
 
 export default function SignupForm() {
   const navigate = useNavigate();
@@ -13,11 +14,11 @@ export default function SignupForm() {
   const [name, setName] = useState('');
   const [nickname, setNickname] = useState('');
   const [userType, setUserType] = useState('1');
-  const [BusinessName, setBusinessName] = useState('');
-  const [BusinessEmail, setBusinessEmail] = useState('');
-  const [BusinessNum, setBusinessNum] = useState('');
-  const [BusinessPhone, setBusinessPhone] = useState('');
-  const [BusinessIntro, setBusinessIntro] = useState('');
+  const [businessName, setBusinessName] = useState('');
+  const [businessEmail, setBusinessEmail] = useState('');
+  const [businessNum, setBusinessNum] = useState('');
+  const [businessContact, setBusinessContact] = useState('');
+  const [businessIntro, setBusinessIntro] = useState('');
 
   const onUserNameHandler = event => {
     setUserName(event.currentTarget.value);
@@ -55,8 +56,8 @@ export default function SignupForm() {
     setBusinessEmail(event.currentTarget.value);
   };
 
-  const onBusinessPhoneHandler = event => {
-    setBusinessPhone(event.currentTarget.value);
+  const onBusinessContactHandler = event => {
+    setBusinessContact(event.currentTarget.value);
   };
 
   const onBusinessIntroHandler = event => {
@@ -65,7 +66,7 @@ export default function SignupForm() {
 
   const onSubmit = () => {
     axios
-      .post('/signup', {
+      .post('http://localhost:8000/users/signup', {
         id: userName,
         password: password,
         email: email,
@@ -76,9 +77,8 @@ export default function SignupForm() {
 
       .then(response => {
         console.log('회원가입 성공!');
-        // console.log('user_profile', response.data.user);
-        // console.log('user_token', response.data.jwt);
-        // localStorage.setItem('token', response.data.jwt);
+        console.log('token', response.data);
+        localStorage.setItem('token', response.data);
         navigate('/');
       })
       .catch(error => {
@@ -87,7 +87,31 @@ export default function SignupForm() {
   };
 
   const onSubmitBusiness = () => {
-    // const url = `/api/signup`;
+    axios
+      .post('http://localhost:8000/users/signup', {
+        id: userName,
+        password: password,
+        email: email,
+        user_name: name,
+        nickname: nickname,
+        user_type: userType,
+        business_name: businessName,
+        introduction: businessIntro,
+        business_registration_number: businessNum,
+        contact_information: businessContact,
+        business_email: businessEmail,
+      })
+
+      .then(response => {
+        console.log('회원가입 성공!');
+        console.log('token', response.data);
+        localStorage.setItem('token', response.data);
+        navigate('/');
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    // const url = 'http://localhost:8000/users/signup';
     // const formData = new FormData();
     // formData.append('id', userName);
     // formData.append('password', password);
@@ -105,7 +129,17 @@ export default function SignupForm() {
     //     'content-type': 'multipart/form-data',
     //   },
     // };
-    // return axios.post(url, formData, config);
+    // return axios
+    //   .post(url, formData, config)
+    //   .then(response => {
+    //     console.log('회원가입 성공!');
+    //     // console.log('token', response.data);
+    //     // localStorage.setItem('token', response.data);
+    //     navigate('/');
+    //   })
+    //   .catch(error => {
+    //     console.log(error);
+    //   });
   };
 
   return (
@@ -142,7 +176,7 @@ export default function SignupForm() {
       <InputWrapper>
         <InputLabel>비밀번호</InputLabel>
         <Input
-          type="text"
+          type="password"
           value={password}
           onChange={onPasswordHandler}
           placeholder="영문 소문자, 숫자 조합 6자 이상의 비밀번호"
@@ -183,7 +217,7 @@ export default function SignupForm() {
           <InputLabel>회사명</InputLabel>
           <Input
             type="text"
-            value={BusinessName}
+            value={businessName}
             onChange={onBusinessNameHandler}
             placeholder="회사명을 입력해주세요"
           />
@@ -194,7 +228,7 @@ export default function SignupForm() {
           <InputLabel>사업자 등록번호</InputLabel>
           <Input
             type="text"
-            value={BusinessNum}
+            value={businessNum}
             onChange={onBusinessNumHandler}
             placeholder="사업자 등록번호를 입력해주세요"
           />
@@ -205,8 +239,8 @@ export default function SignupForm() {
           <InputLabel>대표연락처</InputLabel>
           <Input
             type="text"
-            value={BusinessPhone}
-            onChange={onBusinessPhoneHandler}
+            value={businessContact}
+            onChange={onBusinessContactHandler}
             placeholder="연락처를 입력해주세요"
           />
         </InputWrapper>
@@ -216,7 +250,7 @@ export default function SignupForm() {
           <InputLabel>대표이메일</InputLabel>
           <Input
             type="text"
-            value={BusinessEmail}
+            value={businessEmail}
             onChange={onBusinessEmailHandler}
             placeholder="kimcode@justcode.com"
           />
@@ -226,15 +260,23 @@ export default function SignupForm() {
         <RegistrationWrapper>
           <InputLabel>회사소개</InputLabel>
           <Text
-            value={BusinessIntro}
+            value={businessIntro}
             onChange={onBusinessIntroHandler}
-            placeholder="사업자등록증을 추가하시고 회사를 소개해주세요."
+            placeholder="회사를 소개해주세요."
           />
-          <input type="file" />
         </RegistrationWrapper>
       )}
-      {userType === '1' && <Button onClick={onSubmit}>회원가입</Button>}
-      {userType === '2' && <Button onClick={onSubmitBusiness}>회원가입</Button>}
+      <ReCaptcha />
+      {userType === '1' && (
+        <Button type="button" onClick={onSubmit}>
+          회원가입
+        </Button>
+      )}
+      {userType === '2' && (
+        <Button type="button" onClick={onSubmitBusiness}>
+          회원가입
+        </Button>
+      )}
       <QuestionWrapper>
         <Question>
           이미 회원이신가요?
@@ -367,7 +409,7 @@ const Button = styled.button`
   font-size: 14px;
   cursor: pointer;
   :hover {
-    background-color: skyblue;
+    background-color: #0f7ed3;
   }
 `;
 const QuestionWrapper = styled.div`
