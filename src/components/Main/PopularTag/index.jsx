@@ -12,7 +12,6 @@ function PopularTag() {
       setTag(res.data.topTags);
     });
   }, []);
-
   // const tags = ['1', '2', '3', '4', '5'];
   return (
     <PopularContainer>
@@ -32,6 +31,7 @@ function PopularTag() {
 }
 const PopularContainer = styled.div`
   width: 180px;
+
   margin-right: 40px;
 `;
 const Title = styled.p`
@@ -45,6 +45,7 @@ const List = styled.div`
 const Tags = styled.div`
   display: flex;
   justify-content: space-between;
+
   padding: 10px 0;
   font-size: 14px;
   span {

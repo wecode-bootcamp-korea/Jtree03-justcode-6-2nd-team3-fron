@@ -1,5 +1,6 @@
 import MainBoardList from './MainBoardList';
 import styled from 'styled-components';
+
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
@@ -7,15 +8,16 @@ function MainBoard({ mainId }) {
   console.log('m', mainId);
   const [data, setData] = useState([]);
   const boardList = ['1', '2', '3', '4', '5'];
-  useEffect(() => {
-    axios({
-      url: `http://localhost:8000/posts?main_category_id=${mainId}&start=1&limit=5`,
-      method: 'get',
-    }).then(res => {
-      setData(res.data);
-    });
-  }, []);
-  console.log(data);
+  // useEffect(() => {
+  //   axios({
+  //     url: `http://localhost:8000/posts?main_category_id=${mainId}&start=1&limit=5`,
+  //     method: 'get',
+  //   }).then(res => {
+  //     setData(res.data);
+  //   });
+  // }, []);
+  // console.log(data);
+
   return (
     <>
       <BoardList>

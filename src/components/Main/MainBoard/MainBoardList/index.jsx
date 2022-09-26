@@ -5,6 +5,7 @@ import comment from '../../../../image/list/comment.png';
 
 function MainBoardList({ mainId }) {
   console.log('id', mainId);
+
   return (
     <div>
       <Boardcontent>
@@ -58,7 +59,9 @@ const User = styled.div`
 const Point = styled.div`
   display: flex;
   align-items: center;
+
   color: #666;
+
   span {
     display: inline-block;
     width: 15px;
@@ -114,6 +117,7 @@ const Common = styled.div`
 //     opacity: 0.7;
 //   }
 // `;
+
 const ListTitle = styled.div`
   display: flex;
   justify-content: space-between;

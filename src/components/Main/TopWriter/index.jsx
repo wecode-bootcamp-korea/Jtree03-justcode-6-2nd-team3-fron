@@ -16,13 +16,15 @@ function TopWriter() {
   }, []);
 
   console.log('writer', writer);
+
   return (
     <TopWriterContainer>
       <Title>Top Writers</Title>
       <WriterList>
         {writer.map(data => {
+          console.log('이미지', data.profile_image);
           return (
-            <Writer key={data.user_id}>
+            <Writer key={data.user_id} url={data.profile_image}>
               <div>
                 <span></span>
                 <p>{data.user_name}</p>
@@ -41,6 +43,7 @@ const TopWriterContainer = styled.div`
 `;
 const Title = styled.p`
   padding: 15px 0;
+
   font-size: 14px;
 `;
 const WriterList = styled.div`
@@ -50,6 +53,7 @@ const WriterList = styled.div`
 const Writer = styled.div`
   display: flex;
   justify-content: space-between;
+
   align-items: center;
   padding: 10px 0;
   font-size: 14px;
@@ -62,7 +66,8 @@ const Writer = styled.div`
       height: 25px;
       margin-right: 5px;
       border-radius: 50%;
-      background: #ddd;
+      background: url(${props => props.url}) center center no-repeat;
+      background-size: cover;
     }
   }
 `;

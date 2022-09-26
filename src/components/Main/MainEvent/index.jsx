@@ -18,7 +18,6 @@ function MainEvent(data) {
 const EventContainer = styled.div`
   width: 265px;
   margin-right: 20px;
-
   &:nth-last-child(1) {
     margin-right: 0px;
   }

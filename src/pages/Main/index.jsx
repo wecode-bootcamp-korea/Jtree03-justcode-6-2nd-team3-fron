@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+
 import styled from 'styled-components';
 import {
   MainBoard,
@@ -15,17 +16,18 @@ function Main() {
       url: 'http://localhost:8000/posts?main_category_id=3&start=1&limit=3',
       method: 'get',
     }).then(res => {
-      setEvent(res.data.posts);
+      setEvent(res.data.posts.posts);
     });
   }, []);
   console.log('event', eventList);
-  // const eventList = ['1', '2', '3'];
+
   const boardList = [
     { mainId: 1 },
     { mainId: 3 },
     { mainId: 1 },
     { mainId: 2 },
   ];
+
   return (
     <MainContainer>
       <PopularTag />
@@ -53,7 +55,9 @@ const MainContainer = styled.div`
   display: flex;
   justify-content: space-between;
   max-width: 1280px;
+
   padding: 20px 0 120px;
+
   margin: 0 auto;
 `;
 const MainCenter = styled.div`
@@ -62,6 +66,7 @@ const MainCenter = styled.div`
 const BoardContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
+
   width: 840px;
 `;
 const DFlex = styled.div`
