@@ -85,6 +85,9 @@ const SocialMediaBtn = styled.button`
   align-items: center;
   border: 0.5px solid gray;
   cursor: pointer;
+  :hover {
+    border: 1px solid black;
+  }
 `;
 const Icon = styled.img`
   width: 20px;
