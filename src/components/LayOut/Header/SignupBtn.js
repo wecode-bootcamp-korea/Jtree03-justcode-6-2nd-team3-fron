@@ -1,17 +1,17 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import styled from 'styled-components'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 export default function SignupBtn() {
   return (
-    <Link to = '/signup' style={{ textDecoration: 'none' }}>
+    <Link to="/signup" style={{ textDecoration: 'none' }}>
       <Btn>회원가입</Btn>
     </Link>
-  )
+  );
 }
 
-const Btn = styled.button `
-  font-size: 13px;
+const Btn = styled.button`
+  font-size: 12px;
   background-color: #0090f9;
   color: #ffffff;
   width: 85px;
@@ -26,4 +26,4 @@ const Btn = styled.button `
   &:hover {
     background-color: skyblue;
   }
-`
+`;
