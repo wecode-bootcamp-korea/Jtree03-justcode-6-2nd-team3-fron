@@ -2,27 +2,28 @@ import styled from 'styled-components';
 import PostStyle from '../PostStyle';
 
 import SelectTag from '../../SelectTag';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ReCaptcha from '../../ReCaptcha';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 function NewPostLayout(props) {
+  const [subCategory, setCategory] = useState([]);
+  useEffect(() => {
+    axios.get(`http://localhost:8000/menus/${mainId}`).then(res => {
+      setCategory(res.data.sub_category);
+    });
+  }, []);
+  console.log('newSub', subCategory);
   const navigate = useNavigate();
-  const { title, subTitle, topicOptions, mainId } = props;
-  const [selectValue, setValue] = useState(0);
+  const { title, subTitle, mainId } = props;
+  const [selectValue, setValue] = useState('');
   const [inputValue, setInputValue] = useState('');
   const [tagValue, setTag] = useState([]);
   const [styledContent, setContent] = useState('');
 
   const placeholder = '태그를 입력해주세요';
-  const data = {
-    tags: tagValue,
-    content: styledContent,
-    sub_category_id: selectValue,
-    title: inputValue,
-    main_category_id: mainId,
-  };
+  console.log('선택', selectValue);
 
   const getSelectValue = data => {
     setTag(data);
@@ -30,23 +31,32 @@ function NewPostLayout(props) {
   const getStyledContent = data => {
     setContent(data);
   };
-  console.log(tagValue);
+  console.log('tagvalue', tagValue);
   const selectVal = e => {
     setValue(e.target.value);
   };
   const inputVal = e => {
     setInputValue(e.target.value);
   };
-  console.log(data);
+
   const formSubmit = e => {
     e.preventDefault();
+    const data = {
+      tags: tagValue,
+      content: styledContent,
+      sub_category_id: selectValue,
+      title: inputValue,
+      main_category_id: mainId,
+    };
+    console.log('서브아이디', data);
     axios
       .post('http://localhost:8000/posts', data, {
         headers: {
-          token: localStorage.getItem('login-token'),
+          authorization: localStorage.getItem('login-token'),
         },
       })
       .then(res => {
+        alert('게시글 작성이 완료되었습니다.');
         navigate('/');
       });
   };
@@ -61,8 +71,13 @@ function NewPostLayout(props) {
       <form onSubmit={formSubmit}>
         <Label>토픽</Label>
         <Select defaultValue={''} onChange={selectVal}>
-          {topicOptions.map(data => {
-            return <option value={data.sub_category_id}>{data.name}</option>;
+          <option value={''}>토픽을 선택해주세요.</option>
+          {subCategory.map(data => {
+            return (
+              <option key={data.unique_id} value={data.unique_id}>
+                {data.sub_category_name}
+              </option>
+            );
           })}
         </Select>
         <Label>제목</Label>
