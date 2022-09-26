@@ -5,8 +5,10 @@ import SelectTag from '../../SelectTag';
 import { useState } from 'react';
 import ReCaptcha from '../../ReCaptcha';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function NewPostLayout(props) {
+  const navigate = useNavigate();
   const { title, subTitle, topicOptions, mainId } = props;
   const [selectValue, setValue] = useState(0);
   const [inputValue, setInputValue] = useState('');
@@ -39,17 +41,14 @@ function NewPostLayout(props) {
   const formSubmit = e => {
     e.preventDefault();
     axios
-      .post(
-        'http://localhost:8000/posts',
-        { data },
-        {
-          header: {
-            'Content-type': 'application/json',
-            token: localStorage.getItem('login-token'),
-          },
-        }
-      )
-      .then(res => {});
+      .post('http://localhost:8000/posts', data, {
+        headers: {
+          token: localStorage.getItem('login-token'),
+        },
+      })
+      .then(res => {
+        navigate('/');
+      });
   };
 
   return (
