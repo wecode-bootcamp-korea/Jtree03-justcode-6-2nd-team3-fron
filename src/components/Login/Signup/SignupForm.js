@@ -16,7 +16,7 @@ export default function SignupForm() {
   const [userType, setUserType] = useState('1');
   const [businessName, setBusinessName] = useState('');
   const [businessEmail, setBusinessEmail] = useState('');
-  const [businessNum, setBusinessNum] = useState('');
+  const [businessRegistration, setBusinessRegistration] = useState('');
   const [businessContact, setBusinessContact] = useState('');
   const [businessIntro, setBusinessIntro] = useState('');
 
@@ -48,8 +48,8 @@ export default function SignupForm() {
     setBusinessName(event.currentTarget.value);
   };
 
-  const onBusinessNumHandler = event => {
-    setBusinessNum(event.currentTarget.value);
+  const onBusinessRegistrationHandler = event => {
+    setBusinessRegistration(event.currentTarget.value);
   };
 
   const onBusinessEmailHandler = event => {
@@ -95,13 +95,12 @@ export default function SignupForm() {
         user_name: name,
         nickname: nickname,
         user_type: userType,
-        business_name: businessName,
+        company_name: businessName,
         introduction: businessIntro,
-        business_registration_number: businessNum,
+        Business_registration_number: businessRegistration,
         contact_information: businessContact,
-        business_email: businessEmail,
+        company_email: businessEmail,
       })
-
       .then(response => {
         console.log('회원가입 성공!');
         console.log('token', response.data);
@@ -111,35 +110,6 @@ export default function SignupForm() {
       .catch(error => {
         console.log(error);
       });
-    // const url = 'http://localhost:8000/users/signup';
-    // const formData = new FormData();
-    // formData.append('id', userName);
-    // formData.append('password', password);
-    // formData.append('user_name', name);
-    // formData.append('nickname', nickname);
-    // formData.append('user_type', userType);
-    // formData.append('Business_name', businessName);
-    // formData.append('introduction', businessIntro);
-    // formData.append('business_registration_number', businessNum);
-    // formData.append('contact_information', businessContact);
-    // formData.append('Business_email', businessEmail);
-    // formData.append('filename', businessRegistration);
-    // const config = {
-    //   headers: {
-    //     'content-type': 'multipart/form-data',
-    //   },
-    // };
-    // return axios
-    //   .post(url, formData, config)
-    //   .then(response => {
-    //     console.log('회원가입 성공!');
-    //     // console.log('token', response.data);
-    //     // localStorage.setItem('token', response.data);
-    //     navigate('/');
-    //   })
-    //   .catch(error => {
-    //     console.log(error);
-    //   });
   };
 
   return (
@@ -228,8 +198,8 @@ export default function SignupForm() {
           <InputLabel>사업자 등록번호</InputLabel>
           <Input
             type="text"
-            value={businessNum}
-            onChange={onBusinessNumHandler}
+            value={businessRegistration}
+            onChange={onBusinessRegistrationHandler}
             placeholder="사업자 등록번호를 입력해주세요"
           />
         </InputWrapper>
