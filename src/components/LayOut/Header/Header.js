@@ -8,11 +8,9 @@ export default function Header() {
   return (
     <Container>
       <Wrapper>
-        {/* <Style> */}
         <HeaderLogo />
         <HeaderNav />
         <HeaderBtns />
-        {/* </Style> */}
       </Wrapper>
     </Container>
   );
