@@ -2,15 +2,15 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 import styled from 'styled-components';
-import {
-  MainBoard,
-  MainEvent,
-  PopularTag,
-  TopWriter,
-} from '../../components/Main';
+import { MainEvent, PopularTag, TopWriter } from '../../components/Main';
+import BottomBoard from '../../components/Main/BottomBoard';
+import TopBoard from '../../components/Main/TopBoard';
 
 function Main() {
+  // const [boardLists, setBoard] = useState([]);
   const [eventList, setEvent] = useState([]);
+
+  //이벤트리스트
   useEffect(() => {
     axios({
       url: 'http://localhost:8000/posts?main_category_id=3&start=1&limit=3',
@@ -19,13 +19,14 @@ function Main() {
       setEvent(res.data.posts.posts);
     });
   }, []);
-  console.log('event', eventList);
 
-  const boardList = [
-    { mainId: 1 },
-    { mainId: 3 },
-    { mainId: 1 },
-    { mainId: 2 },
+  const topBoardList = [
+    { category: 'editorChoice', id: 1, title: `EDITOR'S CHOICE` },
+    { category: 'weeklyBest', id: 2, title: 'WEEKLY BEST' },
+  ];
+  const bottomBoardList = [
+    { mainId: 1, id: 1, title: 'Q&A' },
+    { mainId: 2, id: 2, title: 'KNOWLEDGE' },
   ];
 
   return (
@@ -33,8 +34,24 @@ function Main() {
       <PopularTag />
       <MainCenter>
         <BoardContainer>
-          {boardList.map(data => {
-            return <MainBoard mainId={data} />;
+          {topBoardList.map(data => {
+            return (
+              <TopBoard
+                key={data.id}
+                category={data.category}
+                title={data.title}
+              />
+            );
+          })}
+
+          {bottomBoardList.map(data => {
+            return (
+              <BottomBoard
+                key={data.id}
+                mainId={data.mainId}
+                title={data.title}
+              />
+            );
           })}
         </BoardContainer>
         <div>

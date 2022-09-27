@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 function MainEvent(data) {
-  console.log('props', data);
   return (
     <EventContainer>
       <ImgContainer>

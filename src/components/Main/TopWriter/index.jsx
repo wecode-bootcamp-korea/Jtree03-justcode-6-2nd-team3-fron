@@ -15,19 +15,16 @@ function TopWriter() {
     });
   }, []);
 
-  console.log('writer', writer);
-
   return (
     <TopWriterContainer>
       <Title>Top Writers</Title>
       <WriterList>
         {writer.map(data => {
-          console.log('이미지', data.profile_image);
           return (
             <Writer key={data.user_id} url={data.profile_image}>
               <div>
                 <span></span>
-                <p>{data.user_name}</p>
+                <p className="long">{data.nickname}</p>
               </div>
               <Icon>{data.cnt}</Icon>
             </Writer>
@@ -53,6 +50,12 @@ const WriterList = styled.div`
 const Writer = styled.div`
   display: flex;
   justify-content: space-between;
+  .long {
+    max-width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
   align-items: center;
   padding: 10px 0;

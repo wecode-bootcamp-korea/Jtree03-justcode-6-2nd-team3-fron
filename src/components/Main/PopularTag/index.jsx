@@ -19,8 +19,8 @@ function PopularTag() {
       <List>
         {tagsInfo.map(data => {
           return (
-            <Tags key={data.id}>
-              <p>#{data.tag_name}</p>
+            <Tags key={data.tage_id}>
+              <p className="long">#{data.tag_name}</p>
               <span>{data.cnt}</span>
             </Tags>
           );
@@ -45,6 +45,12 @@ const List = styled.div`
 const Tags = styled.div`
   display: flex;
   justify-content: space-between;
+  .long {
+    max-width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
   padding: 10px 0;
   font-size: 14px;
