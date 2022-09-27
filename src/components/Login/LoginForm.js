@@ -10,6 +10,9 @@ export default function LoginForm() {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
 
+  const regId = /^[A-Za-z]{1}[A-Za-z0-9_-]{3,14}$/;
+  const regPwd = /(?=.*\d)(?=.*[a-zA-ZS]).{6,}/;
+
   const onUserNameHandler = event => {
     setUserName(event.currentTarget.value);
   };
@@ -19,21 +22,29 @@ export default function LoginForm() {
   };
 
   const onLogin = () => {
-    axios
-      .post('http://localhost:8000/users/login', {
-        id: userName,
-        password: password,
-      })
+    if (!regId.test(userName)) {
+      alert('아이디를 입력해주세요!');
+    } else if (!regPwd.test(password)) {
+      alert('비밀번호를 입력해주세요!');
+    } else {
+      axios
+        .post('http://localhost:8000/users/login', {
+          id: userName,
+          password: password,
+        })
 
-      .then(response => {
-        console.log('로그인 성공!');
-        console.log('token', response.data);
-        localStorage.setItem('token', response.data);
-        navigate('/');
-      })
-      .catch(error => {
-        console.log(error);
-      });
+        .then(response => {
+          console.log('로그인 성공!');
+          console.log('token', response.data);
+          localStorage.setItem('token', response.data);
+          alert('로그인에 성공하였습니다.');
+          navigate('/');
+        })
+        .catch(error => {
+          console.log(error);
+          alert('일치하는 아이디와 비밀번호가 없습니다.');
+        });
+    }
   };
 
   return (

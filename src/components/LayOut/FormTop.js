@@ -92,4 +92,5 @@ const SocialMediaBtn = styled.button`
 const Icon = styled.img`
   width: 20px;
   height: 20px;
+  opacity: 0.7;
 `;
