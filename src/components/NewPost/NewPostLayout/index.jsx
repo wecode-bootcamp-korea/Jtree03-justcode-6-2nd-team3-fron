@@ -5,7 +5,7 @@ import SelectTag from '../../SelectTag';
 import { useEffect, useState } from 'react';
 import ReCaptcha from '../../ReCaptcha';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 function NewPostLayout(props) {
   const [subCategory, setCategory] = useState([]);
@@ -15,7 +15,7 @@ function NewPostLayout(props) {
     });
   }, []);
   console.log('newSub', subCategory);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { title, subTitle, mainId } = props;
   const [selectValue, setValue] = useState('');
   const [inputValue, setInputValue] = useState('');
@@ -57,7 +57,7 @@ function NewPostLayout(props) {
       })
       .then(res => {
         alert('게시글 작성이 완료되었습니다.');
-        navigate('/');
+        // navigate(`articles/${unique_id}`);
       });
   };
 
