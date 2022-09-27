@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import CreatableSelect from 'react-select/creatable';
 
-function SelectTag(props) {
+function EditSelectTag(props) {
   const { placeholder, getSelectValue } = props;
   const [tagValue, setTag] = useState([]);
   const [inputValue, setInput] = useState('');
@@ -63,4 +63,4 @@ function SelectTag(props) {
   );
 }
 
-export default SelectTag;
+export default EditSelectTag;
