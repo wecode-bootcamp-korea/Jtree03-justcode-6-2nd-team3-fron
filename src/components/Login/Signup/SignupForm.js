@@ -20,6 +20,13 @@ export default function SignupForm() {
   const [businessContact, setBusinessContact] = useState('');
   const [businessIntro, setBusinessIntro] = useState('');
 
+  const regId = /^[A-Za-z]{1}[A-Za-z0-9_-]{3,14}$/;
+  const regPwd = /(?=.*\d)(?=.*[a-zA-ZS]).{6,}/;
+  const regEmail =
+    /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
+  const regText = /^[가-힣a-zA-Z]+$/;
+  const regNum = /^[0-9]{8,13}$/;
+
   const onUserNameHandler = event => {
     setUserName(event.currentTarget.value);
   };
@@ -65,51 +72,89 @@ export default function SignupForm() {
   };
 
   const onSubmit = () => {
-    axios
-      .post('http://localhost:8000/users/signup', {
-        id: userName,
-        password: password,
-        email: email,
-        user_name: name,
-        nickname: nickname,
-        user_type: userType,
-      })
+    if (!regId.test(userName)) {
+      alert('아이디를 입력해주세요!');
+    } else if (!regPwd.test(password)) {
+      alert('비밀번호를 입력해주세요!');
+    } else if (!regEmail.test(email)) {
+      alert('이메일을 입력해주세요!');
+    } else if (!regText.test(name)) {
+      alert('이름을 입력해주세요!');
+    } else if (!regText.test(nickname)) {
+      alert('닉네임을 입력해주세요!');
+    } else {
+      axios
+        .post('http://localhost:8000/users/signup', {
+          id: userName,
+          password: password,
+          email: email,
+          user_name: name,
+          nickname: nickname,
+          user_type: userType,
+        })
 
-      .then(response => {
-        console.log('회원가입 성공!');
-        console.log('token', response.data);
-        localStorage.setItem('token', response.data);
-        navigate('/');
-      })
-      .catch(error => {
-        console.log(error);
-      });
+        .then(response => {
+          console.log('회원가입 성공!');
+          console.log('token', response.data);
+          localStorage.setItem('token', response.data);
+          alert('로그인 페이지로 이동합니다.');
+          navigate('/login');
+        })
+        .catch(error => {
+          console.log(error);
+          alert('회원가입에 실패하였습니다.');
+        });
+    }
   };
 
   const onSubmitBusiness = () => {
-    axios
-      .post('http://localhost:8000/users/signup', {
-        id: userName,
-        password: password,
-        email: email,
-        user_name: name,
-        nickname: nickname,
-        user_type: userType,
-        company_name: businessName,
-        introduction: businessIntro,
-        Business_registration_number: businessRegistration,
-        contact_information: businessContact,
-        company_email: businessEmail,
-      })
-      .then(response => {
-        console.log('회원가입 성공!');
-        console.log('token', response.data);
-        localStorage.setItem('token', response.data);
-        navigate('/');
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    if (!regId.test(userName)) {
+      alert('아이디를 입력해주세요!');
+    } else if (!regPwd.test(password)) {
+      alert('비밀번호를 입력해주세요!');
+    } else if (!regEmail.test(email)) {
+      alert('이메일을 입력해주세요!');
+    } else if (!regText.test(name)) {
+      alert('이름을 입력해주세요!');
+    } else if (!regText.test(nickname)) {
+      alert('닉네임을 입력해주세요!');
+    } else if (!regText.test(businessName)) {
+      alert('회사명을 입력해주세요!');
+    } else if (!regNum.test(businessRegistration)) {
+      alert('사업자 등록번호를 입력해주세요!');
+    } else if (!regNum.test(businessContact)) {
+      alert('대표연락처를 입력해주세요!');
+    } else if (!regEmail.test(businessEmail)) {
+      alert('대표이메일을 입력해주세요!');
+    } else if (!regText.test(businessIntro)) {
+      alert('회사소개를 작성해주세요!');
+    } else {
+      axios
+        .post('http://localhost:8000/users/signup', {
+          id: userName,
+          password: password,
+          email: email,
+          user_name: name,
+          nickname: nickname,
+          user_type: userType,
+          company_name: businessName,
+          introduction: businessIntro,
+          Business_registration_number: businessRegistration,
+          contact_information: businessContact,
+          company_email: businessEmail,
+        })
+        .then(response => {
+          console.log('회원가입 성공!');
+          console.log('token', response.data);
+          localStorage.setItem('token', response.data);
+          alert('로그인 페이지로 이동합니다.');
+          navigate('/login');
+        })
+        .catch(error => {
+          console.log(error);
+          alert('회원가입에 실패하였습니다.');
+        });
+    }
   };
 
   return (
