@@ -9,7 +9,7 @@ import WriteCommentSpace from './component/WriteCommentSpace';
 // import axios from 'axios';
 
 export default function CommentList(props) {
-  const { comment, setLogin, login } = props;
+  const { comment, setLogin, login, myInfor } = props;
   const [openComment, setOpenComment] = useState(false);
   const [iWantWrite, setIWantWrite] = useState(false);
   const [wantEdit, setWantEdit] = useState(false);
@@ -21,7 +21,8 @@ export default function CommentList(props) {
   function toHtml() {
     return { __html: comment.content };
   }
-
+  //console.log('test', incomment[0]);
+  console.log('test', comment);
   return (
     <Comment>
       {showEditor ? (
@@ -45,7 +46,13 @@ export default function CommentList(props) {
                   <Viewimg src="https://cdn-icons-png.flaticon.com/512/2214/2214024.png" />
                   <Small>114</Small>
                   <Small>·</Small>
-                  <Small>약 16시간 전</Small>
+                  <Small>{comment.comment_create_at}</Small>
+                  {comment.content !== comment.content && (
+                    <div>
+                      <Small>·</Small>
+                      <Small>수정됨</Small>
+                    </div>
+                  )}
                 </div>
               </Writeinfor>
             </Rowdiv>
@@ -53,12 +60,11 @@ export default function CommentList(props) {
               <SelectionButton>
                 <CheckCircle src="https://cdn-icons-png.flaticon.com/512/1756/1756625.png" />
               </SelectionButton>
-              <Nbutton score={comment.score} name={'댓글점수'} />
-              {
-                <Bttonstyle onClick={() => setWantEdit(f => !f)}>
-                  <CommentEdit src="https://cdn-icons-png.flaticon.com/512/2311/2311523.png" />
-                </Bttonstyle>
-              }
+              <Nbutton score={comment.score} name={'댓글점수'} />(
+              <Bttonstyle onClick={() => setWantEdit(f => !f)}>
+                <CommentEdit src="https://cdn-icons-png.flaticon.com/512/2311/2311523.png" />
+              </Bttonstyle>
+              )
             </Rowdiv>
           </Betweendiv>
           <CommentContent>
@@ -77,10 +83,12 @@ export default function CommentList(props) {
                     <UnderLine>댓글 모두 숨기기</UnderLine>
                   </OpenComment>
                 ) : (
-                  <OpenComment onClick={() => setOpenComment(f => !f)}>
-                    <Viewimg src="https://i.esdrop.com/d/f/NlKPuBbCgn/VAShgqqw5f.png" />
-                    <UnderLine>댓글 {incomment.length}개 보기</UnderLine>
-                  </OpenComment>
+                  incomment[0].content !== null && (
+                    <OpenComment onClick={() => setOpenComment(f => !f)}>
+                      <Viewimg src="https://i.esdrop.com/d/f/NlKPuBbCgn/VAShgqqw5f.png" />
+                      <UnderLine>댓글 {incomment.length}개 보기</UnderLine>
+                    </OpenComment>
+                  )
                 )}
               </div>
             )}
@@ -97,19 +105,21 @@ export default function CommentList(props) {
             {iWantWrite && (
               <CommentinCommentwrapper>
                 <BlankLine />
-                <div>
+                <WriteCommentSpaceWrapper>
                   <WriteCommentSpace
                     setIWantWrite={setIWantWrite}
+                    setOpenComment={setOpenComment}
                     showEditor={showEditor}
                     name={'대댓글작성'}
                     setLogin={setLogin}
                     login={login}
                     comment={comment}
                   />
-                </div>
+                </WriteCommentSpaceWrapper>
               </CommentinCommentwrapper>
             )}
             {openComment &&
+              incomment[0].content !== null &&
               incomment.map(f => {
                 return (
                   <CommentinCommentwrapper key={f.comment_id}>
@@ -124,6 +134,10 @@ export default function CommentList(props) {
     </Comment>
   );
 }
+
+const WriteCommentSpaceWrapper = styled.div`
+  width: 100%;
+`;
 
 const Bttonstyle = styled.button`
   background-color: transparent;

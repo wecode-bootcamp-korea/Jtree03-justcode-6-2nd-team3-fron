@@ -2,8 +2,6 @@ import styled from 'styled-components';
 import Nbutton from './Nbutton';
 //to Tobbar.js
 export default function CommentInComment(comment) {
-  //console.log('test', comment.comment);
-
   function toHtml() {
     return { __html: comment.comment.content };
   }

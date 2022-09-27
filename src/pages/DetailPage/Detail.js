@@ -9,6 +9,7 @@ import { useParams } from 'react-router-dom';
 
 export default function Detail() {
   const [postData, setPostData] = useState([]);
+  const [myInfor, setMyInfor] = useState([]);
 
   const params = useParams();
   const pageId = params.id;
@@ -18,20 +19,24 @@ export default function Detail() {
       setPostData(res.data.post[0]);
     });
   }, [pageId]);
-  // useEffect(() => {
-  //   axios
-  //     .get('https://ee1ed259-28b1-44d0-a5b1-0b164fdc0033.mock.pstmn.io/list')
-  //     .then(function (Response) {
-  //       setPostData(Response.data);
-  //     });
-  // }, []);
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:8000/profile', {
+        headers: { authorization: localStorage.getItem('token') },
+      })
+      .then(function (res) {
+        setMyInfor(res.user);
+      });
+  }, []);
+  console.log(myInfor);
 
   return (
     <Center>
       <Body>
         <Topbar postData={postData} />
         <Content postData={postData} />
-        <Commentspace />
+        <Commentspace myInfor={myInfor} />
       </Body>
     </Center>
   );

@@ -5,12 +5,13 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-export default function Commentspace() {
+export default function Commentspace(props) {
   const [commentData, setCommentData] = useState([]);
   const [login, setLogin] = useState(false);
   //const { data } = props; //목데이터용
   const params = useParams();
   const pageId = params.id;
+  const { myInfor } = props;
 
   useEffect(() => {
     axios
@@ -18,7 +19,11 @@ export default function Commentspace() {
       .then(function (res) {
         res.data.postComment && setCommentData(res.data.postComment);
       });
-  }, [pageId]);
+  }, [pageId, commentData.length]);
+
+  // useEffect(() => {
+  //   window.location.replace(`/articles/${pageId}`);
+  // }, []);
 
   return (
     <>
@@ -35,7 +40,12 @@ export default function Commentspace() {
           commentData.map(f => {
             return (
               <CommentWrapper key={f.comment_id}>
-                <CommentList comment={f} setLogin={setLogin} login={login} />
+                <CommentList
+                  comment={f}
+                  setLogin={setLogin}
+                  login={login}
+                  myInfor={myInfor}
+                />
               </CommentWrapper>
             );
           })}

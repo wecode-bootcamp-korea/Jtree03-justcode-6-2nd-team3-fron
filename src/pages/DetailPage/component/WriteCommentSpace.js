@@ -10,21 +10,21 @@ export default function WriteCommentSpace(props) {
     setLogin,
     login,
     name,
-    showEditor,
+    //showEditor,
     comment,
     setShowEditor,
     setIWantWrite,
+    setOpenComment,
   } = props;
 
   const [writecomment, setwritecomment] = useState();
   const params = useParams();
   const pageId = params.id;
 
-  console.log('test', comment);
-
   useEffect(() => {
+    console.log('test', comment);
     name === '편집' && setwritecomment(comment.content);
-  }, [showEditor]);
+  }, []);
 
   //console.log(commentid);
 
@@ -65,10 +65,15 @@ export default function WriteCommentSpace(props) {
       axios.post(`http://localhost:8000/comment`, body, {
         headers: { authorization: localStorage.getItem('token') },
       });
+      if (name === '대댓글작성') {
+        setIWantWrite(false);
+        setOpenComment(true);
+      }
     } else if (name === '편집') {
       axios.patch(`http://localhost:8000/comment`, body, {
         headers: { authorization: localStorage.getItem('token') },
       });
+      setShowEditor(false);
     }
   };
 
@@ -98,10 +103,10 @@ export default function WriteCommentSpace(props) {
         )}
       </Inputspace>
       <Buttonspace>
-        <CommentButton onClick={sendComment}>댓글쓰기</CommentButton>
         {name !== '댓글작성' && (
-          <CommentButton onClick={canCelButton}>취소</CommentButton>
+          <CancelButton onClick={canCelButton}>취소</CancelButton>
         )}
+        <CommentButton onClick={sendComment}>댓글쓰기</CommentButton>
       </Buttonspace>
     </>
   );
@@ -152,7 +157,7 @@ const ProfileImg = styled.img`
 const Buttonspace = styled.div`
   margin-top: 10px;
   display: flex;
-  align-items: flex-end;
+  justify-content: end;
   width: 100%;
 `;
 
@@ -160,9 +165,16 @@ const CommentButton = styled.button`
   background-color: #0090f9;
   opacity: 0.5;
   padding: 8px 30px;
-  border-radius: 5px;
-  font-size: 8px;
+  border-radius: 7px;
   border: none;
   color: white;
   cursor: pointer;
+`;
+
+const CancelButton = styled.button`
+  background-color: white;
+  border: 1px solid lightgray;
+  padding: 8px 15px;
+  border-radius: 7px;
+  margin-right: 10px;
 `;
