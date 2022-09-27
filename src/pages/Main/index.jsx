@@ -73,7 +73,7 @@ const MainContainer = styled.div`
   justify-content: space-between;
   max-width: 1280px;
 
-  padding: 20px 0 120px;
+  padding: 60px 0 120px;
 
   margin: 0 auto;
 `;
