@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 import PostStyle from '../PostStyle';
 
-import SelectTag from '../../SelectTag';
+import EditSelectTag from '../EditSelectTag';
 import { useEffect, useState } from 'react';
 import ReCaptcha from '../../ReCaptcha';
 import axios from 'axios';
 // import { useNavigate } from 'react-router-dom';
 
-function NewPostLayout(props) {
+function PostEditLayout(props) {
   const [subCategory, setCategory] = useState([]);
   useEffect(() => {
     axios.get(`http://localhost:8000/menus/${mainId}`).then(res => {
@@ -87,7 +87,10 @@ function NewPostLayout(props) {
           onChange={inputVal}
         />
         <Label>태그</Label>
-        <SelectTag placeholder={placeholder} getSelectValue={getSelectValue} />
+        <EditSelectTag
+          placeholder={placeholder}
+          getSelectValue={getSelectValue}
+        />
         <Label>상세정보</Label>
         <PostStyle getStyledContent={getStyledContent} />
         <ReCaptcha />
@@ -157,4 +160,4 @@ const BlueButton = styled.button`
   }
 `;
 
-export default NewPostLayout;
+export default PostEditLayout;
