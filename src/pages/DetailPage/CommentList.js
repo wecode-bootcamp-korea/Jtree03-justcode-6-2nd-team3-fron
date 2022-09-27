@@ -2,79 +2,143 @@ import styled from 'styled-components';
 import Nbutton from './component/Nbutton';
 import React, { useState } from 'react';
 import CommentInComment from './component/CommentInComment';
+import EditSection from './component/EditSection';
 import WriteCommentSpace from './component/WriteCommentSpace';
+
 //import Modal from 'react-modal';
 // import axios from 'axios';
 
 export default function CommentList(props) {
-  const { comment } = props;
+  const { comment, setLogin, login } = props;
   const [openComment, setOpenComment] = useState(false);
   const [iWantWrite, setIWantWrite] = useState(false);
+  const [wantEdit, setWantEdit] = useState(false);
+  const [showEditor, setShowEditor] = useState(false);
+
+  const incomment = comment.comment_in_comment;
+  //console.log('프로필이미지', comment.profile_image);
+
+  function toHtml() {
+    return { __html: comment.content };
+  }
 
   return (
     <Comment>
-      <Betweendiv>
-        <Rowdiv>
-          <Profilebutton1>
-            <Profileimg src={comment.profileurl} />
-          </Profilebutton1>
-          <Writeinfor>
-            <Profilebutton2>{comment.nickname}</Profilebutton2>
-            <div>
-              <Viewimg src="https://cdn-icons-png.flaticon.com/512/2214/2214024.png" />
-              <Small>114</Small>
-              <Small>·</Small>
-              <Small>약 16시간 전</Small>
-            </div>
-          </Writeinfor>
-        </Rowdiv>
-        <Rowdiv>
-          <SelectionButton>
-            <CheckCircle src="https://cdn-icons-png.flaticon.com/512/1756/1756625.png" />
-          </SelectionButton>
-          <Nbutton />
-        </Rowdiv>
-      </Betweendiv>
-      <CommentContent>{comment.comment}</CommentContent>
-      <Rowdiv>
-        {openComment ? (
-          <OpenComment onClick={() => setOpenComment(f => !f)}>
-            <Viewimg src="https://i.esdrop.com/d/f/NlKPuBbCgn/Gduesjldbw.png" />
-            <UnderLine>댓글 모두 숨기기</UnderLine>
-          </OpenComment>
-        ) : (
-          <OpenComment onClick={() => setOpenComment(f => !f)}>
-            <Viewimg src="https://i.esdrop.com/d/f/NlKPuBbCgn/VAShgqqw5f.png" />
-            <UnderLine>댓글보기</UnderLine>
-          </OpenComment>
-        )}
-        <WriteComment onClick={() => setIWantWrite(f => !f)}>
-          {iWantWrite ? (
-            <UnderLine>댓글취소</UnderLine>
-          ) : (
-            <UnderLine>댓글쓰기</UnderLine>
-          )}
-        </WriteComment>
-      </Rowdiv>
-      <div>
-        {iWantWrite && (
-          <CommentinCommentwrapper>
-            <BlankLine />
-            <div>
-              <WriteCommentSpace />
-            </div>
-          </CommentinCommentwrapper>
-        )}
-        {openComment && (
-          <CommentinCommentwrapper>
-            <BlankLine />
-            <CommentInComment />
-          </CommentinCommentwrapper>
-        )}
-      </div>
+      {showEditor ? (
+        <WriteCommentSpace
+          setLogin={setLogin}
+          login={login}
+          comment={comment}
+          name={'편집'}
+          setShowEditor={setShowEditor}
+        />
+      ) : (
+        <div>
+          <Betweendiv>
+            <Rowdiv>
+              <Profilebutton1>
+                <Profileimg src={comment.profile_image} />
+              </Profilebutton1>
+              <Writeinfor>
+                <Profilebutton2>{comment.nickname}</Profilebutton2>
+                <div>
+                  <Viewimg src="https://cdn-icons-png.flaticon.com/512/2214/2214024.png" />
+                  <Small>114</Small>
+                  <Small>·</Small>
+                  <Small>약 16시간 전</Small>
+                </div>
+              </Writeinfor>
+            </Rowdiv>
+            <Rowdiv>
+              <SelectionButton>
+                <CheckCircle src="https://cdn-icons-png.flaticon.com/512/1756/1756625.png" />
+              </SelectionButton>
+              <Nbutton score={comment.score} name={'댓글점수'} />
+              {
+                <Bttonstyle onClick={() => setWantEdit(f => !f)}>
+                  <CommentEdit src="https://cdn-icons-png.flaticon.com/512/2311/2311523.png" />
+                </Bttonstyle>
+              }
+            </Rowdiv>
+          </Betweendiv>
+          <CommentContent>
+            <div dangerouslySetInnerHTML={toHtml()} />
+            {wantEdit && (
+              <EditSection setShowEditor={setShowEditor} comment={comment} />
+            )}
+          </CommentContent>
+
+          <Rowdiv>
+            {incomment.length !== 0 && (
+              <div>
+                {openComment ? (
+                  <OpenComment onClick={() => setOpenComment(f => !f)}>
+                    <Viewimg src="https://i.esdrop.com/d/f/NlKPuBbCgn/Gduesjldbw.png" />
+                    <UnderLine>댓글 모두 숨기기</UnderLine>
+                  </OpenComment>
+                ) : (
+                  <OpenComment onClick={() => setOpenComment(f => !f)}>
+                    <Viewimg src="https://i.esdrop.com/d/f/NlKPuBbCgn/VAShgqqw5f.png" />
+                    <UnderLine>댓글 {incomment.length}개 보기</UnderLine>
+                  </OpenComment>
+                )}
+              </div>
+            )}
+
+            <WriteComment onClick={() => setIWantWrite(f => !f)}>
+              {iWantWrite ? (
+                <UnderLine>댓글취소</UnderLine>
+              ) : (
+                <UnderLine>댓글쓰기</UnderLine>
+              )}
+            </WriteComment>
+          </Rowdiv>
+          <div>
+            {iWantWrite && (
+              <CommentinCommentwrapper>
+                <BlankLine />
+                <div>
+                  <WriteCommentSpace
+                    setIWantWrite={setIWantWrite}
+                    showEditor={showEditor}
+                    name={'대댓글작성'}
+                    setLogin={setLogin}
+                    login={login}
+                    comment={comment}
+                  />
+                </div>
+              </CommentinCommentwrapper>
+            )}
+            {openComment &&
+              incomment.map(f => {
+                return (
+                  <CommentinCommentwrapper key={f.comment_id}>
+                    <BlankLine />
+                    <CommentInComment comment={f} />
+                  </CommentinCommentwrapper>
+                );
+              })}
+          </div>
+        </div>
+      )}
     </Comment>
   );
 }
+
+const Bttonstyle = styled.button`
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+`;
+
+//const CommentEditButton = styled.(Bttonstyle)
+
+const CommentEdit = styled.img`
+  margin-left: 20px;
+  margin-top: 3px;
+  width: 18px;
+  height: 18px;
+`;
 
 const SelectionButton = styled.button`
   //QnA카테고리만 해당
@@ -96,11 +160,6 @@ const UnderLine = styled.span`
   &:hover {
     text-decoration: underline;
   }
-`;
-
-const Bttonstyle = styled.button`
-  background-color: transparent;
-  border: none;
 `;
 
 const Comment = styled.div`
@@ -166,8 +225,12 @@ const Writeinfor = styled.div`
 `;
 
 const CommentContent = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: row;
   line-height: 1.3;
   margin: 15px 0;
+  font-size: 15px;
   color: gray;
 `;
 

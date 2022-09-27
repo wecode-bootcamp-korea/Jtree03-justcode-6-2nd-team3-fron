@@ -2,15 +2,17 @@ import styled from 'styled-components';
 import Nbutton from './component/Nbutton';
 
 export default function Content(props) {
-  const { data } = props;
+  //postData && console.log(postData);
+  const { postData } = props;
+
   return (
     <Body>
-      <h2>{data.title}</h2>
-      <Contentbody>{data.content}</Contentbody>
+      <h2>{postData.title && postData.title}</h2>
+      <Contentbody>{postData.content}</Contentbody>
       <Footer>
         <InlineDiv>
-          {data.tag &&
-            data.tag.map(f => {
+          {postData.tag &&
+            postData.tag.map(f => {
               return <Tag>#{[f]}</Tag>;
             })}
         </InlineDiv>

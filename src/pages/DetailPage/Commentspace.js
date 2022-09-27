@@ -1,21 +1,41 @@
 import styled from 'styled-components';
 import CommentList from './CommentList'; //댓글리스트
 import WriteCommentSpace from './component/WriteCommentSpace';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
-export default function Commentspace(props) {
-  const { data } = props;
+export default function Commentspace() {
+  const [commentData, setCommentData] = useState([]);
+  const [login, setLogin] = useState(false);
+  //const { data } = props; //목데이터용
+  const params = useParams();
+  const pageId = params.id;
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8000/comment?post=${pageId}`)
+      .then(function (res) {
+        res.data.postComment && setCommentData(res.data.postComment);
+      });
+  }, [pageId]);
+
   return (
     <>
-      <Howmany>{data.comment && data.comment.length}개의 댓글</Howmany>
+      <Howmany>{commentData && commentData.length}개의 댓글</Howmany>
       <Writespace>
-        <WriteCommentSpace />
+        <WriteCommentSpace
+          setLogin={setLogin}
+          login={login}
+          name={'댓글작성'}
+        />
       </Writespace>
       <CommentLists>
-        {data.comment &&
-          data.comment.map(f => {
+        {commentData &&
+          commentData.map(f => {
             return (
-              <CommentWrapper key={f.id}>
-                <CommentList comment={f} />
+              <CommentWrapper key={f.comment_id}>
+                <CommentList comment={f} setLogin={setLogin} login={login} />
               </CommentWrapper>
             );
           })}

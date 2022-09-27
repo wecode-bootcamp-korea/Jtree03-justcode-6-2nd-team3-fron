@@ -1,29 +1,107 @@
 import Texteditor from './Texteditor';
 import styled from 'styled-components';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 import { useState } from 'react';
+import { useEffect } from 'react';
 
-export default function WriteCommentSpace() {
-  const [login, setLogin] = useState(false);
+export default function WriteCommentSpace(props) {
+  const {
+    setLogin,
+    login,
+    name,
+    showEditor,
+    comment,
+    setShowEditor,
+    setIWantWrite,
+  } = props;
+
+  const [writecomment, setwritecomment] = useState();
+  const params = useParams();
+  const pageId = params.id;
+
+  console.log('test', comment);
+
+  useEffect(() => {
+    name === '편집' && setwritecomment(comment.content);
+  }, [showEditor]);
+
+  //console.log(commentid);
+
+  /////여기서부터
+  const perMission = () => {
+    const body = {
+      id: 'coldzero',
+      password: 'rotorl11',
+    };
+    axios.post(`http://localhost:8000/users/login`, body).then(res => {
+      localStorage.setItem('token', res.data.token);
+      setLogin(true); //임시 권한 부여 //TRUE상태 유지를 고민
+    });
+  };
+  ////여기까진 임시 코드
+
+  let body;
+  if (name === '편집') {
+    body = {
+      comment_id: comment.comment_id,
+      content: writecomment,
+    };
+  } else if (name === '대댓글작성') {
+    body = {
+      post_id: pageId,
+      parent_id: comment.comment_id,
+      content: writecomment,
+    };
+  } else if (name === '댓글작성') {
+    body = {
+      post_id: pageId,
+      content: writecomment,
+    };
+  }
+
+  const sendComment = () => {
+    if (name === '댓글작성' || name === '대댓글작성') {
+      axios.post(`http://localhost:8000/comment`, body, {
+        headers: { authorization: localStorage.getItem('token') },
+      });
+    } else if (name === '편집') {
+      axios.patch(`http://localhost:8000/comment`, body, {
+        headers: { authorization: localStorage.getItem('token') },
+      });
+    }
+  };
+
+  const canCelButton = () => {
+    name === '대댓글작성' && setIWantWrite(false);
+    name === '편집' && setShowEditor(false);
+  };
+
   return (
     <>
       <Inputspace>
         <Profile>
-          <ProfileImg src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" />
+          <ProfileImg src="https://cdn-icons-png.flaticon.com/512/149/149071.png" />
         </Profile>
         {login ? (
           <TextEditorWrapper className="ql-snow">
-            <Texteditor />
+            <Texteditor
+              setwritecomment={setwritecomment}
+              writecomment={writecomment}
+            />
           </TextEditorWrapper>
         ) : (
           <Writeinput>
             댓글을 쓰려면
-            <Loginbtton onClick={() => setLogin(true)}>로그인</Loginbtton>이
-            필요합니다.
+            <Loginbtton onClick={perMission}>로그인</Loginbtton>이 필요합니다.
           </Writeinput>
         )}
       </Inputspace>
       <Buttonspace>
-        <CommentButton>댓글쓰기</CommentButton>
+        <CommentButton onClick={sendComment}>댓글쓰기</CommentButton>
+        {name !== '댓글작성' && (
+          <CommentButton onClick={canCelButton}>취소</CommentButton>
+        )}
       </Buttonspace>
     </>
   );
@@ -68,10 +146,11 @@ const Profile = styled.span`
 const ProfileImg = styled.img`
   width: 40px;
   height: 40px;
+  opacity: 50%;
 `;
 
 const Buttonspace = styled.div`
-  margin: 10px 0 0 560px;
+  margin-top: 10px;
   display: flex;
   align-items: flex-end;
   width: 100%;
