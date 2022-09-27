@@ -8,12 +8,12 @@ import Account from './Account';
 // import axios from 'axios';
 
 export default function Header() {
-  const [isLogin, SetIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
 
   // useEffect = () => {
-  // axios.post('http://localhost:8000/users/login', {}).then(res =>{
-  //   localStorage.getItem('token', res.data);
-  //   SetIsLogin(true);
+  // axios.get('http://localhost:8000/users/profile', {authorization:}).then(res =>{
+  //   localStorage.getItem(res.data);
+  //   setIsLogin(true);
   // });
   // };
   return (
