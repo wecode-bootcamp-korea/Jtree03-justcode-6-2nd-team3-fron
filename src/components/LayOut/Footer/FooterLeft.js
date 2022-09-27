@@ -9,10 +9,22 @@ export default function FooterLeft() {
         <Description>All that developers</Description>
       </OkidokiWrapper>
       <OtherLogosWrapper>
-        <Icons src="image/github.png" alt="깃헙" />
-        <Icons src="image/facebook.png" alt="페이스북" />
-        <Icons src="image/youtube.png" alt="유튜브" />
-        <Icons src="image/email.png" alt="이메일" />
+        <Icons
+          src="https://cdn-icons-png.flaticon.com/512/2111/2111425.png"
+          alt="깃헙"
+        />
+        <Icons
+          src="https://cdn-icons-png.flaticon.com/512/2175/2175193.png"
+          alt="페이스북"
+        />
+        <Icons
+          src="https://cdn-icons-png.flaticon.com/512/717/717426.png"
+          alt="유튜브"
+        />
+        <Icons
+          src="https://cdn-icons-png.flaticon.com/512/2099/2099100.png"
+          alt="이메일"
+        />
       </OtherLogosWrapper>
     </Logos>
   );
@@ -48,4 +60,8 @@ const Icons = styled.img`
   width: 20px;
   height: 20px;
   opacity: 0.7;
+  cursor: pointer;
+  :hover {
+    opacity: 1;
+  }
 `;

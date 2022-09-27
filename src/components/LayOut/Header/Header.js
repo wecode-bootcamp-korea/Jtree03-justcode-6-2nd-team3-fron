@@ -1,16 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
+// import { useEffect } from 'react';
 import styled from 'styled-components';
 import HeaderLogo from './HeaderLogo';
 import HeaderNav from './HeaderNav';
 import HeaderBtns from './HeaderBtns';
+import Account from './Account';
+// import axios from 'axios';
 
 export default function Header() {
+  const [isLogin, SetIsLogin] = useState(false);
+
+  // useEffect = () => {
+  // axios.post('http://localhost:8000/users/login', {}).then(res =>{
+  //   localStorage.getItem('token', res.data);
+  //   SetIsLogin(true);
+  // });
+  // };
   return (
     <Container>
       <Wrapper>
         <HeaderLogo />
         <HeaderNav />
-        <HeaderBtns />
+        {isLogin === false && <HeaderBtns />}
+        {isLogin === true && <Account />}
       </Wrapper>
     </Container>
   );
@@ -28,8 +40,3 @@ const Wrapper = styled.div`
   width: 1280px;
   padding: 15px 0;
 `;
-// const Style = styled.div`
-//   width: auto;
-//   height: 35px;
-//   display: flex;
-// `;
