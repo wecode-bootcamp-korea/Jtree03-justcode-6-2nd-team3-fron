@@ -36,7 +36,7 @@ function MainBoardList({ boardData }) {
         </ListTitle>
         <div
           className="titleWrap"
-          onClick={() => navigate(`/articles/${boardData.id}`)}
+          onClick={() => navigate(`/articles/${boardData.unique_id}`)}
         >
           {boardData.title}
         </div>
