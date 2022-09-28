@@ -20,6 +20,7 @@ export default function HeaderNav() {
 const Container = styled.div`
   width: 840px;
 `;
+
 const Categories = styled.ul`
   width: 450px;
   font-size: 14px;
