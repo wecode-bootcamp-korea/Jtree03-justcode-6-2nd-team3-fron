@@ -52,9 +52,7 @@ export default function Router() {
           <Route path="archive" element={<Notice />} />
         </Route>
         {/* jobs */}
-        <Route path="jobs/*" element={<Jobs />}>
-          
-        </Route>
+        <Route path="jobs/*" element={<Jobs />}></Route>
 
         {/* 내 프로필 */}
         <Route path="/settings" element={<Settings />} />

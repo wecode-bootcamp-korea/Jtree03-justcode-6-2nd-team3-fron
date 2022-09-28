@@ -1,9 +1,14 @@
 import styled from 'styled-components';
 import Nbutton from './Nbutton';
+import { useState } from 'react';
+import EditSection from './EditSection';
 //to Tobbar.js
-export default function CommentInComment(comment) {
+export default function CommentInComment({ comment, setShowEditor }) {
+  //const [showEditor, setShowEditor] = useState(false);
+
+  const [iwantEdit, setiWantEdit] = useState(false);
   function toHtml() {
-    return { __html: comment.comment.content };
+    return { __html: comment.content };
   }
 
   return (
@@ -23,18 +28,40 @@ export default function CommentInComment(comment) {
             </div>
           </Writeinfor>
         </Rowdiv>
-        <Nbutton />
+        <Rowdiv>
+          <Nbutton />
+          <Bttonstyle onClick={() => setiWantEdit(f => !f)}>
+            <CommentEdit src="https://cdn-icons-png.flaticon.com/512/2311/2311523.png" />
+          </Bttonstyle>
+        </Rowdiv>
       </Betweendiv>
       <CommentContent>
         <div dangerouslySetInnerHTML={toHtml()} />
+        <EditSectionWrapper>
+          {iwantEdit && <EditSection setShowEditor={setShowEditor} />}
+        </EditSectionWrapper>
       </CommentContent>
     </Comment>
   );
 }
 
+const EditSectionWrapper = styled.div`
+  position: absolute;
+  left: -31px;
+  top: 5px;
+`;
+
 const Bttonstyle = styled.button`
   background-color: transparent;
   border: none;
+  cursor: pointer;
+`;
+
+const CommentEdit = styled.img`
+  margin-left: 20px;
+  margin-top: 3px;
+  width: 18px;
+  height: 18px;
 `;
 
 const Comment = styled.div`
@@ -85,6 +112,7 @@ const Writeinfor = styled.div`
 `;
 
 const CommentContent = styled.div`
+  position: relative;
   line-height: 1.3;
   margin: 15px 0;
 `;
