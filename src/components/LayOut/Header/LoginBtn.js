@@ -18,6 +18,7 @@ const Btn = styled.button`
   width: 85px;
   height: 35px;
   padding: 2px 8px;
+  margin-right: 10px;
   border-radius: 25px;
   display: flex;
   justify-content: center;
