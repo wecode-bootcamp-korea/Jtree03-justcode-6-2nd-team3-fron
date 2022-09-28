@@ -18,6 +18,7 @@ const AccountIcons = styled.div`
   justify-content: space-between;
   align-items: center;
 `;
+
 const Icon = styled.img`
   width: 20px;
   height: 20px;

@@ -39,13 +39,14 @@ export default function Header() {
 }
 const Container = styled.div`
   width: 100%;
+  height: 64px;
   display: flex;
   justify-content: center;
   border-bottom: 0.5px solid #ddd;
 `;
 const Wrapper = styled.div`
+  position: relative;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   width: 1280px;
   padding: 15px 0;
