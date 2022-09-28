@@ -296,7 +296,7 @@ export default function SignupForm() {
         <Question>
           이미 회원이신가요?
           <Link to="/login">
-            <span> 로그인</span>
+            <LinkWord> 로그인</LinkWord>
           </Link>
         </Question>
       </QuestionWrapper>
@@ -315,7 +315,7 @@ const FirstLine = styled.div`
     content: '';
     flex-grow: 1;
     margin-right: 5px;
-    background-color: #6b7280;
+    background-color: #e5e7eb;
     height: 1px;
     font-size: 0px;
     line-height: 0px;
@@ -324,7 +324,7 @@ const FirstLine = styled.div`
     content: '';
     flex-grow: 1;
     margin-left: 5px;
-    background-color: #6b7280;
+    background-color: #e5e7eb;
     height: 1px;
     font-size: 0px;
     line-height: 0px;
@@ -342,7 +342,7 @@ const SecondLine = styled.div`
     content: '';
     flex-grow: 1;
     margin-right: 5px;
-    background-color: #6b7280;
+    background-color: #e5e7eb;
     height: 1px;
     font-size: 0px;
     line-height: 0px;
@@ -351,7 +351,7 @@ const SecondLine = styled.div`
     content: '';
     flex-grow: 1;
     margin-left: 5px;
-    background-color: #6b7280;
+    background-color: #e5e7eb;
     height: 1px;
     font-size: 0px;
     line-height: 0px;
@@ -364,6 +364,7 @@ const RadioBtns = styled.div`
 
 const RadioBtn = styled.input`
   color: #6b7280;
+  accent-color: black;
 `;
 
 const RadioLabel = styled.label`
@@ -399,7 +400,10 @@ const Input = styled.input`
   padding: 8px 12px;
   margin-top: 7px;
   border-radius: 5px;
-  border: 0.5px solid #6b7280;
+  border: 1px solid #e5e7eb;
+  :focus {
+    outline: 1px solid black;
+  }
 `;
 
 const Text = styled.textarea`
@@ -409,7 +413,11 @@ const Text = styled.textarea`
   padding: 8px 12px;
   margin-top: 7px;
   border-radius: 5px;
-  border: 0.5px solid #6b7280;
+  border: 1px solid #e5e7eb;
+  resize: none;
+  :focus {
+    outline: 1px solid black;
+  }
 `;
 
 const Button = styled.button`
@@ -437,4 +445,8 @@ const Question = styled.span`
   font-weight: lighter;
   font-size: 14px;
   color: #6b7280;
+`;
+const LinkWord = styled.span`
+  text-decoration: underline;
+  color: #0090f9;
 `;

@@ -24,6 +24,6 @@ const Btn = styled.button`
   align-items: center;
   cursor: pointer;
   &:hover {
-    background-color: skyblue;
+    background-color: #0f7ed3;
   }
 `;
