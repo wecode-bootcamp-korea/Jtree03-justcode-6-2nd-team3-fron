@@ -21,6 +21,7 @@ import Settings from './pages/Settings';
 import ChangePasswordConfirm from './pages/Settings/ProfileSetting/ChangePassWord/ChangePasswordConfirm';
 // 회원 탈퇴
 import SecessionTab from './pages/Settings/ProfileSetting/Secession/SecessionTab';
+import JobsNew from './pages/NewPost/JobsNew';
 
 function Router() {
   return (
@@ -32,6 +33,7 @@ function Router() {
         <Route path="/questions/new" element={<QuestionsNew />} />
         <Route path="/events/new" element={<EventsNew />} />
         <Route path="/knowledge/new" element={<KnowledgeNew />} />
+        <Route path="/jobs/new" element={<JobsNew />} />
         {/* 상세페이지 */}
         <Route path="/articles/:id" element={<Detail />} />
 
