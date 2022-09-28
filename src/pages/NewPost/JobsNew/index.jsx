@@ -1,14 +1,14 @@
 import axios from 'axios';
-import { useEffect } from 'react';
 import { useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import PostStyle from '../../../components/NewPost/PostStyle';
 
 function JobsNew() {
   const [styledContent, setContent] = useState('');
   const [positionValue, setPosition] = useState('');
-  const [inputValue, setInput] = useState({});
+  const navigate = useNavigate();
+  const [inputValue, setInput] = useState([]);
   const getStyledContent = data => {
     setContent(data);
   };
@@ -21,7 +21,23 @@ function JobsNew() {
   console.log('내용', styledContent);
   const formSubmit = e => {
     e.preventDefault();
-    const data = [{ ...inputValue, content: styledContent }];
+    const data = {
+      inputValue,
+      content: styledContent,
+      tags: [],
+      sub_category_id: 12,
+      main_category_id: 5,
+    };
+    // {
+    //   title: '프론트개발자를 구합니다.',
+    //   ...inputValue,
+    //   content: styledContent,
+    //   tags: [],
+    //   main_category_id: 5,
+    //   sub_category_id: 12,
+    // },
+
+    console.log('데이터', data);
     axios
       .post('http://localhost:8000/posts', data, {
         headers: {
@@ -30,7 +46,7 @@ function JobsNew() {
       })
       .then(res => {
         alert('게시글 작성이 완료되었습니다.');
-        Navigate(`/articles/${res.data.post_id}`);
+        navigate(`/articles/${res.data.post_id}`);
       });
   };
 
@@ -139,6 +155,13 @@ function JobsNew() {
           })}
         </Flex>
         <MarginT50>구인 정보</MarginT50>
+        <Label>제목</Label>
+        <Input
+          type="text"
+          placeholder="제목을 입력하세요"
+          name="title"
+          onChange={getInput}
+        />
         <Flex>
           {selectList.map((data, idx) => {
             return (
