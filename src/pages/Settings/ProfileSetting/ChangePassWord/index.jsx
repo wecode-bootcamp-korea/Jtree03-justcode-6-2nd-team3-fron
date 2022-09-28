@@ -3,12 +3,12 @@ import styled from 'styled-components';
 
 import lock from '../../../../image/settings/lock.png';
 
-function ChangePassWord() {
+export default function ChangePassWord() {
   const navigate = useNavigate();
   return (
     <PassWord>
       <div>비밀번호</div>
-      <button onClick={()=>navigate('/settings/password-changes')}>
+      <button onClick={() => navigate('/settings/password-changes')}>
         <span />
         비밀번호 변경
       </button>
@@ -49,5 +49,3 @@ const PassWord = styled.div`
     }
   }
 `;
-
-export default ChangePassWord;

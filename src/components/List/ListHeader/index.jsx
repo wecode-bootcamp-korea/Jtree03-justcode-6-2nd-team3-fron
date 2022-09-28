@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-function ListHeader(props) {
+export default function ListHeader(props) {
   const { title } = props;
 
   return (
@@ -24,5 +24,3 @@ const Title = styled.span`
   line-height: 2rem;
   font-weight: 600;
 `;
-
-export default ListHeader;
