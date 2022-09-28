@@ -13,6 +13,7 @@ export default function PostList(props) {
 
   const {
     unique_id,
+    user_id,
     profile_image,
     nickname,
     score,
@@ -40,8 +41,8 @@ export default function PostList(props) {
     <Box>
       <Top>
         <TopLeft>
-          <Img to={''} profile_image={profile_image} />
-          <UserId to={''}>{nickname}</UserId>
+          <Img to={`/users/${user_id}`} profile_image={profile_image} />
+          <UserId to={`/users/${user_id}`}>{nickname}</UserId>
           <Etc>
             <Point>·</Point>
             <Thunder />
