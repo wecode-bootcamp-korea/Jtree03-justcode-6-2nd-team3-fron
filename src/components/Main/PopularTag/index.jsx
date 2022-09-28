@@ -46,6 +46,7 @@ const Tags = styled.div`
   display: flex;
   justify-content: space-between;
   .long {
+    padding: 3px 0;
     max-width: 100px;
     white-space: nowrap;
     overflow: hidden;

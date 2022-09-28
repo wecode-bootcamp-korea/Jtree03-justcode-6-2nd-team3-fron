@@ -1,6 +1,8 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 function MainEvent(data) {
+  const navigate = useNavigate();
   return (
     <EventContainer>
       <ImgContainer>
@@ -8,9 +10,12 @@ function MainEvent(data) {
       </ImgContainer>
       <Detail>
         <p>{data.data.nickname}</p>
-        <span>&nbsp;&middot; 언제 </span>
+        {/* <span>&nbsp;&middot; 언제 </span> */}
       </Detail>
-      <Title>{data.data.title}</Title>
+      <Title onClick={() => navigate(`/articles/${data.data.unique_id}`)}>
+        {' '}
+        {data.data.title}
+      </Title>
     </EventContainer>
   );
 }
@@ -38,9 +43,15 @@ const Detail = styled.div`
   font-size: 14px;
 `;
 const Title = styled.p`
+  padding: 3px 0;
   width: 265px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+    font-weight: bold;
+  }
 `;
 export default MainEvent;
