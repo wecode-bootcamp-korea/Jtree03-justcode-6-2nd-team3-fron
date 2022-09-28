@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import user from '../../../../image/settings/user.png';
 
-function Secession() {
+export default function Secession() {
   const [check, setCheck] = useState(false);
   const changeCheck = () => setCheck(!check);
   const navigate = useNavigate();
@@ -26,7 +26,12 @@ function Secession() {
           />
           진짜 탈퇴 할거면 눌러..
         </Span>
-        <button disabled={!check} onClick={()=>{navigate('/user/withdrawConfirm')}}>
+        <button
+          disabled={!check}
+          onClick={() => {
+            navigate('/user/withdrawConfirm');
+          }}
+        >
           <span />
           회원탈퇴
         </button>
@@ -103,5 +108,3 @@ const Span = styled.span`
   color: #111827e2;
   font-weight: 100;
 `;
-
-export default Secession;

@@ -1,33 +1,32 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
 
 export default function FooterRight() {
   return (
     <Info>
       <FirstLine>SPONSORED BY</FirstLine>
       <SecondLine>
-        <Logo src='image/idea.png' />
+        <Logo src="image/idea.png" />
       </SecondLine>
     </Info>
-  )
+  );
 }
 
-const Info = styled.div `
-  margin-left: 350px;
-  width: 170px;
-`
-const FirstLine = styled.div `
+const Info = styled.div`
+  width: 180px;
+`;
+const FirstLine = styled.div`
   font-size: 15px;
   display: flex;
   justify-content: flex-end;
   color: gray;
-`
-const SecondLine = styled.div `
+`;
+const SecondLine = styled.div`
   margin-top: 20px;
   display: flex;
   justify-content: flex-end;
-`
-const Logo = styled.img `
+`;
+const Logo = styled.img`
   width: 50px;
   height: 50px;
-`
+`;

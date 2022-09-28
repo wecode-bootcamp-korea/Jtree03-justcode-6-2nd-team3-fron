@@ -2,11 +2,19 @@ import axios from 'axios';
 import { useRef, useState } from 'react';
 import styled from 'styled-components';
 import ProfileImg from './ProfileImg';
-import Tags from './Tags';
+// import Tags from './Tags';
 
-function ProfileInfo(props) {
-  const { profile, setProfile } = props;
-  const { user_name, nickname, profile_image, tags } = profile;
+export default function ProfileInfo(props) {
+  const {
+    profile,
+    // setProfile
+  } = props;
+  const {
+    user_name,
+    nickname,
+    profile_image,
+    // tags
+  } = profile;
 
   const input = useRef([]);
   const [saveBtn, setSaveBtn] = useState(true);
@@ -41,7 +49,7 @@ function ProfileInfo(props) {
         {
           headers: {
             Authorization:
-              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTY2MzgzMjgwOSwiZXhwIjoxNjYzODQzNjA5fQ.Pun_4BHb45wixa6uhUiE8X_gOfuJVRk16zbX7k8RxPM',
+              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJpYXQiOjE2NjQyNjM0MDksImV4cCI6MTY2NDI3NDIwOX0.6M6jT_14ZlIoBBt6i1VMaNgOkw_KkMQxJNbVfoJyvgI',
           },
         }
       )
@@ -66,8 +74,6 @@ function ProfileInfo(props) {
         })}
         {/* <Tags tags={tags} /> */}
         <ProfileImg profile_image={profile_image} />
-        {/* <ProfileImg profile_img={profile_image} />
-        <input ref={img} type={'file'} accept={'image/*'} onChange={()=>console.log(img.current.value)} /> */}
         <SaveBtn disabled={saveBtn} onClick={postApi}>
           저장
         </SaveBtn>
@@ -136,5 +142,3 @@ const SaveBtn = styled.button`
     transition: all ease 0.5s;
   }
 `;
-
-export default ProfileInfo;

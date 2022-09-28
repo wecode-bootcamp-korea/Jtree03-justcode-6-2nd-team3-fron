@@ -1,26 +1,52 @@
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import CreatableSelect from 'react-select/creatable';
-// import { useState } from 'react';
-function SelectTag(props) {
-  // const { placeholder, getSelectValue } = props;
-  // const [tagValue, setTag] = useState([]);
 
-  const options = [
-    { id: 1, value: '1', label: '1' },
-    { id: 2, value: '2', label: '2' },
-    { id: 3, value: '3', label: '3' },
-  ];
-  // useEffect(() => {}, [tagValue]);
+function SelectTag(props) {
+  const { placeholder, getSelectValue } = props;
+  const [tagValue, setTag] = useState([]);
+  const [inputValue, setInput] = useState('');
+  const [options, setOptions] = useState([]);
+
+  // const options = [
+  //   { id: 1, value: '1', label: '1' },
+  //   { id: 2, value: '2', label: '2' },
+  //   { id: 3, value: '3', label: '3' },
+  // ];
+
+  useEffect(() => {
+    axios.get(`http://localhost:8000/tags?keyword=${inputValue}`).then(res => {
+      const newOption = res.data.tagList;
+
+      setOptions(
+        newOption.map(data => {
+          return {
+            id: data.tag_id,
+            value: data.tag_name,
+            label: data.tag_name,
+          };
+        })
+      );
+    });
+  }, [inputValue]);
 
   const handleChange = value => {
-    const newVal = value.map(data => {
-      return { id: data.id, value: data.value };
-    });
-    newVal.forEach(item => {
-      if (item.id === undefined) {
-        delete item.id;
-      }
-    });
-    props.getSelectValue(newVal);
+    setTag(
+      value.map(data => {
+        if (data.id === undefined) {
+          return { tag_name: data.value };
+        } else {
+          return { tag_id: data.id, tag_name: data.value };
+        }
+      })
+    );
+  };
+  console.log('알고싶다', tagValue);
+  useEffect(() => {
+    getSelectValue(tagValue);
+  }, [tagValue]);
+  const onInputChange = value => {
+    setInput(value);
   };
 
   return (
@@ -30,7 +56,8 @@ function SelectTag(props) {
         onChange={handleChange}
         valueKey="value"
         options={options}
-        placeholder={props.placeholder}
+        placeholder={placeholder}
+        onInputChange={onInputChange}
       />
     </>
   );

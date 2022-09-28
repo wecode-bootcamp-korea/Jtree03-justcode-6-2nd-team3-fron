@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-function ListLoading() {
-  const arr = [1,2,3,4,5,6,7,8,9,10];
+export default function ListLoading() {
+  const arr = [1143,1234123421,24353,45674,1546755,66879,7698,34568,989,136750];
 
   return (
     <>
@@ -60,5 +60,3 @@ const Third = styled.div`
   border-radius: 7px;
   background: lightgray;
 `;
-
-export default ListLoading;

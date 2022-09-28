@@ -1,20 +1,23 @@
-import React from 'react'
-import styled from 'styled-components'
-import FooterCenterNav from './FooterCenterNav'
-import FooterCenterInfo from './FooterCenterInfo'
+import React from 'react';
+import styled from 'styled-components';
+import FooterCenterNav from './FooterCenterNav';
+import FooterCenterInfo from './FooterCenterInfo';
 
 export default function FooterCenter() {
   return (
-    <Contents>
-      <FooterCenterNav />
-      <FooterCenterInfo />
-    </Contents>
-  )
+    <Container>
+      <Contents>
+        <FooterCenterNav />
+        <FooterCenterInfo />
+      </Contents>
+    </Container>
+  );
 }
-
-const Contents = styled.div `
+const Container = styled.div`
+  width: 840px;
+`;
+const Contents = styled.div`
   width: auto;
   height: 104px;
-  margin-left: 100px;
   color: gray;
-`
+`;
