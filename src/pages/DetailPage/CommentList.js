@@ -3,13 +3,14 @@ import Nbutton from './component/Nbutton';
 import React, { useState } from 'react';
 import CommentInComment from './component/CommentInComment';
 import EditSection from './component/EditSection';
+import EditSection from './component/EditSection';
 import WriteCommentSpace from './component/WriteCommentSpace';
 
 //import Modal from 'react-modal';
 // import axios from 'axios';
 
 export default function CommentList(props) {
-  const { comment, setLogin, login, myInfor } = props;
+  const { comment, setLogin, login, myInfor, setLogin, login, myInfor } = props;
   const [openComment, setOpenComment] = useState(false);
   const [iWantWrite, setIWantWrite] = useState(false);
   const [wantEdit, setWantEdit] = useState(false);
@@ -168,6 +169,25 @@ const CommentEdit = styled.img`
   height: 18px;
 `;
 
+const WriteCommentSpaceWrapper = styled.div`
+  width: 100%;
+`;
+
+const Bttonstyle = styled.button`
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+`;
+
+//const CommentEditButton = styled.(Bttonstyle)
+
+const CommentEdit = styled.img`
+  margin-left: 20px;
+  margin-top: 3px;
+  width: 18px;
+  height: 18px;
+`;
+
 const SelectionButton = styled.button`
   //QnA카테고리만 해당
   display: flex;
@@ -256,8 +276,12 @@ const CommentContent = styled.div`
   position: relative;
   display: flex;
   flex-direction: row;
+  position: relative;
+  display: flex;
+  flex-direction: row;
   line-height: 1.3;
   margin: 15px 0;
+  font-size: 15px;
   font-size: 15px;
   color: gray;
 `;

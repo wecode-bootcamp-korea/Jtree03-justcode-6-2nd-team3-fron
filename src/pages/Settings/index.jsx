@@ -6,7 +6,7 @@ import profile from '../../image/settings/profile.png';
 
 import ProfileSetting from './ProfileSetting';
 
-function Settings() {
+export default function Settings() {
   const [profile, setProfile] = useState('');
 
   useEffect(() => {
@@ -14,11 +14,13 @@ function Settings() {
       .get('http://localhost:8000/profile', {
         headers: {
           Authorization:
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY2Mzg0NTE0MCwiZXhwIjoxNjYzODU1OTQwfQ.b0UfbrbXk5ohj2VamUJmB19oav1GnXwiSrIApW4u2Hk',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJpYXQiOjE2NjQyNjM0MDksImV4cCI6MTY2NDI3NDIwOX0.6M6jT_14ZlIoBBt6i1VMaNgOkw_KkMQxJNbVfoJyvgI',
         },
       })
       .then(res => setProfile(res.data.user));
   }, []);
+
+  console.log(profile);
 
   return (
     profile && (
@@ -74,5 +76,3 @@ const Img = styled.span`
   background: url(${profile}) center center no-repeat;
   background-size: cover;
 `;
-
-export default Settings;

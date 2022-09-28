@@ -29,6 +29,7 @@ export default function Detail() {
         setMyInfor(res.user);
       });
   }, []);
+  console.log(myInfor);
 
   return (
     <Center>

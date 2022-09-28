@@ -1,20 +1,21 @@
 import MainBoardList from './MainBoardList';
 import styled from 'styled-components';
 
-function MainBoard() {
-  const boardList = ['1', '2', '3', '4', '5'];
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+
+function MainBoard({ boardData, title }) {
   return (
     <>
       <BoardList>
         <Title>
-          <h3>타이틀</h3>
+          <h3>{title}</h3>
         </Title>
 
-        {boardList.map(data => {
+        {boardData.map((data, idx) => {
           return (
-            <Border>
-              {' '}
-              <MainBoardList />{' '}
+            <Border key={idx}>
+              <MainBoardList boardData={data} />
             </Border>
           );
         })}
@@ -25,7 +26,7 @@ function MainBoard() {
 const Title = styled.div`
   padding: 20px 30px;
   border-radius: 10px;
-  background: #f0f0f0;
+  background: #e8eff5;
 `;
 const BoardList = styled.div`
   flex: 1 1 40%;

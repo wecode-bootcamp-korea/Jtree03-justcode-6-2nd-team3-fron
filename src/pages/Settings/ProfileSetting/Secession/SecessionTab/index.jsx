@@ -10,7 +10,7 @@ function SecessionTab() {
       .delete('http://localhost:8000/users', {
         headers: {
           Authorization:
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY2MzgyMjY1MywiZXhwIjoxNjYzODMzNDUzfQ.dnHDDIH_zz6ThWkVspKpO4y4ZV84onm1DtBJbQfARsE',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJpYXQiOjE2NjQyNjM0MDksImV4cCI6MTY2NDI3NDIwOX0.6M6jT_14ZlIoBBt6i1VMaNgOkw_KkMQxJNbVfoJyvgI',
         },
       })
       .then(res => {if(res.data.message === 'success_userDoNotUse'){
@@ -25,7 +25,7 @@ function SecessionTab() {
       <H2>우리.. 좋았잖아.. 행복했잖아..</H2>
       <Img />
       <Div>
-        <SaveBtn onClick={() => navigate('.settings')}>
+        <SaveBtn onClick={() => navigate('/settings')}>
           한번만 더 잘 해보자
         </SaveBtn>
         <SaveBtn onClick={secession}>안녕.. 잘가..</SaveBtn>
@@ -40,7 +40,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: space-between;
   width: 448px;
-  margin: calc(100vh - 896px) auto;
+  margin: 50px auto 120px auto;
 `;
 
 const Logo = styled(Link)`

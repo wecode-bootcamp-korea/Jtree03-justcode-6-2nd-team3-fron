@@ -1,10 +1,8 @@
 import axios from 'axios';
-import { useRef, useState } from 'react';
 import styled from 'styled-components';
 
-function ProfileImg(props) {
+export default function ProfileImg(props) {
   const { profile_image } = props;
-  const [selectedFile, setSelectedFile] = useState(null);
 
   // const handleFileInput = e => {
   //   setSelectedFile({selectedFile: e.target.files[0]})
@@ -25,17 +23,21 @@ function ProfileImg(props) {
   //   })
   // };
 
-  const onChangeImg = async e => {
+  const onChangeImg = e => {
     e.preventDefault();
-    if(e.target.files){
-    const uploadFile = e.target.files[0]
-    const formData = new FormData()
-    formData.append('files',uploadFile)
-    await axios.patch('http://localhost:8000/profile/image', formData, {
-      headers: {
-      Authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY2Mzg0NTE0MCwiZXhwIjoxNjYzODU1OTQwfQ.b0UfbrbXk5ohj2VamUJmB19oav1GnXwiSrIApW4u2Hk'
-      }
-    })
+    if (e.target.files) {
+      const uploadFile = e.target.files[0];
+      const formData = new FormData();
+      formData.append('filename', uploadFile);
+      console.log(uploadFile);
+      axios
+        .patch('http://localhost:8000/profile/image', formData, {
+          headers: {
+            Authorization:
+              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJpYXQiOjE2NjQyNjM0MDksImV4cCI6MTY2NDI3NDIwOX0.6M6jT_14ZlIoBBt6i1VMaNgOkw_KkMQxJNbVfoJyvgI',
+          },
+        })
+        .then(res => console.log(res.data));
     }
   };
 
@@ -44,8 +46,6 @@ function ProfileImg(props) {
   //   formdata.append('filename', selectedFile[0]);
   //   // console.log(selectedFile[0]);
   // }
-
-  
 
   return (
     <form>
@@ -65,6 +65,7 @@ function ProfileImg(props) {
 }
 
 const ImgBox = styled.span`
+  display: inline-block;
   position: absolute;
   top: 0;
   right: 0;
@@ -99,5 +100,3 @@ const SaveBtn = styled.button`
     transition: all ease 0.5s;
   }
 `;
-
-export default ProfileImg;
