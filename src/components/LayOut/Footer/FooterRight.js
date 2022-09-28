@@ -6,7 +6,7 @@ export default function FooterRight() {
     <Info>
       <FirstLine>SPONSORED BY</FirstLine>
       <SecondLine>
-        <Logo src="image/idea.png" />
+        <Logo src="https://cdn-icons-png.flaticon.com/512/8496/8496377.png" />
       </SecondLine>
     </Info>
   );
