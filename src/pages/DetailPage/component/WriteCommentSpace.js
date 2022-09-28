@@ -2,8 +2,6 @@ import Texteditor from './Texteditor';
 import styled from 'styled-components';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
@@ -24,6 +22,7 @@ export default function WriteCommentSpace(props) {
   const pageId = params.id;
 
   useEffect(() => {
+    console.log('test', comment);
     name === '편집' && setwritecomment(comment.content);
   }, []);
 
@@ -94,8 +93,6 @@ export default function WriteCommentSpace(props) {
             <Texteditor
               setwritecomment={setwritecomment}
               writecomment={writecomment}
-              setwritecomment={setwritecomment}
-              writecomment={writecomment}
             />
           </TextEditorWrapper>
         ) : (
@@ -109,12 +106,7 @@ export default function WriteCommentSpace(props) {
         {name !== '댓글작성' && (
           <CancelButton onClick={canCelButton}>취소</CancelButton>
         )}
-        {name !== '댓글작성' && (
-          <CancelButton onClick={canCelButton}>취소</CancelButton>
-        )}
-        <CommentButton onClick={sendComment} onClick={sendComment}>
-          댓글쓰기
-        </CommentButton>
+        <CommentButton onClick={sendComment}>댓글쓰기</CommentButton>
       </Buttonspace>
     </>
   );
@@ -160,7 +152,6 @@ const ProfileImg = styled.img`
   width: 40px;
   height: 40px;
   opacity: 50%;
-  opacity: 50%;
 `;
 
 const Buttonspace = styled.div`
@@ -178,14 +169,6 @@ const CommentButton = styled.button`
   border: none;
   color: white;
   cursor: pointer;
-`;
-
-const CancelButton = styled.button`
-  background-color: white;
-  border: 1px solid lightgray;
-  padding: 8px 15px;
-  border-radius: 7px;
-  margin-right: 10px;
 `;
 
 const CancelButton = styled.button`
