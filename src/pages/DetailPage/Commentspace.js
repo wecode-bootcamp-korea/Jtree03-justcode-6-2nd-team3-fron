@@ -13,23 +13,30 @@ export default function Commentspace(props) {
   const pageId = params.id;
   const { myInfor } = props;
 
-  useEffect(() => {
+  // const lastIndexStyle = {
+  //   padding: '35px 0px',
+  //   border-bottom: '1px solid lightgray',
+  // };
+  function updateData() {
     axios
       .get(`http://localhost:8000/comment?post=${pageId}`)
       .then(function (res) {
-        res.data.postComment && setCommentData(res.data.postComment);
+        setCommentData(res.data.postComment.reverse());
       });
-  }, [pageId, commentData.length]);
+  }
 
-  // useEffect(() => {
-  //   window.location.replace(`/articles/${pageId}`);
-  // }, []);
+  useEffect(() => {
+    updateData();
+  }, [pageId]);
+
+  // let last = commentData[commentData.length - 1];
 
   return (
     <>
       <Howmany>{commentData && commentData.length}개의 댓글</Howmany>
       <Writespace>
         <WriteCommentSpace
+          updateData={updateData}
           setLogin={setLogin}
           login={login}
           name={'댓글작성'}
@@ -45,6 +52,7 @@ export default function Commentspace(props) {
                   setLogin={setLogin}
                   login={login}
                   myInfor={myInfor}
+                  updateData={updateData}
                 />
               </CommentWrapper>
             );
@@ -73,6 +81,9 @@ const Writespace = styled.div`
 const CommentWrapper = styled.div`
   padding: 35px 0px;
   border-bottom: 1px solid lightgray;
+  :nth-last-child(1) {
+    border: none;
+  }
 `;
 
 const CommentLists = styled.div`

@@ -9,20 +9,18 @@ import WriteCommentSpace from './component/WriteCommentSpace';
 // import axios from 'axios';
 
 export default function CommentList(props) {
-  const { comment, setLogin, login, myInfor } = props;
+  const { comment, setLogin, login, myInfor, updateData } = props;
   const [openComment, setOpenComment] = useState(false);
   const [iWantWrite, setIWantWrite] = useState(false);
   const [wantEdit, setWantEdit] = useState(false);
   const [showEditor, setShowEditor] = useState(false);
-  const [showEditor2, setShowEditor2] = useState(false);
 
   const incomment = comment.comment_in_comment;
 
   function toHtml() {
     return { __html: comment.content };
   }
-
-  console.log('test', login);
+  console.log('test', comment);
   return (
     <Comment>
       {showEditor ? (
@@ -31,6 +29,7 @@ export default function CommentList(props) {
           login={login}
           comment={comment}
           name={'편집'}
+          updateData={updateData}
           setShowEditor={setShowEditor}
         />
       ) : (
@@ -44,7 +43,7 @@ export default function CommentList(props) {
                 <Profilebutton2>{comment.nickname}</Profilebutton2>
                 <div>
                   <Viewimg src="https://cdn-icons-png.flaticon.com/512/2214/2214024.png" />
-                  <Small>114</Small>
+                  <Small>{comment.score}</Small>
                   <Small>·</Small>
                   <Small>{comment.comment_create_at}</Small>
                   {comment.content !== comment.content && (
@@ -69,7 +68,11 @@ export default function CommentList(props) {
           <CommentContent>
             <div dangerouslySetInnerHTML={toHtml()} />
             {wantEdit && (
-              <EditSection setShowEditor={setShowEditor} comment={comment} />
+              <EditSection
+                setShowEditor={setShowEditor}
+                updateData={updateData}
+                comment={comment}
+              />
             )}
           </CommentContent>
 
@@ -106,6 +109,7 @@ export default function CommentList(props) {
                 <BlankLine />
                 <WriteCommentSpaceWrapper>
                   <WriteCommentSpace
+                    updateData={updateData}
                     setIWantWrite={setIWantWrite}
                     setOpenComment={setOpenComment}
                     showEditor={showEditor}
@@ -120,25 +124,15 @@ export default function CommentList(props) {
             {openComment &&
               incomment[0].content !== null &&
               incomment.map(f => {
-                console.log('test', f);
                 return (
                   <CommentinCommentwrapper key={f.comment_id}>
                     <BlankLine />
-                    {console.log('test', showEditor2)}
-                    {showEditor2 ? (
-                      <WriteCommentSpace
-                        setLogin={setLogin}
-                        login={login}
-                        comment={comment}
-                        name={'편집'}
-                        setShowEditor={setShowEditor2}
-                      />
-                    ) : (
-                      <CommentInComment
-                        comment={f}
-                        setShowEditor={setShowEditor2}
-                      />
-                    )}
+                    <CommentInComment
+                      updateData={updateData}
+                      comment={f}
+                      login={login}
+                      setLogin={setLogin}
+                    />
                   </CommentinCommentwrapper>
                 );
               })}
