@@ -1,11 +1,10 @@
 import List from "../../../components/List";
 
-export default function Daily() {
+export default function EVENTS() {
   const pageInfo = {
-    name: 'QnA',
-    path: 'questions',
-    categoryPath: 'tech',
-    id: 1
+    name: 'EVENTS',
+    path: 'events',
+    id: 3
   }
   return (
     <List pageInfo={pageInfo} />

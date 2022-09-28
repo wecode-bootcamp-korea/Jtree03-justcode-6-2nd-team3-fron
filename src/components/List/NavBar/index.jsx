@@ -4,76 +4,115 @@ import Category from './Category';
 
 import img from '../../../image/list/sort.png';
 import pencil from '../../../image/list/pencil.png';
+import { Link, useLocation } from 'react-router-dom';
+// import { useRef } from 'react';
+// import { useEffect } from 'react';
+import JobsFilter from './JobsFilter';
 
-function NavBar(props) {
-  const { subMenu, setSortId, setSubMenuId } = props;
-    
+export default function NavBar(props) {
+  const {
+    pageInfo,
+    subMenu,
+    setSortId,
+    setSubMenuId,
+    setKeyword,
+    setSearch,
+    setPage,
+    setSearchFilter,
+  } = props;
+
   const [sort, setSort] = useState([
-    { sub_category_name: '최신순', id:'', view: true },
-    { sub_category_name: '추천순', id:1, view: false },
-    { sub_category_name: '댓글순', id:2, view: false },
-    { sub_category_name: '스크랩순', id:3, view: false },
-    { sub_category_name: '조회순', id:4, view: false },
+    { sub_category_name: '최신순', id: '', view: true },
+    { sub_category_name: '추천순', id: 1, view: false },
+    { sub_category_name: '댓글순', id: 2, view: false },
+    { sub_category_name: '스크랩순', id: 3, view: false },
+    { sub_category_name: '조회순', id: 4, view: false },
   ]);
 
   const [sortName, setSortName] = useState('최신순');
-  const [view, SetView] = useState(false);
+  const [view, setView] = useState(false);
+  // const ref = useRef();
+  const location = useLocation();
+
+  // useEffect(() => {
+  //   document.addEventListener('mousedown', clickModalOutside);
+
+  //   return () => {
+  //     document.addEventListener('mousedown', clickModalOutside);
+  //   };
+  // });
 
   return (
     <CategoryBox>
-      <WriteBtn>
+      <WriteBtn to={`${pageInfo.path}/new`}>
         <Pencil />
         작성하기
       </WriteBtn>
       <CategoryList>
-        {subMenu && subMenu.map(categoryValue => (
-          <Category
-            key={categoryValue.sub_category_name}
-            categoryValue={categoryValue}
-            setSubMenuId={setSubMenuId}
-          />
-        ))}
+        {subMenu &&
+          subMenu.map(categoryValue => (
+            <Category
+              key={categoryValue.sub_category_name}
+              pageInfo={pageInfo}
+              categoryValue={categoryValue}
+              setSubMenuId={setSubMenuId}
+              setKeyword={setKeyword}
+              setSortId={setSortId}
+              setSearch={setSearch}
+              setPage={setPage}
+              setSortName={setSortName}
+            />
+          ))}
       </CategoryList>
-      <Filter onClick={() => SetView(!view)}>
+      <Filter onClick={() => setView(!view)}>
         <SortIcon />
-        {sortName}
-        {view && (
-          <Ul>
-            {sort.map(sortValue => {
-              return (
-                <Li
-                  key={sortValue.sub_category_name}
-                  sortValue={sortValue}
-                  onClick={() => {
-                    for (let i in sort) {
-                      let arr = [...sort];
-                      arr[i].view = false;
-                      setSort(arr);
-                    }
-                    sortValue.view = true;
-                    setSortName(sortValue.sub_category_name);
-                    setSortId(sortValue.id);
-                  }}
-                >
-                  {sortValue.sub_category_name}
-                </Li>
-              );
-            })}
-          </Ul>
-        )}
+        {location.pathname === '/jobs' ? '검색필터' : sortName}
       </Filter>
+      {location.pathname === '/jobs' ? (
+        <>{view && <JobsFilter setView={setView} setSearchFilter={setSearchFilter} setSortId={setSortId} />}</>
+      ) : (
+        <>
+          {view && (
+            <Ul>
+              {sort.map(sortValue => {
+                return (
+                  <Li
+                    key={sortValue.sub_category_name}
+                    sortValue={sortValue}
+                    onClick={() => {
+                      for (let i in sort) {
+                        let arr = [...sort];
+                        arr[i].view = false;
+                        setSort(arr);
+                      }
+                      sortValue.view = true;
+                      setSortName(sortValue.sub_category_name);
+                      setSortId(sortValue.id);
+                      setView(false);
+                    }}
+                  >
+                    {sortValue.sub_category_name}
+                  </Li>
+                );
+              })}
+            </Ul>
+          )}
+        </>
+      )}
     </CategoryBox>
   );
 }
 
 const CategoryBox = styled.div`
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 40px;
   margin: 24px 0;
 `;
-const WriteBtn = styled.a`
+
+const WriteBtn = styled(Link)`
   display: flex;
   align-items: center;
   height: 32px;
@@ -81,6 +120,7 @@ const WriteBtn = styled.a`
   border-radius: 5px;
   font-size: 12px;
   font-weight: 500;
+  text-decoration: none;
   color: #ffffff;
   background: rgba(0, 144, 249, 0.9);
   cursor: pointer;
@@ -147,11 +187,10 @@ const Li = styled.li`
   height: 36px;
   padding: 8px 16px;
   font-size: 14px;
+  cursor: pointer;
   color: ${props => (props.sortValue.view ? '#0090F9' : '#4B5563')};
 
   &:hover {
     color: ${props => !props.sortValue.view && 'black'};
   }
 `;
-
-export default NavBar;
