@@ -19,6 +19,7 @@ function Main() {
       setEvent(res.data.events);
     });
   }, []);
+
   console.log('이벤트', eventList);
   const topBoardList = [
     { category: 'editorChoice', id: 1, title: `EDITOR'S CHOICE` },

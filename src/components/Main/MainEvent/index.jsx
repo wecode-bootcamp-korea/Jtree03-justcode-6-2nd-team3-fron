@@ -5,15 +5,16 @@ function MainEvent(data) {
   const navigate = useNavigate();
   return (
     <EventContainer>
-      <ImgContainer>
-        <EventImage src="https://dummyimage.com/300x200/dddddd/ffffff&text=sample" />
+      <ImgContainer
+        onClick={() => navigate(`/articles/${data.data.unique_id}`)}
+      >
+        <EventImage src={data.data.thumbnail} />
       </ImgContainer>
       <Detail>
         <p>{data.data.nickname}</p>
         {/* <span>&nbsp;&middot; 언제 </span> */}
       </Detail>
       <Title onClick={() => navigate(`/articles/${data.data.unique_id}`)}>
-        {' '}
         {data.data.title}
       </Title>
     </EventContainer>
@@ -27,6 +28,8 @@ const EventContainer = styled.div`
   }
 `;
 const ImgContainer = styled.div`
+  width: 265px;
+  height: auto;
   margin-bottom: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
