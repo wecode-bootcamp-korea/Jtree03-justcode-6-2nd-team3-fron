@@ -9,6 +9,8 @@ import Login from './pages/Login/Login';
 import Signup from './pages/Login/Signup/Signup';
 import Main from './pages/Main';
 
+//내 회원정보
+//import MyPage from './pages/myaccount/MyPage';
 // 글 목록
 import { QnA, Knowledge, Events, Notice, Jobs } from './pages/List';
 
@@ -36,7 +38,7 @@ export default function Router() {
         <Route path="/knowledge/new" element={<KnowledgeNew />} />
 
         {/* 상세페이지 */}
-        <Route path="/articles/1" element={<Detail />} />
+        <Route path="/articles/:id" element={<Detail />} />
 
         {/* 카테고리 */}
         {/* questions */}

@@ -17,11 +17,12 @@ export default function HeaderNav() {
     </>
   );
 }
-
+const Container = styled.div`
+  width: 840px;
+`;
 const Categories = styled.ul`
-  margin-left: 120px;
   width: 450px;
-  font-size: 15px;
+  font-size: 14px;
   display: flex;
   justify-content: space-between;
   align-items: center;
