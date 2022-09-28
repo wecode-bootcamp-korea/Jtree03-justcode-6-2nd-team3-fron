@@ -34,7 +34,7 @@ export default function ProfileImg(props) {
         .patch('http://localhost:8000/profile/image', formData, {
           headers: {
             Authorization:
-              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJpYXQiOjE2NjQyNjM0MDksImV4cCI6MTY2NDI3NDIwOX0.6M6jT_14ZlIoBBt6i1VMaNgOkw_KkMQxJNbVfoJyvgI',
+              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJpYXQiOjE2NjQzNjYxMTksImV4cCI6MTY2NDM3NjkxOX0.Sbs903MBWGA652C0EV6SrFEsCAZyBPBnIY6EUOUE0tw',
           },
         })
         .then(res => console.log(res.data));

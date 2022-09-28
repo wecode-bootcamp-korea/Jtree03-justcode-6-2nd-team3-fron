@@ -3,28 +3,19 @@ import styled from 'styled-components';
 
 import thunder from '../../../image/list/thunder.png';
 
-export default function Profile() {
-  const [btn, setBtn] = useState([
-    {
-      name: '게시물',
-      view: true,
-    },
-    {
-      name: '스크랩',
-      view: false,
-    },
-  ]);
+export default function Profile(props) {
+  const { profile, btn, setBtn } = props;
 
   return (
     <Div>
       <Top>
         <Info>
-          <Img />
+          <Img src={profile[0].profile_image} />
           <div>
-            <h1>하이요</h1>
+            <h1>{profile[0].nickname}</h1>
             <p>
               <img src={thunder} />
-              활동점수
+              활동점수 {profile[0].score}
             </p>
           </div>
         </Info>
@@ -101,7 +92,6 @@ const Img = styled.img`
   width: 64px;
   height: 64px;
   border-radius: 50%;
-  border: 1px solid red;
 `;
 
 const Bottom = styled.div`

@@ -1,19 +1,20 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-export default function Posts(props) {
-  const { create_at, title, sub_category_name, unique_id } = props.profile;
+export default function Scraps(props) {
+  const { create_at, title, sub_category_name, unique_id } = props.scraps;
   return (
     <List>
       <Top>
         <div>
-          <LinkTag to={''}>{sub_category_name}</LinkTag>에 게시물을
-          작성하였습니다.
+          <LinkTag to={''}>{sub_category_name}</LinkTag>의 질문을
+          스크랩하였습니다.
         </div>
         <div>{create_at}</div>
       </Top>
       <Bottom>
-        <Title to={`/articles/${unique_id}`}>{title}</Title>
+        <Title to={''}>{title}</Title>
       </Bottom>
     </List>
   );

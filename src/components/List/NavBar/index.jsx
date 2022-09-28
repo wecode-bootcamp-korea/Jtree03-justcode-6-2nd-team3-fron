@@ -5,7 +5,7 @@ import Category from './Category';
 import img from '../../../image/list/sort.png';
 import pencil from '../../../image/list/pencil.png';
 import { Link, useLocation } from 'react-router-dom';
-// import { useRef } from 'react';
+import { useRef } from 'react';
 // import { useEffect } from 'react';
 import JobsFilter from './JobsFilter';
 
@@ -31,7 +31,7 @@ export default function NavBar(props) {
 
   const [sortName, setSortName] = useState('최신순');
   const [view, setView] = useState(false);
-  // const ref = useRef();
+  const ref = useRef();
   const location = useLocation();
 
   // useEffect(() => {
@@ -88,7 +88,7 @@ export default function NavBar(props) {
                       sortValue.view = true;
                       setSortName(sortValue.sub_category_name);
                       setSortId(sortValue.id);
-                      setView(false);
+                      // setView(false);
                     }}
                   >
                     {sortValue.sub_category_name}
