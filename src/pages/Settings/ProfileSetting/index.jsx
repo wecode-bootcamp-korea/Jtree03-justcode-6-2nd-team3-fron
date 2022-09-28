@@ -5,11 +5,11 @@ import ChangePassWord from './ChangePassWord';
 import Secession from './Secession';
 
 export default function ProfileSetting(props) {
-  const { profile, setProfile } = props;
+  const { profile, setProfile, readProfile } = props;
 
   return (
     <Container>
-      <ProfileInfo profile={profile} setProfile={setProfile} />
+      <ProfileInfo profile={profile} setProfile={setProfile} readProfile={readProfile} />
       <ChangePassWord />
       <Secession />
     </Container>

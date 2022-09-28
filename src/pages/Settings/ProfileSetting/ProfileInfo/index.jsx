@@ -5,10 +5,8 @@ import ProfileImg from './ProfileImg';
 // import Tags from './Tags';
 
 export default function ProfileInfo(props) {
-  const {
-    profile,
-    // setProfile
-  } = props;
+  const { profile, readProfile } = props;
+
   const {
     user_name,
     nickname,
@@ -49,11 +47,11 @@ export default function ProfileInfo(props) {
         {
           headers: {
             Authorization:
-              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJpYXQiOjE2NjQyNjM0MDksImV4cCI6MTY2NDI3NDIwOX0.6M6jT_14ZlIoBBt6i1VMaNgOkw_KkMQxJNbVfoJyvgI',
+              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJpYXQiOjE2NjQzNjYxMTksImV4cCI6MTY2NDM3NjkxOX0.Sbs903MBWGA652C0EV6SrFEsCAZyBPBnIY6EUOUE0tw',
           },
         }
       )
-      .then(res => console.log(res));
+      .then(res => {console.log(res); setSaveBtn(true);});
   };
 
   return (
@@ -73,7 +71,7 @@ export default function ProfileInfo(props) {
           );
         })}
         {/* <Tags tags={tags} /> */}
-        <ProfileImg profile_image={profile_image} />
+        <ProfileImg profile_image={profile_image} readProfile={readProfile} />
         <SaveBtn disabled={saveBtn} onClick={postApi}>
           저장
         </SaveBtn>
@@ -125,7 +123,7 @@ const NameInput = styled.input`
 const SaveBtn = styled.button`
   width: 88px;
   height: 40px;
-  margin: 20px 0 0 425px;
+  margin: 30px 0 0 calc(100% - 88px);
   border: none;
   border-radius: 5px;
   background: rgba(0, 144, 249, 1);

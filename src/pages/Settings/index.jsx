@@ -9,8 +9,8 @@ import ProfileSetting from './ProfileSetting';
 export default function Settings() {
   const [profile, setProfile] = useState('');
 
-  useEffect(() => {
-    axios
+  const readProfile = () => {
+     axios
       .get('http://localhost:8000/profile', {
         headers: {
           Authorization:
@@ -18,7 +18,9 @@ export default function Settings() {
         },
       })
       .then(res => setProfile(res.data.user));
-  }, []);
+  }
+
+  useEffect(readProfile, []);
 
   console.log(profile);
 
@@ -32,7 +34,7 @@ export default function Settings() {
             회원정보
           </A>
         </Left>
-        <ProfileSetting profile={profile} setProfile={setProfile} />
+        <ProfileSetting profile={profile} setProfile={setProfile} readProfile={readProfile} />
       </Container>
     )
   );
