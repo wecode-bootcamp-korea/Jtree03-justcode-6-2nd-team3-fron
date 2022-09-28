@@ -14,6 +14,7 @@ export default function CommentList(props) {
   const [iWantWrite, setIWantWrite] = useState(false);
   const [wantEdit, setWantEdit] = useState(false);
   const [showEditor, setShowEditor] = useState(false);
+  const [showEditor2, setShowEditor2] = useState(false);
 
   const incomment = comment.comment_in_comment;
 
@@ -124,6 +125,7 @@ export default function CommentList(props) {
             {openComment &&
               incomment[0].content !== null &&
               incomment.map(f => {
+                console.log('test', f);
                 return (
                   <CommentinCommentwrapper key={f.comment_id}>
                     <BlankLine />
@@ -161,6 +163,7 @@ const CommentEdit = styled.img`
   width: 18px;
   height: 18px;
 `;
+//const CommentEditButton = styled.(Bttonstyle)
 //const CommentEditButton = styled.(Bttonstyle)
 
 const SelectionButton = styled.button`
@@ -254,8 +257,12 @@ const CommentContent = styled.div`
   position: relative;
   display: flex;
   flex-direction: row;
+  position: relative;
+  display: flex;
+  flex-direction: row;
   line-height: 1.3;
   margin: 15px 0;
+  font-size: 15px;
   font-size: 15px;
   font-size: 15px;
   color: gray;

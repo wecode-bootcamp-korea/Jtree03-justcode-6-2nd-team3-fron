@@ -13,10 +13,10 @@ function Main() {
   //이벤트리스트
   useEffect(() => {
     axios({
-      url: 'http://localhost:8000/posts?main_category_id=3&start=1&limit=3',
+      url: 'http://localhost:8000/main',
       method: 'get',
     }).then(res => {
-      setEvent(res.data.posts.posts);
+      setEvent(res.data.events);
     });
   }, []);
 

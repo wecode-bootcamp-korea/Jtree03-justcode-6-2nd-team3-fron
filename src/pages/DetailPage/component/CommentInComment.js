@@ -97,7 +97,6 @@ const Bttonstyle = styled.button`
   border: none;
   cursor: pointer;
 `;
-
 const CommentEdit = styled.img`
   margin-left: 20px;
   margin-top: 3px;
@@ -154,6 +153,7 @@ const Writeinfor = styled.div`
 `;
 
 const CommentContent = styled.div`
+  position: relative;
   position: relative;
   line-height: 1.3;
   margin: 15px 0;
