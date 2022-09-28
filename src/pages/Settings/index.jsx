@@ -9,16 +9,18 @@ import ProfileSetting from './ProfileSetting';
 export default function Settings() {
   const [profile, setProfile] = useState('');
 
-  useEffect(() => {
-    axios
+  const readProfile = () => {
+     axios
       .get('http://localhost:8000/profile', {
         headers: {
           Authorization:
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJpYXQiOjE2NjQyNjM0MDksImV4cCI6MTY2NDI3NDIwOX0.6M6jT_14ZlIoBBt6i1VMaNgOkw_KkMQxJNbVfoJyvgI',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJpYXQiOjE2NjQzNjYxMTksImV4cCI6MTY2NDM3NjkxOX0.Sbs903MBWGA652C0EV6SrFEsCAZyBPBnIY6EUOUE0tw',
         },
       })
       .then(res => setProfile(res.data.user));
-  }, []);
+  }
+
+  useEffect(readProfile, []);
 
   console.log(profile);
 
@@ -32,7 +34,7 @@ export default function Settings() {
             회원정보
           </A>
         </Left>
-        <ProfileSetting profile={profile} setProfile={setProfile} />
+        <ProfileSetting profile={profile} setProfile={setProfile} readProfile={readProfile} />
       </Container>
     )
   );

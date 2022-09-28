@@ -1,49 +1,90 @@
 import styled from 'styled-components';
 import Nbutton from './Nbutton';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import EditSection from './EditSection';
+import WriteCommentSpace from './WriteCommentSpace';
 //to Tobbar.js
-export default function CommentInComment({ comment, setShowEditor }) {
-  //const [showEditor, setShowEditor] = useState(false);
-
+export default function CommentInComment({
+  comment,
+  login,
+  setLogin,
+  updateData,
+}) {
+  const [showEditor2, setShowEditor2] = useState(false);
   const [iwantEdit, setiWantEdit] = useState(false);
+  const outSection = useRef();
+
   function toHtml() {
     return { __html: comment.content };
   }
 
   return (
     <Comment>
-      <Betweendiv>
-        <Rowdiv>
-          <Profilebutton1>
-            <Profileimg src="https://cdn-icons-png.flaticon.com/512/3001/3001758.png" />
-          </Profilebutton1>
-          <Writeinfor>
-            <Profilebutton2>{comment.comment.id}</Profilebutton2>
-            <div>
-              <Viewimg src="https://cdn-icons-png.flaticon.com/512/2214/2214024.png" />
-              <Small>114</Small>
-              <Small>·</Small>
-              <Small>약 16시간 전</Small>
-            </div>
-          </Writeinfor>
-        </Rowdiv>
-        <Rowdiv>
-          <Nbutton />
-          <Bttonstyle onClick={() => setiWantEdit(f => !f)}>
-            <CommentEdit src="https://cdn-icons-png.flaticon.com/512/2311/2311523.png" />
-          </Bttonstyle>
-        </Rowdiv>
-      </Betweendiv>
-      <CommentContent>
-        <div dangerouslySetInnerHTML={toHtml()} />
-        <EditSectionWrapper>
-          {iwantEdit && <EditSection setShowEditor={setShowEditor} />}
-        </EditSectionWrapper>
-      </CommentContent>
+      {showEditor2 ? (
+        <WriteCommentSpaceWrapper>
+          <WriteCommentSpace
+            updateData={updateData}
+            setLogin={setLogin}
+            login={login}
+            comment={comment}
+            name={'편집의편집'}
+            setShowEditor={setShowEditor2}
+          />
+        </WriteCommentSpaceWrapper>
+      ) : (
+        <div>
+          <Betweendiv>
+            <Rowdiv>
+              <Profilebutton1>
+                <Profileimg src={comment.profile_image} />
+              </Profilebutton1>
+              <Writeinfor>
+                <Profilebutton2>{comment.nickname}</Profilebutton2>
+                <div>
+                  <Viewimg src="https://cdn-icons-png.flaticon.com/512/2214/2214024.png" />
+                  <Small>{comment.user_score}</Small>
+                  <Small>·</Small>
+                  <Small>{comment.comment_create_at}</Small>
+                </div>
+              </Writeinfor>
+            </Rowdiv>
+            <Rowdiv>
+              <Nbutton />
+              <Bttonstyle onClick={() => setiWantEdit(f => !f)}>
+                <CommentEdit src="https://cdn-icons-png.flaticon.com/512/2311/2311523.png" />
+              </Bttonstyle>
+            </Rowdiv>
+          </Betweendiv>
+          <CommentContent>
+            <div dangerouslySetInnerHTML={toHtml()} />
+            {iwantEdit === true ? (
+              <EditSectionWrapper
+                ref={outSection}
+                onclick={e => {
+                  if (outSection.current === e.target) {
+                    setiWantEdit(false);
+                  }
+                }}
+              >
+                {iwantEdit && (
+                  <EditSection
+                    updateData={updateData}
+                    setShowEditor2={setShowEditor2}
+                    comment={comment}
+                    name={'대댓글수정'}
+                  />
+                )}
+              </EditSectionWrapper>
+            ) : null}
+          </CommentContent>
+        </div>
+      )}
     </Comment>
   );
 }
+const WriteCommentSpaceWrapper = styled.div`
+  width: 100%;
+`;
 
 const EditSectionWrapper = styled.div`
   position: absolute;
@@ -56,7 +97,6 @@ const Bttonstyle = styled.button`
   border: none;
   cursor: pointer;
 `;
-
 const CommentEdit = styled.img`
   margin-left: 20px;
   margin-top: 3px;
@@ -86,8 +126,9 @@ const Profilebutton1 = styled(Bttonstyle)`
 `;
 
 const Profileimg = styled.img`
-  height: 25px;
-  width: 25px;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
 `;
 
 const Profilebutton2 = styled(Bttonstyle)`
@@ -112,6 +153,7 @@ const Writeinfor = styled.div`
 `;
 
 const CommentContent = styled.div`
+  position: relative;
   position: relative;
   line-height: 1.3;
   margin: 15px 0;

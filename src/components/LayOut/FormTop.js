@@ -83,7 +83,7 @@ const SocialMediaBtn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 0.5px solid gray;
+  border: 1px solid #e5e7eb;
   cursor: pointer;
   :hover {
     border: 1px solid black;

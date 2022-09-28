@@ -5,8 +5,8 @@ import Category from './Category';
 import img from '../../../image/list/sort.png';
 import pencil from '../../../image/list/pencil.png';
 import { Link, useLocation } from 'react-router-dom';
-// import { useRef } from 'react';
-// import { useEffect } from 'react';
+import { useRef } from 'react';
+import { useEffect } from 'react';
 import JobsFilter from './JobsFilter';
 
 export default function NavBar(props) {
@@ -31,16 +31,24 @@ export default function NavBar(props) {
 
   const [sortName, setSortName] = useState('최신순');
   const [view, setView] = useState(false);
-  // const ref = useRef();
+  const ref = useRef();
   const location = useLocation();
 
-  // useEffect(() => {
-  //   document.addEventListener('mousedown', clickModalOutside);
+  useEffect(() => {
+    const clickOutside = (e) => {
+      // 모달이 열려 있고 모달의 바깥쪽을 눌렀을 때 창 닫기
+      if (view && ref.current && !ref.current.contains(e.target)) {
+        setView(false);
+      }
+    };
 
-  //   return () => {
-  //     document.addEventListener('mousedown', clickModalOutside);
-  //   };
-  // });
+    document.addEventListener("mousedown", clickOutside);
+
+    return () => {
+      // Cleanup the event listener
+      document.removeEventListener("mousedown", clickOutside);
+    };
+  }, [view]);
 
   return (
     <CategoryBox>
@@ -69,11 +77,11 @@ export default function NavBar(props) {
         {location.pathname === '/jobs' ? '검색필터' : sortName}
       </Filter>
       {location.pathname === '/jobs' ? (
-        <>{view && <JobsFilter setView={setView} setSearchFilter={setSearchFilter} setSortId={setSortId} />}</>
+        <>{view && <JobsFilter view={view} setView={setView} setSearchFilter={setSearchFilter} setSortId={setSortId} />}</>
       ) : (
         <>
           {view && (
-            <Ul>
+            <Ul ref={ref} >
               {sort.map(sortValue => {
                 return (
                   <Li

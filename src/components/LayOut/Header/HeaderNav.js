@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 export default function HeaderNav() {
   return (
-    <>
+    <Container>
       <Categories>
         <Category to={'/questions'}>Q&A</Category>
         <Category to={'/knowledge'}>KNOWLEDGE</Category>
@@ -14,7 +14,7 @@ export default function HeaderNav() {
         <li>|</li>
         <Category to={'/jobs'}>JOBS</Category>
       </Categories>
-    </>
+    </Container>
   );
 }
 const Container = styled.div`

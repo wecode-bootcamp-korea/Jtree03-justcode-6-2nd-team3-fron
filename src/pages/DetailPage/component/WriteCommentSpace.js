@@ -1,7 +1,7 @@
 import Texteditor from './Texteditor';
 import styled from 'styled-components';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
@@ -15,15 +15,18 @@ export default function WriteCommentSpace(props) {
     setShowEditor,
     setIWantWrite,
     setOpenComment,
+    updateData,
   } = props;
+  // console.log('test', commentIsComment);
 
   const [writecomment, setwritecomment] = useState();
   const params = useParams();
   const pageId = params.id;
+  const navi = useNavigate();
 
   useEffect(() => {
-    console.log('test', comment);
-    name === '편집' && setwritecomment(comment.content);
+    (name === '편집' || name === '편집의편집') &&
+      setwritecomment(comment.content);
   }, []);
 
   //console.log(commentid);
@@ -43,6 +46,11 @@ export default function WriteCommentSpace(props) {
 
   let body;
   if (name === '편집') {
+    body = {
+      comment_id: comment.comment_id,
+      content: writecomment,
+    };
+  } else if (name === '편집의편집') {
     body = {
       comment_id: comment.comment_id,
       content: writecomment,
@@ -69,17 +77,18 @@ export default function WriteCommentSpace(props) {
         setIWantWrite(false);
         setOpenComment(true);
       }
-    } else if (name === '편집') {
+    } else if (name === '편집' || name === '편집의편집') {
       axios.patch(`http://localhost:8000/comment`, body, {
         headers: { authorization: localStorage.getItem('token') },
       });
       setShowEditor(false);
     }
+    updateData();
   };
 
   const canCelButton = () => {
     name === '대댓글작성' && setIWantWrite(false);
-    name === '편집' && setShowEditor(false);
+    (name === '편집' || name === '편집의편집') && setShowEditor(false);
   };
 
   return (

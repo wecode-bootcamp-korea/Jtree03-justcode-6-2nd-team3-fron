@@ -1,29 +1,16 @@
 import axios from 'axios';
+import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
 export default function ProfileImg(props) {
-  const { profile_image } = props;
+  const { profile_image, readProfile } = props;
 
-  // const handleFileInput = e => {
-  //   setSelectedFile({selectedFile: e.target.files[0]})
-  // }
-
-  // const handlePost = () => {
-  //   const formData = new FormData();
-  //   formData.append('file', selectedFile);
-
-  //   return axios.post("http://localhost:8000/profile", formData, {
-  //     headers: {
-  //       Authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTY2MzgzMjgwOSwiZXhwIjoxNjYzODQzNjA5fQ.Pun_4BHb45wixa6uhUiE8X_gOfuJVRk16zbX7k8RxPM'
-  //     }
-  //   }).then(res => {
-  //     alert('성공')
-  //   }).catch(err => {
-  //     alert('실패')
-  //   })
-  // };
+  const [view, setView] = useState(false);
+  const location = useLocation();
 
   const onChangeImg = e => {
+    console.log(e.target.files);
     e.preventDefault();
     if (e.target.files) {
       const uploadFile = e.target.files[0];
@@ -34,32 +21,29 @@ export default function ProfileImg(props) {
         .patch('http://localhost:8000/profile/image', formData, {
           headers: {
             Authorization:
-              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJpYXQiOjE2NjQyNjM0MDksImV4cCI6MTY2NDI3NDIwOX0.6M6jT_14ZlIoBBt6i1VMaNgOkw_KkMQxJNbVfoJyvgI',
+              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJpYXQiOjE2NjQzNjYxMTksImV4cCI6MTY2NDM3NjkxOX0.Sbs903MBWGA652C0EV6SrFEsCAZyBPBnIY6EUOUE0tw',
           },
         })
         .then(res => console.log(res.data));
     }
+    readProfile();
   };
-
-  // const handleClick = () => {
-  //   const formdata = new FormData();
-  //   formdata.append('filename', selectedFile[0]);
-  //   // console.log(selectedFile[0]);
-  // }
 
   return (
     <form>
-      <ImgBox profile_image={profile_image}>
+      <ImgBox profile_image={profile_image}></ImgBox>
+      <Btn
+        onMouseEnter={() => setView(true)}
+        onMouseLeave={() => setView(false)}
+      >
         <input
           type="file"
           accept="image/*"
-          name="file"
           onChange={onChangeImg}
-        />
-        {/* <label htmlFor='input'>이게뭐야</label> */}
-      </ImgBox>
-      {/* <button onClick={handleClick} >안녕</button> */}
-      <SaveBtn disabled={false}>프로필 사진 저장</SaveBtn>
+          id="profile_img"
+        ></input>
+        {view && <label htmlFor="profile_img">변경</label>}
+      </Btn>
     </form>
   );
 }
@@ -78,25 +62,34 @@ const ImgBox = styled.span`
   background-size: cover;
 `;
 
-const SaveBtn = styled.button`
+const Btn = styled.div`
+  z-index: 100;
   position: absolute;
-  bottom: 0;
-  right: 20px;
-  width: 120px;
-  height: 40px;
-  border: none;
-  border-radius: 5px;
-  background: rgba(0, 144, 249, 1);
-  color: #ffffff;
-  cursor: pointer;
+  top: 0;
+  right: 0;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
 
-  &:disabled {
-    background: rgba(0, 144, 249, 0.7);
-    cursor: default;
+  input {
+    display: none;
   }
 
-  &:hover {
-    background: #2b75aa;
-    transition: all ease 0.5s;
+  label {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #232323;
+    opacity: 0.8;
+    color: #fff;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 14px;
   }
 `;
