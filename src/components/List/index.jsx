@@ -30,7 +30,6 @@ export default function List(props) {
     .all([
       axios.get(
         `http://localhost:8000/posts?main_category_id=${pageInfo.id}&sub_category_id=${subMenuId}&search_keyword=${keyword}&filter=${sortId}&page=${page}&limit=${limit}&filter_keyword=${searchFilter}`
-        // `http://localhost:9000/posts?main_category_id=5&sub_category_id=12&search_keyword=&filter=region&page=&limit=15&filter_keyword=경력`
         ),
         axios.get(`http://localhost:8000/menus/${pageInfo.id}`),
       ])

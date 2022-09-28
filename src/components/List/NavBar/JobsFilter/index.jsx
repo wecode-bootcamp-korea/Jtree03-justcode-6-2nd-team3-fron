@@ -1,10 +1,11 @@
+import { useRef } from 'react';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import close from '../../../../image/list/close.png';
 
 export default function JobsFilter(props) {
-  const { setView, setSearchFilter, setSortId } = props;
+  const { view, setView, setSearchFilter, setSortId } = props;
   const [filter, setFilter] = useState([
     {
       name: '계약형태',
@@ -143,11 +144,26 @@ export default function JobsFilter(props) {
 
   const [first, setFirst] = useState('');
   const [second, setSecond] = useState('');
+  const ref = useRef();
 
-  console.log('first', first, 'second', second);
+  useEffect(() => {
+    const clickOutside = (e) => {
+      // 모달이 열려 있고 모달의 바깥쪽을 눌렀을 때 창 닫기
+      if (view && ref.current && !ref.current.contains(e.target)) {
+        setView(false);
+      }
+    };
+
+    document.addEventListener("mousedown", clickOutside);
+
+    return () => {
+      // Cleanup the event listener
+      document.removeEventListener("mousedown", clickOutside);
+    };
+  }, [view]);
 
   return (
-    <Div>
+    <Div ref={ref}>
       <Left>
         <div>
           검색조건
@@ -223,10 +239,13 @@ export default function JobsFilter(props) {
                   );
                 })}
             </span>
-            <Reset>선택 초기화</Reset>
+            <Reset onClick={()=>{
+              
+            }}>선택 초기화</Reset>
             <Search onClick={()=>{
               setSortId(first);
               setSearchFilter(second);
+              setView(false)
             }}>검색</Search>
           </RightFilter>
         </RightTitle>
