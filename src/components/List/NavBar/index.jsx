@@ -44,7 +44,7 @@ export default function NavBar(props) {
 
   return (
     <CategoryBox>
-      <WriteBtn to={`${pageInfo.path}/new`}>
+      <WriteBtn to={`/${pageInfo.path}/new`}>
         <Pencil />
         작성하기
       </WriteBtn>
