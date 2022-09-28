@@ -1,14 +1,31 @@
+import { useRef } from 'react';
 import styled from 'styled-components';
 
-function SearchBar(props) {
-  const { title, loading } = props;
+export default function SearchBar(props) {
+  const { loading, search, setKeyword } = props;
+  const ref = useRef();
+
+  const searchPost = () => {
+    setKeyword(ref.current.value);
+    ref.current.value = '';
+  };
+
+  const onKeyDown = e => {
+    if (e.key === 'Enter') {
+      searchPost();
+    }
+  };
 
   return (
     <Bar>
       <Refresh onClick={loading} />
       <Search>
         <Icon />
-        <Input placeholder={`${title} 내에서 검색`} />
+        <Input
+          placeholder={`${search} 내에서 검색`}
+          ref={ref}
+          onKeyDown={onKeyDown}
+        />
       </Search>
     </Bar>
   );
@@ -74,5 +91,3 @@ const Input = styled.input`
     outline: none;
   }
 `;
-
-export default SearchBar;
