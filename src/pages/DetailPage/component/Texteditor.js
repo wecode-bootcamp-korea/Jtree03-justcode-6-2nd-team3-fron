@@ -1,22 +1,29 @@
 import { useMemo } from 'react';
 import ReactQuill from 'react-quill';
-import styled from 'styled-components';
+//import { useEffect } from 'react';
+//import styled from 'styled-components';
 import './quill.snow.scss';
 
-function Texteditor() {
+function Texteditor(props) {
+  const { setwritecomment, writecomment } = props;
+
+  // useEffect(() => {
+  //   setwritecomment('aa');
+  // }, []);
+
   const modules = useMemo(
     () => ({
       toolbar: {
         // 툴바에 넣을 기능들을 순서대로 나열하면 된다.
         container: [
           ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-          [{ size: ['small', false, 'large', 'huge'] }, { color: [] }],
+          //  [{ size: ['small', false, 'large', 'huge'] }, { color: [] }],
           [
             { list: 'ordered' },
             { list: 'bullet' },
             { indent: '-1' },
             { indent: '+1' },
-            { align: [] },
+            //{ align: [] },
           ],
           ['image', 'video'],
         ],
@@ -27,27 +34,43 @@ function Texteditor() {
     }),
     []
   );
+  const formats = [
+    'header',
+    'bold',
+    'italic',
+    'underline',
+    'strike',
+    'list',
+    'ordered',
+    'bullet',
+    'blockquote',
+    'link',
+    'code-block',
+    'video',
+    'image',
+  ];
   return (
     <div className="texteditor">
       <ReactQuill
         // ref={quillRef}
-        // value={htmlContent}
-        // onChange={setHtmlContent}
+        value={writecomment}
         modules={modules}
         theme="snow"
+        formats={formats}
+        onChange={e => {
+          setwritecomment(e);
+        }}
         // className={styles.quillEditor}
-      >
-        <Editing />
-      </ReactQuill>
+      ></ReactQuill>
     </div>
   );
 }
 
-const Editing = styled.div`
-  border-bottom-left-radius: 7px;
-  border-bottom-right-radius: 7px;
-  width: 100%;
-  height: 70%;
-`;
+// const Editing = styled.div`
+//   border-bottom-left-radius: 7px;
+//   border-bottom-right-radius: 7px;
+//   width: 100%;
+//   height: 70%;
+// `;
 
 export default Texteditor;

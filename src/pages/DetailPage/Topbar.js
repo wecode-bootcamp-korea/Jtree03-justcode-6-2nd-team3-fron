@@ -1,26 +1,29 @@
 import styled from 'styled-components';
+import { useState } from 'react';
+import EditSection from './component/EditSection';
 //import { useParams } from 'react-router-dom';
 // let { params } = useParams();
 // params =
 
 export default function Topbar(props) {
-  const { data } = props;
+  const [wantEdit, setWantEdit] = useState(false);
+  const { postData } = props;
   return (
     <Body>
       <Publishinfor>
         <Profilebutton1>
-          <ProfileImg src={data.profileurl} />
+          <ProfileImg src={postData.profile_image} />
         </Profilebutton1>
         <Writeinfor>
-          <Profilebutton2>{data.nickname}</Profilebutton2>
+          <Profilebutton2>{postData.nickname}</Profilebutton2>
           <div>
             <Viewimg src="https://cdn-icons-png.flaticon.com/512/2214/2214024.png" />
-            <Small>{data.recommend}</Small>
+            <Small>{postData.score}</Small>
             <Small>·</Small>
-            <Small>약 16시간 전</Small>
+            <Small>{postData.create_at}</Small>
             <Small>·</Small>
             <Viewimg src="https://cdn-icons-png.flaticon.com/512/2874/2874780.png" />
-            <Small>{data.view}</Small>
+            <Small>{postData.views}</Small>
           </div>
         </Writeinfor>
       </Publishinfor>
@@ -31,10 +34,32 @@ export default function Topbar(props) {
         <Iconbutton>
           <Iconimg src="https://cdn-icons-png.flaticon.com/512/3031/3031121.png" />
         </Iconbutton>
+        <Bttonstyle onClick={() => setWantEdit(f => !f)}>
+          <CommentEdit src="https://cdn-icons-png.flaticon.com/512/2311/2311523.png" />
+        </Bttonstyle>
+        <Parentdiv>
+          <Position>{wantEdit && <EditSection />}</Position>
+        </Parentdiv>
       </div>
     </Body>
   );
 }
+const Parentdiv = styled.div`
+  position: relative;
+`;
+
+const Position = styled.div`
+  position: absolute;
+  top: 10px;
+  left: -580px;
+`;
+
+const CommentEdit = styled.img`
+  margin-left: 5px;
+  margin-top: 3px;
+  width: 18px;
+  height: 18px;
+`;
 
 const Body = styled.div`
   display: flex;

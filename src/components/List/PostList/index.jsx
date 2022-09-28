@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
 import thunder from '../../../image/list/thunder.png';
@@ -8,7 +8,9 @@ import view from '../../../image/list/view.png';
 import comment from '../../../image/list/comment.png';
 import arrow from '../../../image/list/arrow.png';
 
-function PostList(props) {
+export default function PostList(props) {
+  const { list, setSubMenuId, pageInfo } = props;
+
   const {
     unique_id,
     profile_image,
@@ -22,13 +24,17 @@ function PostList(props) {
     views,
     comment_cnt,
     recommend_cnt,
-  } = props.list;
+    sub_category_id,
+    path,
+  } = list;
 
   const info = [
     { url: view, num: views },
     { url: comment, num: comment_cnt },
     { url: arrow, num: recommend_cnt },
   ];
+
+  const location = useLocation();
 
   return (
     <Box>
@@ -47,14 +53,18 @@ function PostList(props) {
         {check ? <BlueCheck /> : <Check />}
       </Top>
       <Middle>
-        <Content to={''}>{title}</Content>
+        <Content to={`/articles/${unique_id}`}>{title}</Content>
       </Middle>
       <Bottom>
         <span>
-          <Tags>{sub_category_name}</Tags>
-          {tags.map((tag)=>{
-            <Tag>{tag.tag_name}</Tag>
-          })}
+          <Tags
+            to={`/${pageInfo.path}/${path}`}
+            onClick={() => setSubMenuId(sub_category_id)}
+            style={{display: location.pathname !== `/${pageInfo.path}` && 'none'}}
+          >
+            {sub_category_name}
+          </Tags>
+          {tags[0].tag_id && tags.map((tag, i) => <Tag key={i}>#{tag.tag_name}</Tag>)}
         </span>
         <Info>
           {info.map(info => {
@@ -162,9 +172,14 @@ const Bottom = styled.div`
   display: flex;
   justify-content: space-between;
   height: 20px;
+
+  span {
+    display: flex;
+    justify-content: space-between;
+  }
 `;
 
-const Tags = styled.div`
+const Tags = styled(Link)`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -172,16 +187,22 @@ const Tags = styled.div`
   padding: 2px 10px;
   background: #f0f6fa;
   font-size: 12px;
+  text-decoration: none;
   color: #0090f9;
+
 `;
 
 const Tag = styled.span`
-  display: flex;
-  align-items: center;
+  margin-left: 10px;
   height: 100%;
   color: #6b7280;
   font-size: 14px;
-`
+  cursor: default;
+
+  &:hover {
+    color: #111827;
+  }
+`;
 
 const Info = styled.span`
   display: flex;
@@ -204,5 +225,3 @@ const InfoImg = styled.span`
   background: url(${props => props.infoUrl}) center center no-repeat;
   background-size: cover;
 `;
-
-export default PostList;

@@ -3,7 +3,7 @@ import { useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-function ChangePasswordConfirm() {
+export default function ChangePasswordConfirm() {
   const value = ['현재 비밀번호', '신규 비밀번호', '신규 비밀번호 확인'];
   const inputRef = useRef([]);
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ function ChangePasswordConfirm() {
         {
           headers: {
             Authorization:
-              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY2MzczNDA2MywiZXhwIjoxNjYzNzQ0ODYzfQ.bGsr1XD5Gq0y1D12g2M7-TvH8ffDY4EFZGtqiDBMu2Q',
+              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJpYXQiOjE2NjQyNjM0MDksImV4cCI6MTY2NDI3NDIwOX0.6M6jT_14ZlIoBBt6i1VMaNgOkw_KkMQxJNbVfoJyvgI',
           },
         }
       )
@@ -32,8 +32,7 @@ function ChangePasswordConfirm() {
         console.log(err);
         if (err.response.data.message === 'PASSWORD_MISSMATCH') {
           setFail(true);
-        }
-        else if (err.response.data.message === 'TOKEN_EXPIRED') {
+        } else if (err.response.data.message === 'TOKEN_EXPIRED') {
           alert('로그인 정보가 만료 되었습니다.');
           // navigate('/login');
         }
@@ -48,16 +47,18 @@ function ChangePasswordConfirm() {
         return (
           <Name key={value}>
             {value}
-            <NameInput type={'password'} ref={e => inputRef.current[i] = e} />
+            <NameInput type={'password'} ref={e => (inputRef.current[i] = e)} />
           </Name>
         );
       })}
       <SaveBtn onClick={changePW}>비밀번호 변경</SaveBtn>
-      {fail && <Fail>
-        <span />
-        <Title>비밀번호 변경 실패</Title>
-        <Text>현재 비밀번호가 일치하지 않습니다.</Text>
-      </Fail>}
+      {fail && (
+        <Fail>
+          <span />
+          <Title>비밀번호 변경 실패</Title>
+          <Text>현재 비밀번호가 일치하지 않습니다.</Text>
+        </Fail>
+      )}
     </Container>
   );
 }
@@ -69,7 +70,7 @@ const Container = styled.div`
   justify-content: space-between;
   width: 448px;
   min-height: 448px;
-  margin: calc(100vh - 896px) auto;
+  margin: 50px auto 120px auto;
 `;
 
 const Logo = styled(Link)`
@@ -119,44 +120,43 @@ const SaveBtn = styled.button`
   border: none;
   border-radius: 5px;
   background: rgba(0, 144, 249, 1);
-  color: #FFFFFF;
+  color: #ffffff;
   cursor: pointer;
 
-    &:hover {
-      background: #2b75aa;
-    }
+  &:hover {
+    background: #2b75aa;
+  }
 `;
 
 const Fail = styled.div`
   position: relative;
   width: 100%;
   height: 80px;
-  background: #FFF1F2;
+  background: #fff1f2;
   padding: 16px 16px 16px 36px;
   margin-top: 30px;
   border-radius: 5px;
 
-    span {
-      position: absolute;
-      top: 13px;
-      left: 16px;
-      width: 23px;
-      height: 23px;
-      background: url('https://cdn-icons-png.flaticon.com/512/4201/4201973.png') center center no-repeat;
-      background-size: cover;
-    }
-`
+  span {
+    position: absolute;
+    top: 13px;
+    left: 16px;
+    width: 23px;
+    height: 23px;
+    background: url('https://cdn-icons-png.flaticon.com/512/4201/4201973.png')
+      center center no-repeat;
+    background-size: cover;
+  }
+`;
+
 const Title = styled.div`
   font-size: 14px;
-  color: #991B1B;
+  color: #991b1b;
   margin-left: 12px;
-`
+`;
 
 const Text = styled.div`
   margin: 15px 0 0 12px;
   font-size: 14px;
-  color: #B91C1C;
-
-`
-
-export default ChangePasswordConfirm;
+  color: #b91c1c;
+`;
