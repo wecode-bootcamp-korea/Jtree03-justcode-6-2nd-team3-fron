@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import PostStyle from '../../../components/NewPost/PostStyle';
 
@@ -18,26 +18,15 @@ function JobsNew() {
   const getInput = e => {
     setInput({ ...inputValue, [e.target.name]: e.target.value });
   };
-  console.log('내용', styledContent);
   const formSubmit = e => {
     e.preventDefault();
     const data = {
-      inputValue,
+      ...inputValue,
       content: styledContent,
       tags: [],
       sub_category_id: 12,
       main_category_id: 5,
     };
-    // {
-    //   title: '프론트개발자를 구합니다.',
-    //   ...inputValue,
-    //   content: styledContent,
-    //   tags: [],
-    //   main_category_id: 5,
-    //   sub_category_id: 12,
-    // },
-
-    console.log('데이터', data);
     axios
       .post('http://localhost:8000/posts', data, {
         headers: {
@@ -266,6 +255,7 @@ const Button = styled.button`
   border-radius: 5px;
   border: 1px solid #ccc;
   background: none;
+  cursor: pointer;
   &:hover {
     background: rgb(249 250 251);
   }
@@ -278,6 +268,7 @@ const BlueButton = styled.button`
   border-radius: 5px;
   background: rgb(0 144 249);
   opacity: 0.7;
+  cursor: pointer;
   &:hover {
     opacity: 1;
   }

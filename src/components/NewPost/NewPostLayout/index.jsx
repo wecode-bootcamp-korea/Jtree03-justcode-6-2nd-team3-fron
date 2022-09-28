@@ -139,6 +139,7 @@ const Button = styled.button`
   border-radius: 5px;
   border: 1px solid #ccc;
   background: none;
+  cursor: pointer;
   &:hover {
     background: rgb(249 250 251);
   }
@@ -151,6 +152,7 @@ const BlueButton = styled.button`
   border-radius: 5px;
   background: rgb(0 144 249);
   opacity: 0.7;
+  cursor: pointer;
   &:hover {
     opacity: 1;
   }
