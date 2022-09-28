@@ -223,10 +223,13 @@ export default function JobsFilter(props) {
                   );
                 })}
             </span>
-            <Reset>선택 초기화</Reset>
+            <Reset onClick={()=>{
+              
+            }}>선택 초기화</Reset>
             <Search onClick={()=>{
               setSortId(first);
               setSearchFilter(second);
+              setView(false)
             }}>검색</Search>
           </RightFilter>
         </RightTitle>
