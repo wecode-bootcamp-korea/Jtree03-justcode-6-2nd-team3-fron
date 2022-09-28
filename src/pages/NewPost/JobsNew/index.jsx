@@ -1,21 +1,43 @@
+import axios from 'axios';
+import { useEffect } from 'react';
 import { useState } from 'react';
+import { Navigate } from 'react-router-dom';
 import styled from 'styled-components';
 import PostStyle from '../../../components/NewPost/PostStyle';
 
 function JobsNew() {
   const [styledContent, setContent] = useState('');
   const [positionValue, setPosition] = useState('');
+  const [inputValue, setInput] = useState({});
   const getStyledContent = data => {
     setContent(data);
   };
   const getPosition = e => {
     setPosition(e.target.value);
   };
-  console.log(positionValue);
-  console.log(styledContent);
+  const getInput = e => {
+    setInput({ ...inputValue, [e.target.name]: e.target.value });
+  };
+  console.log('내용', styledContent);
+  const formSubmit = e => {
+    e.preventDefault();
+    const data = [{ ...inputValue, content: styledContent }];
+    axios
+      .post('http://localhost:8000/posts', data, {
+        headers: {
+          authorization: localStorage.getItem('login-token'),
+        },
+      })
+      .then(res => {
+        alert('게시글 작성이 완료되었습니다.');
+        Navigate(`/articles/${res.data.post_id}`);
+      });
+  };
+
   const selectList = [
     {
       title: '경력',
+      name: 'career',
       options: [
         { value: '', name: '경력을 선택하세요.' },
         { value: '신입', name: '신입' },
@@ -25,6 +47,7 @@ function JobsNew() {
     },
     {
       title: '지역',
+      name: 'region',
       options: [
         { value: '', name: '지역을 선택해주세요.' },
         { value: '서울', name: '서울' },
@@ -34,6 +57,7 @@ function JobsNew() {
     },
     {
       title: '급여',
+      name: 'pay',
       options: [
         { value: '', name: '급여를 선택해주세요.' },
         { value: '200만원이상', name: '200만원이상' },
@@ -46,6 +70,7 @@ function JobsNew() {
     },
     {
       title: '계약 형태',
+      name: 'contract_type',
       options: [
         { value: '', name: '계약형태를 선택해주세요.' },
         { value: '정규직', name: '정규직' },
@@ -76,33 +101,61 @@ function JobsNew() {
     ],
   };
   const inputList = [
-    { title: '담당자명', placeholder: '담당자명을 작성하세요.' },
-    { title: '담당자 이메일', placeholder: '담당자 이메일을 작성하세요.' },
+    {
+      name: 'manager_name',
+      title: '이름',
+      placeholder: '담당자명을 작성하세요.',
+    },
+    {
+      name: 'manager_email',
+      title: '이메일',
+      placeholder: '담당자 이메일을 작성하세요.',
+    },
+    {
+      name: 'manager_tel',
+      title: '전화번호',
+      placeholder: '-를 빼고 작성해주세요.',
+    },
   ];
   return (
     <NewContainer>
       <Title>구인등록</Title>
       <SubTitle>OKIDOKI에서 소중한 인재를 채용하세요.</SubTitle>
-      {/* <form onSubmit={formSubmit}> */}
-      <form>
-        <div>
+      <form onSubmit={formSubmit}>
+        <MarginT50>담당자 정보</MarginT50>
+        <Flex>
+          {inputList.map((data, idx) => {
+            return (
+              <div key={idx} className="width50">
+                <Label>{data.title}</Label>
+                <Input
+                  type="text"
+                  placeholder={data.placeholder}
+                  onChange={getInput}
+                  name={data.name}
+                />
+              </div>
+            );
+          })}
+        </Flex>
+        <MarginT50>구인 정보</MarginT50>
+        <Flex>
           {selectList.map((data, idx) => {
             return (
-              <div key={idx}>
+              <div key={idx} className="width50">
                 <Label>{data.title}</Label>
-                <Select>
+                <Select onChange={getInput} name={data.name}>
                   {data.options.map((data, idx) => {
-                    return <option>{data.name}</option>;
+                    return <option key={idx}>{data.name}</option>;
                   })}
                 </Select>
               </div>
             );
           })}
-        </div>
-
+        </Flex>
         <Label>포지션</Label>
         <Flex>
-          <div>
+          <div className="width50">
             <Select onChange={getPosition}>
               {position.map((data, idx) => {
                 return (
@@ -113,23 +166,13 @@ function JobsNew() {
               })}
             </Select>
           </div>
-          <div>
-            <Select>
+          <div className="width50">
+            <Select onChange={getInput} name="position">
               {positionDetail[positionValue].map((data, idx) => {
                 return <option key={idx}>{data.name}</option>;
               })}
             </Select>
           </div>
-        </Flex>
-        <Flex>
-          {inputList.map((data, idx) => {
-            return (
-              <div key={idx}>
-                <Label>{data.title}</Label>
-                <Input type="text" placeholder={data.placeholder} />
-              </div>
-            );
-          })}
         </Flex>
 
         <Label>상세정보</Label>
@@ -142,12 +185,20 @@ function JobsNew() {
     </NewContainer>
   );
 }
+const MarginT50 = styled.h3`
+  margin-top: 50px;
+`;
 const Flex = styled.div`
   display: flex;
-  div {
-    flex-grow: 1;
-    :nth-child(1) {
-      margin-right: 20px;
+  flex-wrap: wrap;
+  .width50 {
+    max-width: 50%;
+    flex: 1 1 40%;
+    :nth-child(even) {
+      padding-left: 10px;
+    }
+    :nth-child(odd) {
+      padding-right: 10px;
     }
   }
 `;

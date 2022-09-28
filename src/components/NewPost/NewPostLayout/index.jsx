@@ -5,7 +5,7 @@ import SelectTag from '../../SelectTag';
 import { useEffect, useState } from 'react';
 import ReCaptcha from '../../ReCaptcha';
 import axios from 'axios';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function NewPostLayout(props) {
   const [subCategory, setCategory] = useState([]);
@@ -14,8 +14,8 @@ function NewPostLayout(props) {
       setCategory(res.data.sub_category);
     });
   }, []);
-  console.log('newSub', subCategory);
-  // const navigate = useNavigate();
+
+  const navigate = useNavigate();
   const { title, subTitle, mainId } = props;
   const [selectValue, setValue] = useState('');
   const [inputValue, setInputValue] = useState('');
@@ -23,7 +23,6 @@ function NewPostLayout(props) {
   const [styledContent, setContent] = useState('');
 
   const placeholder = '태그를 입력해주세요';
-  console.log('선택', selectValue);
 
   const getSelectValue = data => {
     setTag(data);
@@ -31,7 +30,7 @@ function NewPostLayout(props) {
   const getStyledContent = data => {
     setContent(data);
   };
-  console.log('tagvalue', tagValue);
+
   const selectVal = e => {
     setValue(e.target.value);
   };
@@ -48,7 +47,7 @@ function NewPostLayout(props) {
       title: inputValue,
       main_category_id: mainId,
     };
-    console.log('서브아이디', data);
+
     axios
       .post('http://localhost:8000/posts', data, {
         headers: {
@@ -57,7 +56,7 @@ function NewPostLayout(props) {
       })
       .then(res => {
         alert('게시글 작성이 완료되었습니다.');
-        // navigate(`articles/${unique_id}`);
+        navigate(`/articles/${res.data.post_id}`);
       });
   };
 
