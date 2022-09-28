@@ -26,7 +26,6 @@ export default function List(props) {
   const location = useLocation();
   
   function loading() {
-    localStorage.removeItem('token');
     axios
     .all([
       axios.get(
