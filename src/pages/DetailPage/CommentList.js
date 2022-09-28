@@ -14,15 +14,15 @@ export default function CommentList(props) {
   const [iWantWrite, setIWantWrite] = useState(false);
   const [wantEdit, setWantEdit] = useState(false);
   const [showEditor, setShowEditor] = useState(false);
+  const [showEditor2, setShowEditor2] = useState(false);
 
   const incomment = comment.comment_in_comment;
-  //console.log('프로필이미지', comment.profile_image);
 
   function toHtml() {
     return { __html: comment.content };
   }
-  //console.log('test', incomment[0]);
-  console.log('test', comment);
+
+  console.log('test', login);
   return (
     <Comment>
       {showEditor ? (
@@ -60,11 +60,10 @@ export default function CommentList(props) {
               <SelectionButton>
                 <CheckCircle src="https://cdn-icons-png.flaticon.com/512/1756/1756625.png" />
               </SelectionButton>
-              <Nbutton score={comment.score} name={'댓글점수'} />(
+              <Nbutton score={comment.score} name={'댓글점수'} />
               <Bttonstyle onClick={() => setWantEdit(f => !f)}>
                 <CommentEdit src="https://cdn-icons-png.flaticon.com/512/2311/2311523.png" />
               </Bttonstyle>
-              )
             </Rowdiv>
           </Betweendiv>
           <CommentContent>
@@ -121,10 +120,25 @@ export default function CommentList(props) {
             {openComment &&
               incomment[0].content !== null &&
               incomment.map(f => {
+                console.log('test', f);
                 return (
                   <CommentinCommentwrapper key={f.comment_id}>
                     <BlankLine />
-                    <CommentInComment comment={f} />
+                    {console.log('test', showEditor2)}
+                    {showEditor2 ? (
+                      <WriteCommentSpace
+                        setLogin={setLogin}
+                        login={login}
+                        comment={comment}
+                        name={'편집'}
+                        setShowEditor={setShowEditor2}
+                      />
+                    ) : (
+                      <CommentInComment
+                        comment={f}
+                        setShowEditor={setShowEditor2}
+                      />
+                    )}
                   </CommentinCommentwrapper>
                 );
               })}
@@ -153,6 +167,7 @@ const CommentEdit = styled.img`
   width: 18px;
   height: 18px;
 `;
+//const CommentEditButton = styled.(Bttonstyle)
 
 const SelectionButton = styled.button`
   //QnA카테고리만 해당
@@ -242,8 +257,12 @@ const CommentContent = styled.div`
   position: relative;
   display: flex;
   flex-direction: row;
+  position: relative;
+  display: flex;
+  flex-direction: row;
   line-height: 1.3;
   margin: 15px 0;
+  font-size: 15px;
   font-size: 15px;
   color: gray;
 `;
