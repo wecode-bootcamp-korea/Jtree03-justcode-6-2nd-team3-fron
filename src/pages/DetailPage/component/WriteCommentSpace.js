@@ -22,7 +22,6 @@ export default function WriteCommentSpace(props) {
   const pageId = params.id;
 
   useEffect(() => {
-    console.log('test', comment);
     name === '편집' && setwritecomment(comment.content);
   }, []);
 
