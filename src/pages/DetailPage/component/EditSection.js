@@ -2,18 +2,18 @@ import styled from 'styled-components';
 import axios from 'axios';
 
 export default function Editsection(props) {
-  const { setShowEditor, comment } = props;
+  const { setShowEditor, comment, name, setShowEditor2, updateData } = props;
 
   function deleteComment() {
     axios.delete(`http://localhost:8000/comment`, {
       headers: { authorization: localStorage.getItem('token') },
       data: { comment_id: comment.comment_id },
     });
+    updateData();
   }
-  console.log(comment);
 
   function editcomment() {
-    setShowEditor(true);
+    name === '대댓글수정' ? setShowEditor2(true) : setShowEditor(true);
     //setwritecomment('aa');
   }
 
