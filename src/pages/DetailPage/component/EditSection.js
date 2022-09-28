@@ -10,7 +10,7 @@ export default function Editsection(props) {
       data: { comment_id: comment.comment_id },
     });
   }
-  //console.log(comment.content);
+  console.log(comment);
 
   function editcomment() {
     setShowEditor(true);
