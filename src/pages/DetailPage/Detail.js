@@ -26,15 +26,14 @@ export default function Detail() {
         headers: { authorization: localStorage.getItem('token') },
       })
       .then(function (res) {
-        setMyInfor(res.user);
+        setMyInfor(res.data.user);
       });
   }, []);
-
   return (
     <Center>
       <Body>
-        <Topbar postData={postData} />
-        <Content postData={postData} />
+        <Topbar postData={postData} myInfor={myInfor} />
+        <Content postData={postData} myInfor={myInfor} />
         <Commentspace myInfor={myInfor} />
       </Body>
     </Center>

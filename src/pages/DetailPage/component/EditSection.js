@@ -2,7 +2,14 @@ import styled from 'styled-components';
 import axios from 'axios';
 
 export default function Editsection(props) {
-  const { setShowEditor, comment, name, setShowEditor2, updateData } = props;
+  const {
+    setShowEditor,
+    comment,
+    name,
+    setShowEditor2,
+    updateData,
+    setWantEdit,
+  } = props;
 
   function deleteComment() {
     axios.delete(`http://localhost:8000/comment`, {
@@ -10,6 +17,7 @@ export default function Editsection(props) {
       data: { comment_id: comment.comment_id },
     });
     updateData();
+    setWantEdit(false);
   }
 
   function editcomment() {

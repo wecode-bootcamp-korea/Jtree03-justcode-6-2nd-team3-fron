@@ -9,12 +9,10 @@ export default function Nbutton(props) {
   const { score, name } = props;
 
   function clickDown() {
-    //leftClick ? score + 1 : score - 1; //클릭했을때 서버의 데이터를 바꿔야하니깐 작동이안됨
     setLeftClick(f => !f);
   }
 
   function clickUp() {
-    //rightClick ? score - 1 : score + 1;
     setRightClick(f => !f);
   }
 
