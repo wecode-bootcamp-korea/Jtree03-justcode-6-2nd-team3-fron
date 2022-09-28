@@ -20,7 +20,6 @@ function Main() {
     });
   }, []);
 
-  console.log('이벤트', eventList);
   const topBoardList = [
     { category: 'editorChoice', id: 1, title: `EDITOR'S CHOICE` },
     { category: 'weeklyBest', id: 2, title: 'WEEKLY BEST' },
