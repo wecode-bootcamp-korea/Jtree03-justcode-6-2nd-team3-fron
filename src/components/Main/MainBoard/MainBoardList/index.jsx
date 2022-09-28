@@ -12,8 +12,8 @@ function MainBoardList({ boardData }) {
       <Boardcontent>
         <ListTitle>
           <DFlex>
-            <User>
-              <span profile_image={boardData.profile_image} />
+            <User url={boardData.profile_image}>
+              <span />
               {boardData.nickname}
             </User>
             <Point>
@@ -21,7 +21,7 @@ function MainBoardList({ boardData }) {
               <span />
               {boardData.score}
             </Point>
-            <Time>&nbsp;&middot; 시간</Time>
+            {/* <Time>&nbsp;&middot; 시간</Time> */}
           </DFlex>
           <DFlex>
             <Common backImage={arrow}>
@@ -69,12 +69,12 @@ const User = styled.div`
   align-items: center;
   margin-right: 5px;
   span {
-    display: inline-block;
+    display: block;
     width: 30px;
     height: 30px;
     margin-right: 10px;
     border-radius: 50%;
-    background: url(${props => props.profile_image}) center center no-repeat;
+    background: url(${props => props.url}) center center no-repeat;
     background-size: cover;
   }
 `;
