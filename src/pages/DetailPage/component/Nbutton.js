@@ -1,18 +1,20 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 
-export default function Nbutton() {
-  const [like, setLike] = useState(0); // 서버에서 받아오는 데이터 반영
+export default function Nbutton(props) {
+  // const [like, setLike] = useState(score); // 서버에서 받아오는 데이터 반영
   const [leftClick, setLeftClick] = useState(false); //해당하는 boolean data도 서버에서 관리한다? 유저 => 해당댓글
   const [rightClick, setRightClick] = useState(false); //마찬가지?
 
+  const { score, name } = props;
+
   function clickDown() {
-    leftClick ? setLike(like + 1) : setLike(like - 1);
+    //leftClick ? score + 1 : score - 1; //클릭했을때 서버의 데이터를 바꿔야하니깐 작동이안됨
     setLeftClick(f => !f);
   }
 
   function clickUp() {
-    rightClick ? setLike(like - 1) : setLike(like + 1);
+    //rightClick ? score - 1 : score + 1;
     setRightClick(f => !f);
   }
 
@@ -25,7 +27,7 @@ export default function Nbutton() {
           <Likeimg src="https://i.esdrop.com/d/f/NlKPuBbCgn/E76ZUUcq0j.png" />
         )}
       </NbttonLeft>
-      <View>{like}</View>
+      <View>{name === '댓글점수' ? score : 2}</View>
       <NbttonRight onClick={clickUp} disabled={leftClick && true}>
         {rightClick ? (
           <Likeimg src="https://i.esdrop.com/d/f/NlKPuBbCgn/Gduesjldbw.png" />

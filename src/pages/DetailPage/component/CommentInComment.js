@@ -2,6 +2,10 @@ import styled from 'styled-components';
 import Nbutton from './Nbutton';
 //to Tobbar.js
 export default function CommentInComment(comment) {
+  function toHtml() {
+    return { __html: comment.comment.content };
+  }
+
   return (
     <Comment>
       <Betweendiv>
@@ -10,7 +14,7 @@ export default function CommentInComment(comment) {
             <Profileimg src="https://cdn-icons-png.flaticon.com/512/3001/3001758.png" />
           </Profilebutton1>
           <Writeinfor>
-            <Profilebutton2>{comment.nickname}</Profilebutton2>
+            <Profilebutton2>{comment.comment.id}</Profilebutton2>
             <div>
               <Viewimg src="https://cdn-icons-png.flaticon.com/512/2214/2214024.png" />
               <Small>114</Small>
@@ -21,7 +25,9 @@ export default function CommentInComment(comment) {
         </Rowdiv>
         <Nbutton />
       </Betweendiv>
-      <CommentContent>안녕하세요</CommentContent>
+      <CommentContent>
+        <div dangerouslySetInnerHTML={toHtml()} />
+      </CommentContent>
     </Comment>
   );
 }
