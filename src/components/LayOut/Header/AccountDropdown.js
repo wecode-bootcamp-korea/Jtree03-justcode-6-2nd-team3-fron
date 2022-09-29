@@ -22,11 +22,11 @@ export default function Dropdown(props) {
       }
     };
 
-    document.addEventListener("mousedown", clickOutside);
+    document.addEventListener('mousedown', clickOutside);
 
     return () => {
       // Cleanup the event listener
-      document.removeEventListener("mousedown", clickOutside);
+      document.removeEventListener('mousedown', clickOutside);
     };
   }, [open]);
 
@@ -53,7 +53,7 @@ export default function Dropdown(props) {
           {drop.map(el => (
             <ItemBtn key={el.title}>
               <ItemImg src={el.img} />
-              <Link to={el.link} onClick={()=>setOpen(false)}>
+              <Link to={el.link} onClick={() => setOpen(false)}>
                 <ItemTitle>{el.title}</ItemTitle>
               </Link>
             </ItemBtn>

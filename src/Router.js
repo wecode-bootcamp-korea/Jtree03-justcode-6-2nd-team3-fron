@@ -62,6 +62,7 @@ export default function Router() {
         <Route path="/questions/new" element={<QuestionsNew />} />
         <Route path="/events/new" element={<EventsNew />} />
         <Route path="/knowledge/new" element={<KnowledgeNew />} />
+        <Route path="/jobs/new" element={<JobsNew />} />
 
         {/* 내 프로필 */}
         <Route path="settings/*" element={<Settings />} />
