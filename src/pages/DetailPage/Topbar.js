@@ -36,12 +36,11 @@ export default function Topbar(props) {
           <Iconimg src="https://cdn-icons-png.flaticon.com/512/3031/3031121.png" />
         </Iconbutton>
         {myInfor.nickname === postData.nickname && (
-          {myInfor.nickname === postData.nickname && (
           <Bttonstyle onClick={() => setWantEdit(f => !f)}>
-              <CommentEdit src="https://cdn-icons-png.flaticon.com/512/2311/2311523.png" />
-            </Bttonstyle>
+            <CommentEdit src="https://cdn-icons-png.flaticon.com/512/2311/2311523.png" />
+          </Bttonstyle>
         )}
-        )}
+
         <Parentdiv>
           <Position>{wantEdit && <EditSection name={'게시글'} />}</Position>
         </Parentdiv>
