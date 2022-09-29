@@ -1,37 +1,29 @@
-import React, { useState } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 export default function HeaderNav() {
-  const location = useLocation();
-
-  const [category, setCategory] = useState([
+  const category = [
     {
       name: 'Q&A',
       path: 'questions',
-      view: false,
     },
     {
       name: 'KNOWLEDGE',
       path: 'knowledge',
-      view: false,
     },
     {
       name: 'EVENTS',
       path: 'events',
-      view: false,
     },
     {
       name: 'NOTICE',
       path: 'notice',
-      view: false,
     },
     {
       name: 'JOBS',
       path: 'jobs',
-      view: false,
     },
-  ]);
+  ];
 
   return (
     <Container>
@@ -39,19 +31,11 @@ export default function HeaderNav() {
         <>
           <Category
             to={el.path}
-            onClick={() => {
-              for (let i in category) {
-                let arr = [...category];
-                arr[i].view = false;
-                setCategory(arr);
-              }
-              el.view = true;
-            }}
-            el={el}
+            className={({ isActive }) => isActive && 'active'}
           >
             {el.name}
           </Category>
-            <Div />
+          <Div />
         </>
       ))}
     </Container>
@@ -83,7 +67,8 @@ const Category = styled(NavLink)`
   width: 90px;
   text-align: center;
   text-decoration: none;
-  color: ${props => (props.el.view ? '#0090f9' : '#000000')};
+
+  color: #000000;
   font-size: 14px;
   cursor: pointer;
 
@@ -97,5 +82,9 @@ const Category = styled(NavLink)`
 
   &:nth-child(9) {
     width: 80px;
+  }
+
+  &.active {
+    color: #0090f9;
   }
 `;

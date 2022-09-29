@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import List from '../../components/List';
 
-export default function Category() {
+export default function PostList() {
 
   const [pageInfo, setPageInfo] = useState();
   const location = useLocation();
