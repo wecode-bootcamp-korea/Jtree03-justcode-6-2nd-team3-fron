@@ -13,16 +13,13 @@ export default function Settings() {
      axios
       .get('http://localhost:8000/profile', {
         headers: {
-          Authorization:
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJpYXQiOjE2NjQzNjYxMTksImV4cCI6MTY2NDM3NjkxOX0.Sbs903MBWGA652C0EV6SrFEsCAZyBPBnIY6EUOUE0tw',
+          Authorization: localStorage.getItem('login-token'),
         },
       })
       .then(res => setProfile(res.data.user));
   }
 
   useEffect(readProfile, []);
-
-  console.log(profile);
 
   return (
     profile && (

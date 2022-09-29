@@ -46,12 +46,13 @@ export default function ProfileInfo(props) {
         },
         {
           headers: {
-            Authorization:
-              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJpYXQiOjE2NjQzNjYxMTksImV4cCI6MTY2NDM3NjkxOX0.Sbs903MBWGA652C0EV6SrFEsCAZyBPBnIY6EUOUE0tw',
+            Authorization: localStorage.getItem('login-token'),
           },
         }
       )
-      .then(res => {console.log(res); setSaveBtn(true);});
+      .then(res => {
+        setSaveBtn(true);
+      });
   };
 
   return (

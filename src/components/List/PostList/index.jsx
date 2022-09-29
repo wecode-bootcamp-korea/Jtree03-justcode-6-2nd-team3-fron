@@ -117,6 +117,10 @@ const UserId = styled(Link)`
   padding-left: 4px;
   color: #111827;
   text-decoration: none;
+
+  &:hover {
+    color: #374151;
+  }
 `;
 
 const Etc = styled.span`

@@ -2,7 +2,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-export default function Dropdown() {
+export default function Dropdown(props) {
+
+  const { profileImg } = props;
+
   const [open, setOpen] = useState(false);
   const logOut = () => {
     setOpen(false);
@@ -43,7 +46,7 @@ export default function Dropdown() {
   return (
     <div>
       <AccountIcon role="button" onClick={() => setOpen(!open)}>
-        <Image src="https://cdn-icons-png.flaticon.com/512/747/747376.png" />
+        <Image src={profileImg} />
       </AccountIcon>
       {open && (
         <List ref={ref}>
@@ -72,13 +75,14 @@ const AccountIcon = styled.div`
   cursor: pointer;
 `;
 const Image = styled.img`
-  width: 20px;
-  height: 20px;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
 `;
 const List = styled.ul`
   position: absolute;
   top: 55px;
-  right: -5px;
+  right: 0px;
   width: 230px;
   border-radius: 5px;
   border: 1px solid #ddd;

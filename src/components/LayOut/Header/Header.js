@@ -5,19 +5,31 @@ import HeaderLogo from './HeaderLogo';
 import HeaderNav from './HeaderNav';
 import HeaderBtns from './HeaderBtns';
 import Account from './Account';
+import axios from 'axios';
 
 export default function Header() {
   const [isLogin, setIsLogin] = useState(false);
+  const [profileImg, setProfileImg] = useState('');
 
   useEffect(() => {
     localStorage.getItem('login-token') ? setIsLogin(true) : setIsLogin(false);
-  }, [isLogin]);
+
+    axios.get('http://localhost:8000/profile', {
+      headers: {
+        authorization: localStorage.getItem('login-token'),
+      }
+    })
+    .then(res => setProfileImg(res.data.user.profile_image));
+  }, [isLogin, profileImg]);
+
+
+
   return (
     <Container>
       <Wrapper>
         <HeaderLogo />
         <HeaderNav />
-        {isLogin ? <Account /> : <HeaderBtns />}
+        {isLogin ? <Account profileImg={profileImg} /> : <HeaderBtns />}
       </Wrapper>
     </Container>
   );

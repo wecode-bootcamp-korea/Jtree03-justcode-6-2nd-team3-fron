@@ -1,13 +1,11 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
 export default function ProfileImg(props) {
   const { profile_image, readProfile } = props;
 
   const [view, setView] = useState(false);
-  const location = useLocation();
 
   const onChangeImg = e => {
     console.log(e.target.files);
@@ -20,13 +18,11 @@ export default function ProfileImg(props) {
       axios
         .patch('http://localhost:8000/profile/image', formData, {
           headers: {
-            Authorization:
-              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJpYXQiOjE2NjQzNjYxMTksImV4cCI6MTY2NDM3NjkxOX0.Sbs903MBWGA652C0EV6SrFEsCAZyBPBnIY6EUOUE0tw',
+            Authorization: localStorage.getItem('login-token'),
           },
         })
-        .then(res => console.log(res.data));
+        .then(res => window.location.reload());
     }
-    readProfile();
   };
 
   return (

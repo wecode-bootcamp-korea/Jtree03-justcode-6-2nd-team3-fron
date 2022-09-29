@@ -19,6 +19,7 @@ export default function NavBar(props) {
     setSearch,
     setPage,
     setSearchFilter,
+    setList,
   } = props;
 
   const [sort, setSort] = useState([
@@ -69,6 +70,7 @@ export default function NavBar(props) {
               setSearch={setSearch}
               setPage={setPage}
               setSortName={setSortName}
+              setList={setList}
             />
           ))}
       </CategoryList>
@@ -92,6 +94,7 @@ export default function NavBar(props) {
                         let arr = [...sort];
                         arr[i].view = false;
                         setSort(arr);
+                        setList('');
                       }
                       sortValue.view = true;
                       setSortName(sortValue.sub_category_name);
