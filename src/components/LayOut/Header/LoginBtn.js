@@ -25,6 +25,6 @@ const Btn = styled.button`
   align-items: center;
   cursor: pointer;
   &:hover {
-    background-color: lightgray;
+    background-color: #e5e7eb;
   }
 `;

@@ -85,7 +85,6 @@ export default function List(props) {
   }
   
   useEffect(loading, [pageInfo, subMenuId, keyword, sortId, page, limit, location.pathname, searchFilter]);
-  console.log(`http://localhost:8000/posts?main_category_id=${pageInfo.id}&sub_category_id=${subMenuId}&search_keyword=${keyword}&filter=${sortId}&page=${page}&limit=${limit}&filter_keyword=${searchFilter}`);
 
   return (
     <ListContainer>
