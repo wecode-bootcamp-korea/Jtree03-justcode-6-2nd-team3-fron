@@ -5,7 +5,10 @@ export default function FooterLeft() {
   return (
     <Logos>
       <OkidokiWrapper>
-        <Okidoki>OKIDOKI</Okidoki>
+        <div>
+          <Logo src="https://i.esdrop.com/d/f/NlKPuBbCgn/8M2TIT852y.png" />
+          <LogoTitle>OKIDOKI</LogoTitle>
+        </div>
         <Description>All that developers</Description>
       </OkidokiWrapper>
       <OtherLogosWrapper>
@@ -41,9 +44,15 @@ const OkidokiWrapper = styled.div`
   height: 60px;
 `;
 
-const Okidoki = styled.div`
+const Logo = styled.img`
+  width: 40px;
+  height: 22px;
+`;
+
+const LogoTitle = styled.span`
   font-size: 25px;
   font-weight: bolder;
+  color: black;
 `;
 
 const Description = styled.div`

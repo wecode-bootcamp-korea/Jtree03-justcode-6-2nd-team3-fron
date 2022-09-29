@@ -1,10 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export default function FormTop() {
   return (
     <Wrapper>
-      <Logo>OKIDOKI</Logo>
+      <Link to="/">
+        <Logo src="https://i.esdrop.com/d/f/NlKPuBbCgn/8M2TIT852y.png" />
+      </Link>
       <Welcome>오키도키에 오신 것을 환영합니다.</Welcome>
       <WebsiteDesc>
         OKIDOKI는 소프트웨어 개발자를 위한 지식공유 플랫폼입니다.
@@ -39,8 +42,9 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
 `;
-const Logo = styled.div`
-  font-size: 30px;
+const Logo = styled.img`
+  width: 70px;
+  height: 40px;
 `;
 const Welcome = styled.span`
   font-size: 25px;

@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export default function Dropdown() {
-  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-  const logoutHandler = () => {};
   const logOut = () => {
     localStorage.removeItem('login-token');
     window.location.reload();
@@ -19,7 +17,9 @@ export default function Dropdown() {
         <List>
           <ItemBtn>
             <ItemImg src="https://cdn-icons-png.flaticon.com/512/456/456283.png" />
-            <ItemTitle>내 프로필</ItemTitle>
+            <Link to="settings">
+              <ItemTitle>내 프로필</ItemTitle>
+            </Link>
           </ItemBtn>
           <ItemBtn>
             <ItemImg src="https://cdn-icons-png.flaticon.com/512/2099/2099058.png" />
@@ -27,9 +27,11 @@ export default function Dropdown() {
           </ItemBtn>
           <ItemBtn>
             <ItemImg src="https://cdn-icons-png.flaticon.com/512/2961/2961948.png" />
-            <ItemTitle>활동내역</ItemTitle>
+            <Link to="">
+              <ItemTitle>활동내역</ItemTitle>
+            </Link>
           </ItemBtn>
-          <ItemBtn onClick={logoutHandler}>
+          <ItemBtn>
             <ItemImg src="https://cdn-icons-png.flaticon.com/512/1286/1286853.png" />
             <ItemTitle onClick={logOut}>로그아웃</ItemTitle>
           </ItemBtn>
@@ -84,17 +86,8 @@ const ItemTitle = styled.span`
   display: inline-block;
   padding: 0 70px 0 0;
   margin-left: 10px;
+  color: black;
   :hover {
     color: #0090f9;
   }
 `;
-// const LogoutBtn = styled.button`
-//   background-color: white;
-//   font-size: 16px;
-//   padding: 10px 20px;
-//   width: 100%;
-//   text-align: left;
-//   :hover {
-//     cursor: pointer;
-//   }
-// `;
