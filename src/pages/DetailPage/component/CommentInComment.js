@@ -3,8 +3,10 @@ import Nbutton from './Nbutton';
 import { useState, useRef } from 'react';
 import EditSection from './EditSection';
 import WriteCommentSpace from './WriteCommentSpace';
-//to Tobbar.js
+
 export default function CommentInComment({
+  passnickname,
+  commentnickname,
   comment,
   login,
   setLogin,
@@ -50,9 +52,11 @@ export default function CommentInComment({
             </Rowdiv>
             <Rowdiv>
               <Nbutton />
-              <Bttonstyle onClick={() => setiWantEdit(f => !f)}>
-                <CommentEdit src="https://cdn-icons-png.flaticon.com/512/2311/2311523.png" />
-              </Bttonstyle>
+              {passnickname === commentnickname && (
+                <Bttonstyle onClick={() => setiWantEdit(f => !f)}>
+                  <CommentEdit src="https://cdn-icons-png.flaticon.com/512/2311/2311523.png" />
+                </Bttonstyle>
+              )}
             </Rowdiv>
           </Betweendiv>
           <CommentContent>
@@ -153,6 +157,7 @@ const Writeinfor = styled.div`
 `;
 
 const CommentContent = styled.div`
+  position: relative;
   position: relative;
   position: relative;
   line-height: 1.3;

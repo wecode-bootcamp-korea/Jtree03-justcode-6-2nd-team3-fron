@@ -12,7 +12,7 @@ import Main from './pages/Main';
 //내 회원정보
 //import MyPage from './pages/myaccount/MyPage';
 // 글 목록
-import CategoryList from './pages/CategoryList';
+import CategoryList from './pages/Category';
 
 // 상세페이지
 import Detail from './pages/DetailPage/Detail';
@@ -70,7 +70,6 @@ export default function Router() {
         {/* 회원가입 페이지 */}
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
-
       </Routes>
       <Footer />
     </BrowserRouter>
