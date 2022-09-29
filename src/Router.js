@@ -33,6 +33,7 @@ import ChangePasswordConfirm from './pages/Settings/ProfileSetting/ChangePassWor
 
 // 회원 탈퇴
 import SecessionTab from './pages/Settings/ProfileSetting/Secession/SecessionTab';
+import JobsNew from './pages/NewPost/JobsNew';
 
 export default function Router() {
   return (
