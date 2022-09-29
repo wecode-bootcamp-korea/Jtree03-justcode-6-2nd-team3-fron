@@ -8,7 +8,7 @@ import Posts from './Posts';
 import Profile from './Profile';
 import Scraps from './Scraps';
 
-export default function UserArticles() {
+export default function UserActivities() {
   const [profile, setProfile] = useState('');
   const [scraps, setScraps] = useState('');
   const location = useLocation();

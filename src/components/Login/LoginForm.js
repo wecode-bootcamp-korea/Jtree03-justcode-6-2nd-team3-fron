@@ -33,8 +33,9 @@ export default function LoginForm() {
           password: password,
         })
 
-        .then(response => {
-          localStorage.setItem('login-token', response.data.token);
+        .then(res => {
+          localStorage.setItem('login-token', res.data.token);
+          localStorage.setItem('user_id', res.data.user_id);
           alert('로그인에 성공하였습니다.');
           navigate('/');
           window.location.reload();
@@ -133,7 +134,7 @@ const Button = styled.button`
   color: #ffffff;
   background-color: #0090f9;
   padding: 8px 16px;
-  border-radius: 10px;
+  border-radius: 5px;
   border-style: none;
   margin-top: 50px;
   font-size: 14px;
