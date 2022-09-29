@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 export default function Dropdown() {
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const logoutHandler = () => {};
+  const logOut = () => {
+    localStorage.removeItem('login-token');
+    window.location.reload();
+  };
   return (
     <div>
       <AccountIcon role="button" onClick={() => setOpen(!open)}>
@@ -11,24 +17,22 @@ export default function Dropdown() {
       </AccountIcon>
       {open && (
         <List>
-          <ListItem>
-            <ItemBtn type="button">
-              <ItemImg src="https://cdn-icons-png.flaticon.com/512/456/456283.png" />
-              <ItemTitle>내 프로필</ItemTitle>
-            </ItemBtn>
-            <ItemBtn type="button">
-              <ItemImg src="https://cdn-icons-png.flaticon.com/512/2099/2099058.png" />
-              <ItemTitle>내 계정</ItemTitle>
-            </ItemBtn>
-            <ItemBtn type="button">
-              <ItemImg src="https://cdn-icons-png.flaticon.com/512/2961/2961948.png" />
-              <ItemTitle>활동내역</ItemTitle>
-            </ItemBtn>
-            <LogoutBtn type="button" onClick={logoutHandler}>
-              <ItemImg src="https://cdn-icons-png.flaticon.com/512/1286/1286853.png" />
-              <ItemTitle>로그아웃</ItemTitle>
-            </LogoutBtn>
-          </ListItem>
+          <ItemBtn>
+            <ItemImg src="https://cdn-icons-png.flaticon.com/512/456/456283.png" />
+            <ItemTitle>내 프로필</ItemTitle>
+          </ItemBtn>
+          <ItemBtn>
+            <ItemImg src="https://cdn-icons-png.flaticon.com/512/2099/2099058.png" />
+            <ItemTitle>내 계정</ItemTitle>
+          </ItemBtn>
+          <ItemBtn>
+            <ItemImg src="https://cdn-icons-png.flaticon.com/512/2961/2961948.png" />
+            <ItemTitle>활동내역</ItemTitle>
+          </ItemBtn>
+          <ItemBtn onClick={logoutHandler}>
+            <ItemImg src="https://cdn-icons-png.flaticon.com/512/1286/1286853.png" />
+            <ItemTitle onClick={logOut}>로그아웃</ItemTitle>
+          </ItemBtn>
         </List>
       )}
     </div>
@@ -47,26 +51,27 @@ const Image = styled.img`
 `;
 const List = styled.ul`
   position: absolute;
-  top: 47px;
-  right: 105px;
+  top: 55px;
+  right: -5px;
+  width: 230px;
   border-radius: 5px;
-`;
-const ListItem = styled.li`
+  border: 1px solid #ddd;
+  overflow: hidden;
   list-style-type: none;
-  border-top: 1px solid #ddd;
-  width: 224px;
+  background: #fff;
+  z-index: 1;
 `;
-const ItemBtn = styled.button`
-  background-color: white;
+
+const ItemBtn = styled.li`
   font-size: 16px;
-  padding: 10px 20px;
-  border: 0;
+  padding: 15px 20px;
   width: 100%;
   text-align: left;
-  border-left: 1px solid #ddd;
-  border-right: 1px solid #ddd;
   :hover {
     cursor: pointer;
+  }
+  :nth-last-child(1) {
+    border-top: 1px solid #ddd;
   }
 `;
 const ItemImg = styled.img`
@@ -76,21 +81,20 @@ const ItemImg = styled.img`
   opacity: 0.5;
 `;
 const ItemTitle = styled.span`
-  font-size: 13px;
+  display: inline-block;
+  padding: 0 70px 0 0;
   margin-left: 10px;
   :hover {
     color: #0090f9;
   }
 `;
-const LogoutBtn = styled.button`
-  background-color: white;
-  font-size: 16px;
-  padding: 10px 20px;
-  border: 0;
-  width: 100%;
-  text-align: left;
-  border: 1px solid #ddd;
-  :hover {
-    cursor: pointer;
-  }
-`;
+// const LogoutBtn = styled.button`
+//   background-color: white;
+//   font-size: 16px;
+//   padding: 10px 20px;
+//   width: 100%;
+//   text-align: left;
+//   :hover {
+//     cursor: pointer;
+//   }
+// `;

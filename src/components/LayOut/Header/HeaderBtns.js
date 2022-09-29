@@ -14,7 +14,7 @@ export default function HeaderBtns() {
 
 const Wrapper = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
-  width: 180px;
+  width: 260px;
 `;
