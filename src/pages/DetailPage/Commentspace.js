@@ -24,7 +24,7 @@ export default function Commentspace(props) {
         setCommentData(res.data.postComment.reverse());
       });
   }
-
+  //불러온다음에 스테이트 값 저장하는 시간 여기서 간극이 있어서
   useEffect(() => {
     updateData();
   }, [pageId]);
@@ -81,6 +81,9 @@ const Writespace = styled.div`
 const CommentWrapper = styled.div`
   padding: 35px 0px;
   border-bottom: 1px solid lightgray;
+  :nth-last-child(1) {
+    border: none;
+  }
   :nth-last-child(1) {
     border: none;
   }

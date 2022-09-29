@@ -5,23 +5,18 @@ import CommentInComment from './component/CommentInComment';
 import EditSection from './component/EditSection';
 import WriteCommentSpace from './component/WriteCommentSpace';
 
-//import Modal from 'react-modal';
-// import axios from 'axios';
-
 export default function CommentList(props) {
   const { comment, setLogin, login, myInfor, updateData } = props;
   const [openComment, setOpenComment] = useState(false);
   const [iWantWrite, setIWantWrite] = useState(false);
   const [wantEdit, setWantEdit] = useState(false);
   const [showEditor, setShowEditor] = useState(false);
-  const [showEditor2, setShowEditor2] = useState(false);
 
   const incomment = comment.comment_in_comment;
 
   function toHtml() {
     return { __html: comment.content };
   }
-  console.log('test', comment);
   return (
     <Comment>
       {showEditor ? (
@@ -61,9 +56,11 @@ export default function CommentList(props) {
                 <CheckCircle src="https://cdn-icons-png.flaticon.com/512/1756/1756625.png" />
               </SelectionButton>
               <Nbutton score={comment.score} name={'댓글점수'} />
-              <Bttonstyle onClick={() => setWantEdit(f => !f)}>
-                <CommentEdit src="https://cdn-icons-png.flaticon.com/512/2311/2311523.png" />
-              </Bttonstyle>
+              {myInfor.nickname === comment.nickname && (
+                <Bttonstyle onClick={() => setWantEdit(f => !f)}>
+                  <CommentEdit src="https://cdn-icons-png.flaticon.com/512/2311/2311523.png" />
+                </Bttonstyle>
+              )}
             </Rowdiv>
           </Betweendiv>
           <CommentContent>
@@ -73,6 +70,7 @@ export default function CommentList(props) {
                 setShowEditor={setShowEditor}
                 updateData={updateData}
                 comment={comment}
+                setWantEdit={setWantEdit}
               />
             )}
           </CommentContent>
@@ -130,6 +128,8 @@ export default function CommentList(props) {
                   <CommentinCommentwrapper key={f.comment_id}>
                     <BlankLine />
                     <CommentInComment
+                      passnickname={myInfor.nickname}
+                      commentnickname={comment.nickname}
                       updateData={updateData}
                       comment={f}
                       login={login}
@@ -154,17 +154,12 @@ const Bttonstyle = styled.button`
   border: none;
   cursor: pointer;
 `;
-
-//const CommentEditButton = styled.(Bttonstyle)
-
 const CommentEdit = styled.img`
   margin-left: 20px;
   margin-top: 3px;
   width: 18px;
   height: 18px;
 `;
-//const CommentEditButton = styled.(Bttonstyle)
-//const CommentEditButton = styled.(Bttonstyle)
 
 const SelectionButton = styled.button`
   //QnA카테고리만 해당
@@ -260,8 +255,12 @@ const CommentContent = styled.div`
   position: relative;
   display: flex;
   flex-direction: row;
+  position: relative;
+  display: flex;
+  flex-direction: row;
   line-height: 1.3;
   margin: 15px 0;
+  font-size: 15px;
   font-size: 15px;
   font-size: 15px;
   font-size: 15px;
