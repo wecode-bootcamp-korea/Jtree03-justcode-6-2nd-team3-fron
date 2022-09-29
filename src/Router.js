@@ -12,7 +12,7 @@ import Main from './pages/Main';
 //내 회원정보
 //import MyPage from './pages/myaccount/MyPage';
 // 글 목록
-// import CategoryList from './pages/CategoryList';
+import CategoryList from './pages/Category';
 
 // 상세페이지
 import Detail from './pages/DetailPage/Detail';
@@ -45,15 +45,15 @@ export default function Router() {
 
         {/* 카테고리 */}
         {/* questions */}
-        {/* <Route path="questions/*" element={<CategoryList />} /> */}
+        <Route path="questions/*" element={<CategoryList />} />
         {/* knowledge */}
-        {/* <Route path="knowledge/*" element={<CategoryList />} /> */}
+        <Route path="knowledge/*" element={<CategoryList />} />
         {/* events */}
-        {/* <Route path="events/*" element={<CategoryList />} /> */}
+        <Route path="events/*" element={<CategoryList />} />
         {/* notice */}
-        {/* <Route path="notice/*" element={<CategoryList />} /> */}
+        <Route path="notice/*" element={<CategoryList />} />
         {/* jobs */}
-        {/* <Route path="jobs/*" element={<CategoryList />} /> */}
+        <Route path="jobs/*" element={<CategoryList />} />
 
         {/* 내 프로필 */}
         <Route path="settings/*" element={<Settings />}>
