@@ -14,6 +14,10 @@ function EditSelectTag(props) {
   //   { id: 3, value: '3', label: '3' },
   // ];
 
+  // isLoading: false,
+  // options: defaultOptions,
+  // value: undefined,
+
   useEffect(() => {
     axios.get(`http://localhost:8000/tags?keyword=${inputValue}`).then(res => {
       const newOption = res.data.tagList;
@@ -41,10 +45,11 @@ function EditSelectTag(props) {
       })
     );
   };
-  console.log('알고싶다', tagValue);
+
   useEffect(() => {
     getSelectValue(tagValue);
   }, [tagValue]);
+
   const onInputChange = value => {
     setInput(value);
   };

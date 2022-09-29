@@ -70,7 +70,9 @@ function NewPostLayout(props) {
       <form onSubmit={formSubmit}>
         <Label>토픽</Label>
         <Select defaultValue={''} onChange={selectVal}>
-          <option value={''}>토픽을 선택해주세요.</option>
+          <option value="" disabled>
+            토픽을 선택해주세요.
+          </option>
           {subCategory.map(data => {
             return (
               <option key={data.unique_id} value={data.unique_id}>
@@ -124,6 +126,9 @@ const Select = styled.select`
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
+  option[value=''][disabled] {
+    display: none;
+  }
 `;
 const Label = styled.label`
   display: block;

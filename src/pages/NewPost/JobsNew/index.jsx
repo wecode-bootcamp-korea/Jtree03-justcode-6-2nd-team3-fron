@@ -44,7 +44,7 @@ function JobsNew() {
       title: '경력',
       name: 'career',
       options: [
-        { value: '', name: '경력을 선택하세요.' },
+        { value: '', name: '경력을 선택하세요.', disabled: 'disabled' },
         { value: '신입', name: '신입' },
         { value: '1년 이상', name: '1년 이상' },
         { value: '5년 이상', name: '5년 이상' },
@@ -54,7 +54,7 @@ function JobsNew() {
       title: '지역',
       name: 'region',
       options: [
-        { value: '', name: '지역을 선택해주세요.' },
+        { value: '', name: '지역을 선택해주세요.', disabled: 'disabled' },
         { value: '서울', name: '서울' },
         { value: '경기', name: '경기' },
         { value: '기타', name: '기타' },
@@ -64,7 +64,7 @@ function JobsNew() {
       title: '급여',
       name: 'pay',
       options: [
-        { value: '', name: '급여를 선택해주세요.' },
+        { value: '', name: '급여를 선택해주세요.', disabled: 'disabled' },
         { value: '200만원이상', name: '200만원이상' },
         { value: '300만원이상', name: '300만원이상' },
         { value: '400만원이상', name: '400만원이상' },
@@ -77,30 +77,48 @@ function JobsNew() {
       title: '계약 형태',
       name: 'contract_type',
       options: [
-        { value: '', name: '계약형태를 선택해주세요.' },
+        { value: '', name: '계약형태를 선택해주세요.', disabled: 'disabled' },
         { value: '정규직', name: '정규직' },
         { value: '계약직', name: '계약직' },
       ],
     },
   ];
   const position = [
-    { value: '', id: '', name: '포지션을 선택하세요.' },
-    { value: '개발', id: 'developer', name: '개발' },
-    { value: '기획', id: 'planner', name: '기획' },
-    { value: '기타', id: 'etc', name: '기타' },
+    { value: '', name: '포지션을 선택하세요.', disabled: 'disabled' },
+    { value: 'developer', name: '개발' },
+    { value: 'planner', name: '기획' },
+    { value: 'etc', name: '기타' },
   ];
   const positionDetail = {
-    '': [{ value: '', id: '', name: '포지션을 선택하세요.' }],
+    '': [{ value: '', id: '', name: '' }],
     developer: [
+      {
+        value: '',
+        id: '',
+        name: '세부 포지션을 선택하세요.',
+        disabled: 'disabled',
+      },
       { value: '프론트 개발', name: '프론트 개발' },
       { value: '백엔드 개발', name: '백엔드 개발' },
       { value: '풀스택 개발', name: '풀스택 개발' },
     ],
     planner: [
+      {
+        value: '',
+        id: '',
+        name: '세부 포지션을 선택하세요.',
+        disabled: 'disabled',
+      },
       { value: '전략기획', name: '전략기획' },
       { value: '서비스기획', name: '서비스기획' },
     ],
     etc: [
+      {
+        value: '',
+        id: '',
+        name: '세부 포지션을 선택하세요.',
+        disabled: 'disabled',
+      },
       { value: 'MD', name: 'MD' },
       { value: '기타', name: '기타' },
     ],
@@ -156,9 +174,17 @@ function JobsNew() {
             return (
               <div key={idx} className="width50">
                 <Label>{data.title}</Label>
-                <Select onChange={getInput} name={data.name}>
+                <Select onChange={getInput} defaultValue={''} name={data.name}>
                   {data.options.map((data, idx) => {
-                    return <option key={idx}>{data.name}</option>;
+                    return (
+                      <option
+                        value={data.value}
+                        key={idx}
+                        disabled={data.disabled}
+                      >
+                        {data.name}
+                      </option>
+                    );
                   })}
                 </Select>
               </div>
@@ -168,10 +194,10 @@ function JobsNew() {
         <Label>포지션</Label>
         <Flex>
           <div className="width50">
-            <Select onChange={getPosition}>
+            <Select onChange={getPosition} defaultValue={''}>
               {position.map((data, idx) => {
                 return (
-                  <option key={idx} value={data.id}>
+                  <option key={idx} value={data.value} disabled={data.disabled}>
                     {data.name}
                   </option>
                 );
@@ -179,9 +205,13 @@ function JobsNew() {
             </Select>
           </div>
           <div className="width50">
-            <Select onChange={getInput} name="position">
+            <Select onChange={getInput} name="position" defaultValue={''}>
               {positionDetail[positionValue].map((data, idx) => {
-                return <option key={idx}>{data.name}</option>;
+                return (
+                  <option key={idx} value={data.value} disabled={data.disabled}>
+                    {data.name}
+                  </option>
+                );
               })}
             </Select>
           </div>
@@ -240,6 +270,9 @@ const Select = styled.select`
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
+  option[value=''][disabled] {
+    display: none;
+  }
 `;
 const Label = styled.label`
   display: block;
