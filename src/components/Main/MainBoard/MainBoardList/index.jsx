@@ -21,7 +21,7 @@ function MainBoardList({ boardData }) {
               <span />
               {boardData.score}
             </Point>
-            {/* <Time>&nbsp;&middot; 시간</Time> */}
+            <Time>&nbsp;&middot; {boardData.create_at}</Time>
           </DFlex>
           <DFlex>
             <Common backImage={arrow}>
