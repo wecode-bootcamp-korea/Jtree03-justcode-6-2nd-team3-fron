@@ -2,12 +2,14 @@ import styled from 'styled-components';
 import Nbutton from './component/Nbutton';
 
 export default function Content(props) {
-  //postData && console.log(postData);
   const { postData } = props;
 
   function toHtml() {
     return { __html: postData.content };
   }
+
+  const tags = postData.tags;
+  console.log(tags);
 
   return (
     <Body>
@@ -68,9 +70,11 @@ export default function Content(props) {
       </Contentbody>
       <Footer>
         <InlineDiv>
-          {postData.tag &&
-            postData.tag.map(f => {
-              return <Tag>#{[f]}</Tag>;
+          {tags &&
+            tags.map((f, i) => {
+              if (f.tag_id !== null) {
+                return <Tag key={i}>#{[f.tag_name]}</Tag>;
+              }
             })}
         </InlineDiv>
         <Nbutton />
