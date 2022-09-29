@@ -83,7 +83,9 @@ export default function WriteCommentSpace(props) {
       });
       setShowEditor(false);
     }
+
     updateData();
+    console.log('test', '업데이트');
   };
 
   const canCelButton = () => {
