@@ -12,16 +12,21 @@ export default function Editsection(props) {
   } = props;
 
   function deleteComment() {
-    axios.delete(`http://localhost:8000/comment`, {
-      headers: { authorization: localStorage.getItem('token') },
-      data: { comment_id: comment.comment_id },
-    });
-    updateData();
+    axios
+      .delete(`http://localhost:8000/comment`, {
+        headers: { authorization: localStorage.getItem('login-token') },
+        data: { comment_id: comment.comment_id },
+      })
+      .then(updateData());
     setWantEdit(false);
   }
 
   function editcomment() {
-    name === '대댓글수정' ? setShowEditor2(true) : setShowEditor(true);
+    name === '대댓글수정'
+      ? setShowEditor2(true)
+      : name === '대댓글수정'
+      ? setShowEditor2(true)
+      : setShowEditor(true);
     //setwritecomment('aa');
   }
 

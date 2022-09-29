@@ -23,7 +23,7 @@ export default function Detail() {
   useEffect(() => {
     axios
       .get('http://localhost:8000/profile', {
-        headers: { authorization: localStorage.getItem('token') },
+        headers: { authorization: localStorage.getItem('login-token') },
       })
       .then(function (res) {
         setMyInfor(res.data.user);

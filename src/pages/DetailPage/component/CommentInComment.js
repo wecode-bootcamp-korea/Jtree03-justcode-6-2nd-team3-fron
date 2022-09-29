@@ -3,7 +3,7 @@ import Nbutton from './Nbutton';
 import { useState, useRef } from 'react';
 import EditSection from './EditSection';
 import WriteCommentSpace from './WriteCommentSpace';
-//to Tobbar.js
+
 export default function CommentInComment({
   passnickname,
   commentnickname,
@@ -157,6 +157,7 @@ const Writeinfor = styled.div`
 `;
 
 const CommentContent = styled.div`
+  position: relative;
   position: relative;
   position: relative;
   line-height: 1.3;

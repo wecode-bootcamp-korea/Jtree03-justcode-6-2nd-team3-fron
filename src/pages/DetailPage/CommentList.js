@@ -5,16 +5,12 @@ import CommentInComment from './component/CommentInComment';
 import EditSection from './component/EditSection';
 import WriteCommentSpace from './component/WriteCommentSpace';
 
-//import Modal from 'react-modal';
-// import axios from 'axios';
-
 export default function CommentList(props) {
   const { comment, setLogin, login, myInfor, updateData } = props;
   const [openComment, setOpenComment] = useState(false);
   const [iWantWrite, setIWantWrite] = useState(false);
   const [wantEdit, setWantEdit] = useState(false);
   const [showEditor, setShowEditor] = useState(false);
-  //const [showEditor2, setShowEditor2] = useState(false);
 
   const incomment = comment.comment_in_comment;
 
@@ -158,17 +154,12 @@ const Bttonstyle = styled.button`
   border: none;
   cursor: pointer;
 `;
-
-//const CommentEditButton = styled.(Bttonstyle)
-
 const CommentEdit = styled.img`
   margin-left: 20px;
   margin-top: 3px;
   width: 18px;
   height: 18px;
 `;
-//const CommentEditButton = styled.(Bttonstyle)
-//const CommentEditButton = styled.(Bttonstyle)
 
 const SelectionButton = styled.button`
   //QnA카테고리만 해당
@@ -264,8 +255,12 @@ const CommentContent = styled.div`
   position: relative;
   display: flex;
   flex-direction: row;
+  position: relative;
+  display: flex;
+  flex-direction: row;
   line-height: 1.3;
   margin: 15px 0;
+  font-size: 15px;
   font-size: 15px;
   font-size: 15px;
   font-size: 15px;

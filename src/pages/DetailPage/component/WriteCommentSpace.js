@@ -10,14 +10,12 @@ export default function WriteCommentSpace(props) {
     setLogin,
     login,
     name,
-    //showEditor,
     comment,
     setShowEditor,
     setIWantWrite,
     setOpenComment,
     updateData,
   } = props;
-  // console.log('test', commentIsComment);
 
   const [writecomment, setwritecomment] = useState();
   const params = useParams();
@@ -29,20 +27,22 @@ export default function WriteCommentSpace(props) {
       setwritecomment(comment.content);
   }, []);
 
-  //console.log(commentid);
-
   /////여기서부터
   const perMission = () => {
-    const body = {
-      id: 'coldzero',
-      password: 'rotorl11',
-    };
-    axios.post(`http://localhost:8000/users/login`, body).then(res => {
-      localStorage.setItem('token', res.data.token);
-      setLogin(true); //임시 권한 부여 //TRUE상태 유지를 고민
-    });
+    navi(`/login`);
+    // axios.post(`http://localhost:8000/users/login`, body).then(res => {
+    //   localStorage.setItem('token', res.data.token);
+    //   setLogin(true); //임시 권한 부여 //TRUE상태 유지를 고민
+    // });
   };
   ////여기까진 임시 코드
+
+  useEffect(() => {
+    if (localStorage.getItem('login-token'))
+      localStorage.getItem('login-token') !== null
+        ? setLogin(true)
+        : setLogin(false);
+  });
 
   let body;
   if (name === '편집') {
@@ -70,22 +70,27 @@ export default function WriteCommentSpace(props) {
 
   const sendComment = () => {
     if (name === '댓글작성' || name === '대댓글작성') {
-      axios.post(`http://localhost:8000/comment`, body, {
-        headers: { authorization: localStorage.getItem('token') },
-      });
+      axios
+        .post(`http://localhost:8000/comment`, body, {
+          headers: { authorization: localStorage.getItem('login-token') },
+        })
+        .then(updateData());
       if (name === '대댓글작성') {
         setIWantWrite(false);
         setOpenComment(true);
       }
-    } else if (name === '편집' || name === '편집의편집') {
-      axios.patch(`http://localhost:8000/comment`, body, {
-        headers: { authorization: localStorage.getItem('token') },
-      });
+    } else if (
+      name === '편집' ||
+      name === '편집의편집' ||
+      name === '편집의편집'
+    ) {
+      axios
+        .patch(`http://localhost:8000/comment`, body, {
+          headers: { authorization: localStorage.getItem('login-token') },
+        })
+        .then(updateData());
       setShowEditor(false);
     }
-
-    updateData();
-    console.log('test', '업데이트');
   };
 
   const canCelButton = () => {
