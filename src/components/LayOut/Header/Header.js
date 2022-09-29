@@ -14,12 +14,15 @@ export default function Header() {
   useEffect(() => {
     localStorage.getItem('login-token') ? setIsLogin(true) : setIsLogin(false);
 
-    axios.get('http://localhost:8000/profile', {
+    if(isLogin){
+      axios.get('http://localhost:8000/profile', {
       headers: {
         authorization: localStorage.getItem('login-token'),
       }
     })
     .then(res => setProfileImg(res.data.user.profile_image));
+    }
+    
   }, [isLogin, profileImg]);
 
 
