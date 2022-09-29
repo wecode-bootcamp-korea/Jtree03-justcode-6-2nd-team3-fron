@@ -34,11 +34,10 @@ export default function LoginForm() {
         })
 
         .then(response => {
-          console.log('로그인 성공!');
-          console.log('token', response.data);
-          localStorage.setItem('token', response.data);
+          localStorage.setItem('login-token', response.data.token);
           alert('로그인에 성공하였습니다.');
           navigate('/');
+          window.location.reload();
         })
         .catch(error => {
           console.log(error);
@@ -53,28 +52,18 @@ export default function LoginForm() {
       <TopLine>OKIDOKI 아이디로 로그인</TopLine>
       <IdInputWrapper>
         <InputLabel>아이디</InputLabel>
-        <Input
-          type="text"
-          value={userName}
-          onChange={onUserNameHandler}
-          placeholder="4-15자 이내로 입력해주세요"
-        />
+        <Input type="text" value={userName} onChange={onUserNameHandler} />
       </IdInputWrapper>
       <PwdInputWrapper>
         <InputLabel>비밀번호</InputLabel>
-        <Input
-          type="password"
-          value={password}
-          onChange={onPasswordHandler}
-          placeholder="영문 소문자, 숫자 조합 6자 이상의 비밀번호"
-        />
+        <Input type="password" value={password} onChange={onPasswordHandler} />
       </PwdInputWrapper>
       <Button onClick={onLogin}>로그인</Button>
       <QuestionWrapper>
         <Question>
           아직 회원이 아니신가요?
           <Link to="/signup">
-            <span> 회원가입</span>
+            <LinkWord> 회원가입</LinkWord>
           </Link>
         </Question>
       </QuestionWrapper>
@@ -87,13 +76,13 @@ const TopLine = styled.div`
   flex-basis: 100%;
   align-items: center;
   color: #6b7280;
-  margin-top: 20px;
+  margin-top: 25px;
   font-size: 14px;
   :before {
     content: '';
     flex-grow: 1;
     margin-right: 5px;
-    background-color: #6b7280;
+    background-color: #e5e7eb;
     height: 1px;
     font-size: 0px;
     line-height: 0px;
@@ -102,7 +91,7 @@ const TopLine = styled.div`
     content: '';
     flex-grow: 1;
     margin-left: 5px;
-    background-color: #6b7280;
+    background-color: #e5e7eb;
     height: 1px;
     font-size: 0px;
     line-height: 0px;
@@ -110,12 +99,12 @@ const TopLine = styled.div`
 `;
 
 const IdInputWrapper = styled.div`
-  margin-top: 20px;
+  margin-top: 40px;
   width: 448px;
   height: 66px;
 `;
 const PwdInputWrapper = styled.div`
-  margin-top: 10px;
+  margin-top: 40px;
   width: 448px;
   height: 66px;
 `;
@@ -133,7 +122,10 @@ const Input = styled.input`
   padding: 8px 12px;
   margin-top: 7px;
   border-radius: 5px;
-  border: 0.5px solid #6b7280;
+  border: 1px solid #e5e7eb;
+  :focus {
+    outline: 1px solid black;
+  }
 `;
 const Button = styled.button`
   width: 448px;
@@ -143,7 +135,7 @@ const Button = styled.button`
   padding: 8px 16px;
   border-radius: 10px;
   border-style: none;
-  margin-top: 23px;
+  margin-top: 50px;
   font-size: 14px;
   cursor: pointer;
   :hover {
@@ -159,4 +151,8 @@ const Question = styled.span`
   font-weight: lighter;
   font-size: 14px;
   color: #6b7280;
+`;
+const LinkWord = styled.span`
+  text-decoration: underline;
+  color: #0090f9;
 `;

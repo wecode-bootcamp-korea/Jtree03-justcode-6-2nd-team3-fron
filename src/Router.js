@@ -12,10 +12,13 @@ import Main from './pages/Main';
 //내 회원정보
 //import MyPage from './pages/myaccount/MyPage';
 // 글 목록
-import { QnA, Knowledge, Events, Notice, Jobs } from './pages/List';
+import CategoryList from './pages/CategoryList';
 
 // 상세페이지
 import Detail from './pages/DetailPage/Detail';
+
+// 활동내역
+import UserArticles from './components/UserArticles';
 
 // 내 프로필
 import Settings from './pages/Settings';
@@ -42,25 +45,25 @@ export default function Router() {
 
         {/* 카테고리 */}
         {/* questions */}
-        <Route path="questions/*" element={<QnA />} />
+        <Route path="questions/*" element={<CategoryList />} />
         {/* knowledge */}
-        <Route path="knowledge/*" element={<Knowledge />} />
+        <Route path="knowledge/*" element={<CategoryList />} />
         {/* events */}
-        <Route path="events/*" element={<Events />} />
+        <Route path="events/*" element={<CategoryList />} />
         {/* notice */}
-        <Route path="notice/*" element={<Notice />}>
-          <Route path="archive" element={<Notice />} />
-        </Route>
+        <Route path="notice/*" element={<CategoryList />} />
         {/* jobs */}
-        <Route path="jobs/*" element={<Jobs />}></Route>
+        <Route path="jobs/*" element={<CategoryList />} />
 
         {/* 내 프로필 */}
-        <Route path="/settings" element={<Settings />} />
-        {/* 비밀번호 변경 */}
-        <Route
-          path="/settings/password-changes"
-          element={<ChangePasswordConfirm />}
-        />
+        <Route path="settings/*" element={<Settings />}>
+          {/* 비밀번호 변경 */}
+          <Route path="password-changes" element={<ChangePasswordConfirm />} />
+        </Route>
+
+        {/* 활동 내역 */}
+        <Route path="user/:id" element={<UserArticles />} />
+
         {/* 회원 탈퇴 */}
         <Route path="/user/withdrawConfirm" element={<SecessionTab />} />
 
