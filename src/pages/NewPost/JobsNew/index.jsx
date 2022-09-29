@@ -36,9 +36,24 @@ function JobsNew() {
       .then(res => {
         alert('게시글 작성이 완료되었습니다.');
         navigate(`/articles/${res.data.post_id}`);
+      })
+      .catch(error => {
+        if (error.response.data.message.includes('title')) {
+          alert('타이틀은 필수값입니다.');
+        } else if (error.response.data.message.includes('content')) {
+          alert('내용은 필수값입니다.');
+        } else if (error.response.data.message.includes('sub_category_id')) {
+          alert('토픽은 필수값입니다.');
+        } else if (error.response.data.message.includes('TOKEN_EXPIRED')) {
+          alert('로그인이 필요한 기능입니다.');
+        } else {
+          alert(error.response.data.message);
+        }
       });
   };
-
+  // else {
+  //   alert('빈 내용이 있습니다.');
+  // }
   const selectList = [
     {
       title: '경력',
