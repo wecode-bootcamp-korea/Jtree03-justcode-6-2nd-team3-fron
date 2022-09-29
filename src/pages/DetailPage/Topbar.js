@@ -8,7 +8,7 @@ import EditSection from './component/EditSection';
 export default function Topbar(props) {
   const [wantEdit, setWantEdit] = useState(false);
   const { postData, myInfor } = props;
-  console.log(postData);
+
   return (
     <Body>
       <Publishinfor>
@@ -41,7 +41,7 @@ export default function Topbar(props) {
           </Bttonstyle>
         )}
         <Parentdiv>
-          <Position>{wantEdit && <EditSection />}</Position>
+          <Position>{wantEdit && <EditSection name={'게시글'} />}</Position>
         </Parentdiv>
       </div>
     </Body>

@@ -6,7 +6,7 @@ import EditSection from './component/EditSection';
 import WriteCommentSpace from './component/WriteCommentSpace';
 
 export default function CommentList(props) {
-  const { comment, setLogin, login, myInfor, updateData } = props;
+  const { comment, setLogin, login, myInfor, setCommentData } = props;
   const [openComment, setOpenComment] = useState(false);
   const [iWantWrite, setIWantWrite] = useState(false);
   const [wantEdit, setWantEdit] = useState(false);
@@ -25,7 +25,7 @@ export default function CommentList(props) {
           login={login}
           comment={comment}
           name={'편집'}
-          updateData={updateData}
+          setCommentData={setCommentData}
           setShowEditor={setShowEditor}
         />
       ) : (
@@ -55,7 +55,7 @@ export default function CommentList(props) {
               <SelectionButton>
                 <CheckCircle src="https://cdn-icons-png.flaticon.com/512/1756/1756625.png" />
               </SelectionButton>
-              <Nbutton score={comment.score} name={'댓글점수'} />
+              <Nbutton commentId={comment.comment_id} name={'댓글'} />
               {myInfor.nickname === comment.nickname && (
                 <Bttonstyle onClick={() => setWantEdit(f => !f)}>
                   <CommentEdit src="https://cdn-icons-png.flaticon.com/512/2311/2311523.png" />
@@ -68,9 +68,10 @@ export default function CommentList(props) {
             {wantEdit && (
               <EditSection
                 setShowEditor={setShowEditor}
-                updateData={updateData}
+                setCommentData={setCommentData}
                 comment={comment}
                 setWantEdit={setWantEdit}
+                name={'댓글수정'}
               />
             )}
           </CommentContent>
@@ -108,7 +109,7 @@ export default function CommentList(props) {
                 <BlankLine />
                 <WriteCommentSpaceWrapper>
                   <WriteCommentSpace
-                    updateData={updateData}
+                    setCommentData={setCommentData}
                     setIWantWrite={setIWantWrite}
                     setOpenComment={setOpenComment}
                     showEditor={showEditor}
@@ -120,24 +121,24 @@ export default function CommentList(props) {
                 </WriteCommentSpaceWrapper>
               </CommentinCommentwrapper>
             )}
-            {openComment &&
-              incomment[0].content !== null &&
-              incomment.map(f => {
-                console.log('test', f);
-                return (
-                  <CommentinCommentwrapper key={f.comment_id}>
-                    <BlankLine />
-                    <CommentInComment
-                      passnickname={myInfor.nickname}
-                      commentnickname={comment.nickname}
-                      updateData={updateData}
-                      comment={f}
-                      login={login}
-                      setLogin={setLogin}
-                    />
-                  </CommentinCommentwrapper>
-                );
-              })}
+            {openComment && (
+              <BlankLine>
+                {incomment[0].content !== null &&
+                  incomment.map(f => {
+                    return (
+                      <CommentinCommentwrapper key={f.comment_id}>
+                        <CommentInComment
+                          passnickname={myInfor.nickname}
+                          setCommentData={setCommentData}
+                          comment={f}
+                          login={login}
+                          setLogin={setLogin}
+                        />
+                      </CommentinCommentwrapper>
+                    );
+                  })}
+              </BlankLine>
+            )}
           </div>
         </div>
       )}
@@ -268,18 +269,27 @@ const CommentContent = styled.div`
 `;
 
 const CommentinCommentwrapper = styled.div`
-  margin-top: 15px;
+  margin-top: 10px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  border-bottom: 1px solid rgb(231, 231, 231);
+  border-style: dashed;
   width: 100%;
   height: 100%;
+  padding-bottom: 25px;
+  :nth-last-child(1) {
+    border: none;
+  }
 `;
 
-const BlankLine = styled.div`
+const BlankLine = styled(Rowdiv)`
+  padding-top: 10px;
+  margin-top: 20px;
   margin-left: 10px;
   padding-left: 16px;
-  border-left: 2px solid lightgray;
-  height: 90px;
-  width: 0;
+  border-left: 1px solid rgb(221, 221, 221);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 `;

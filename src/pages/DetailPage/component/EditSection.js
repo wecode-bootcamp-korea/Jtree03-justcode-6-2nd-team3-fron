@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 export default function Editsection(props) {
   const {
@@ -7,33 +8,45 @@ export default function Editsection(props) {
     comment,
     name,
     setShowEditor2,
-    updateData,
+    setCommentData,
     setWantEdit,
+    setiWantEdit,
   } = props;
 
+  const params = useParams();
+  const pageId = params.id;
+
   function deleteComment() {
-    axios
-      .delete(`http://localhost:8000/comment`, {
-        headers: { authorization: localStorage.getItem('login-token') },
-        data: { comment_id: comment.comment_id },
-      })
-      .then(updateData());
-    setWantEdit(false);
+    name === '게시글'
+      ? axios.delete(`http://localhost:8000/posts/${pageId}`, {
+          headers: { authorization: localStorage.getItem('login-token') },
+        })
+      : axios
+          .delete(`http://localhost:8000/comment`, {
+            headers: { authorization: localStorage.getItem('login-token') },
+            data: { comment_id: comment.comment_id },
+          })
+          .then(res => setCommentData(res.data.postComment.reverse()));
   }
 
   function editcomment() {
-    name === '대댓글수정'
-      ? setShowEditor2(true)
-      : name === '대댓글수정'
-      ? setShowEditor2(true)
-      : setShowEditor(true);
-    //setwritecomment('aa');
+    if (name === '대댓글수정') {
+      setShowEditor2(true);
+      setiWantEdit(false);
+    } else if (name === '댓글수정') {
+      setShowEditor(true);
+      setWantEdit(false);
+    }
   }
 
   return (
     <Section>
       <Margin>
-        <Category onClick={editcomment}>
+        <Category
+          onClick={() => {
+            editcomment();
+          }}
+        >
           <Iconimg src="https://cdn-icons-png.flaticon.com/512/1159/1159633.png" />
           수정하기
         </Category>
