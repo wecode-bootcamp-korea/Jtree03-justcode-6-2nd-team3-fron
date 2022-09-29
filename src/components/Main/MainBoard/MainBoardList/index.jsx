@@ -12,9 +12,12 @@ function MainBoardList({ boardData }) {
       <Boardcontent>
         <ListTitle>
           <DFlex>
-            <User url={boardData.profile_image}>
+            <User
+              url={boardData.profile_image}
+              onClick={() => navigate(`/user/${boardData.user_id} `)}
+            >
               <span />
-              {boardData.nickname}
+              <p> {boardData.nickname}</p>
             </User>
             <Point>
               &middot;
@@ -68,6 +71,7 @@ const User = styled.div`
   display: flex;
   align-items: center;
   margin-right: 5px;
+  cursor: pointer;
   span {
     display: block;
     width: 30px;
@@ -76,6 +80,9 @@ const User = styled.div`
     border-radius: 50%;
     background: url(${props => props.url}) center center no-repeat;
     background-size: cover;
+  }
+  p:hover {
+    opacity: 0.7;
   }
 `;
 const Point = styled.div`
