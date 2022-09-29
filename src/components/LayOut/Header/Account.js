@@ -13,15 +13,16 @@ export default function Account() {
 }
 
 const AccountIcons = styled.div`
-  width: 100px;
+  width: 260px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
 `;
 
 const Icon = styled.img`
   width: 20px;
   height: 20px;
+  margin-right: 30px;
   :hover {
     cursor: pointer;
   }

@@ -34,11 +34,10 @@ export default function LoginForm() {
         })
 
         .then(response => {
-          console.log('로그인 성공!');
-          console.log('token', response.data);
-          localStorage.setItem('token', response.data);
+          localStorage.setItem('login-token', response.data.token);
           alert('로그인에 성공하였습니다.');
           navigate('/');
+          window.location.reload();
         })
         .catch(error => {
           console.log(error);
