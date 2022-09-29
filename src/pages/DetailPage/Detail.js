@@ -23,18 +23,17 @@ export default function Detail() {
   useEffect(() => {
     axios
       .get('http://localhost:8000/profile', {
-        headers: { authorization: localStorage.getItem('token') },
+        headers: { authorization: localStorage.getItem('login-token') },
       })
       .then(function (res) {
-        setMyInfor(res.user);
+        setMyInfor(res.data.user);
       });
   }, []);
-
   return (
     <Center>
       <Body>
-        <Topbar postData={postData} />
-        <Content postData={postData} />
+        <Topbar postData={postData} myInfor={myInfor} />
+        <Content postData={postData} myInfor={myInfor} />
         <Commentspace myInfor={myInfor} />
       </Body>
     </Center>

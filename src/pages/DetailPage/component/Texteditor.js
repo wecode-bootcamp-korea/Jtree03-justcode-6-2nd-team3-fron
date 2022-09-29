@@ -10,7 +10,7 @@ function Texteditor(props) {
   // useEffect(() => {
   //   setwritecomment('aa');
   // }, []);
-
+  console.log('텍스트', writecomment);
   const modules = useMemo(
     () => ({
       toolbar: {

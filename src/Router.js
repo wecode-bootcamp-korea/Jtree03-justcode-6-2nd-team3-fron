@@ -70,7 +70,6 @@ export default function Router() {
         {/* 회원가입 페이지 */}
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
-
       </Routes>
       <Footer />
     </BrowserRouter>

@@ -7,7 +7,8 @@ import EditSection from './component/EditSection';
 
 export default function Topbar(props) {
   const [wantEdit, setWantEdit] = useState(false);
-  const { postData } = props;
+  const { postData, myInfor } = props;
+  console.log(postData);
   return (
     <Body>
       <Publishinfor>
@@ -34,9 +35,11 @@ export default function Topbar(props) {
         <Iconbutton>
           <Iconimg src="https://cdn-icons-png.flaticon.com/512/3031/3031121.png" />
         </Iconbutton>
-        <Bttonstyle onClick={() => setWantEdit(f => !f)}>
-          <CommentEdit src="https://cdn-icons-png.flaticon.com/512/2311/2311523.png" />
-        </Bttonstyle>
+        {myInfor.nickname === postData.nickname && (
+          <Bttonstyle onClick={() => setWantEdit(f => !f)}>
+            <CommentEdit src="https://cdn-icons-png.flaticon.com/512/2311/2311523.png" />
+          </Bttonstyle>
+        )}
         <Parentdiv>
           <Position>{wantEdit && <EditSection />}</Position>
         </Parentdiv>
