@@ -1,35 +1,61 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export default function Dropdown() {
-  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-  const logoutHandler = () => {};
   const logOut = () => {
-    localStorage.removeItem('login-token');
+    setOpen(false);
+    localStorage.clear();
     window.location.reload();
   };
+  const ref = useRef();
+
+  useEffect(() => {
+    const clickOutside = e => {
+      // 모달이 열려 있고 모달의 바깥쪽을 눌렀을 때 창 닫기
+      if (open && ref.current && !ref.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', clickOutside);
+
+    return () => {
+      // Cleanup the event listener
+      document.removeEventListener('mousedown', clickOutside);
+    };
+  }, [open]);
+
+  const drop = [
+    {
+      img: 'https://cdn-icons-png.flaticon.com/512/456/456283.png',
+      title: '내 프로필',
+      link: 'settings',
+    },
+    {
+      img: 'https://cdn-icons-png.flaticon.com/512/2961/2961948.png',
+      title: '활동내역',
+      link: `user/${localStorage.getItem('user_id')}`,
+    },
+  ];
+
   return (
     <div>
       <AccountIcon role="button" onClick={() => setOpen(!open)}>
         <Image src="https://cdn-icons-png.flaticon.com/512/747/747376.png" />
       </AccountIcon>
       {open && (
-        <List>
+        <List ref={ref}>
+          {drop.map(el => (
+            <ItemBtn key={el.title}>
+              <ItemImg src={el.img} />
+              <Link to={el.link} onClick={() => setOpen(false)}>
+                <ItemTitle>{el.title}</ItemTitle>
+              </Link>
+            </ItemBtn>
+          ))}
           <ItemBtn>
-            <ItemImg src="https://cdn-icons-png.flaticon.com/512/456/456283.png" />
-            <ItemTitle>내 프로필</ItemTitle>
-          </ItemBtn>
-          <ItemBtn>
-            <ItemImg src="https://cdn-icons-png.flaticon.com/512/2099/2099058.png" />
-            <ItemTitle>내 계정</ItemTitle>
-          </ItemBtn>
-          <ItemBtn>
-            <ItemImg src="https://cdn-icons-png.flaticon.com/512/2961/2961948.png" />
-            <ItemTitle>활동내역</ItemTitle>
-          </ItemBtn>
-          <ItemBtn onClick={logoutHandler}>
             <ItemImg src="https://cdn-icons-png.flaticon.com/512/1286/1286853.png" />
             <ItemTitle onClick={logOut}>로그아웃</ItemTitle>
           </ItemBtn>
@@ -84,17 +110,8 @@ const ItemTitle = styled.span`
   display: inline-block;
   padding: 0 70px 0 0;
   margin-left: 10px;
+  color: black;
   :hover {
     color: #0090f9;
   }
 `;
-// const LogoutBtn = styled.button`
-//   background-color: white;
-//   font-size: 16px;
-//   padding: 10px 20px;
-//   width: 100%;
-//   text-align: left;
-//   :hover {
-//     cursor: pointer;
-//   }
-// `;

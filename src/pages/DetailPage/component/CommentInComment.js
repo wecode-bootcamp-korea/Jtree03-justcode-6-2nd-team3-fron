@@ -152,6 +152,7 @@ const CommentContent = styled.div`
   position: relative;
   position: relative;
   position: relative;
+  position: relative;
   line-height: 1.3;
   margin: 15px 0;
 `;

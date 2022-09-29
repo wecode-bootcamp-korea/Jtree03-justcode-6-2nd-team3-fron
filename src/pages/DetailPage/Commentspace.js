@@ -86,6 +86,9 @@ const CommentWrapper = styled.div`
   :nth-last-child(1) {
     border: none;
   }
+  :nth-last-child(1) {
+    border: none;
+  }
 `;
 
 const CommentLists = styled.div`

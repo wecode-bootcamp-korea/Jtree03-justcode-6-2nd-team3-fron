@@ -39,6 +39,7 @@ const EventImage = styled.img`
   display: block;
   width: 100%;
   height: auto;
+  cursor: pointer;
 `;
 const Detail = styled.div`
   display: flex;

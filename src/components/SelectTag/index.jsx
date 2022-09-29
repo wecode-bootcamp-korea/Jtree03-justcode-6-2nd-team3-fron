@@ -41,7 +41,7 @@ function SelectTag(props) {
       })
     );
   };
-  console.log('알고싶다', tagValue);
+
   useEffect(() => {
     getSelectValue(tagValue);
   }, [tagValue]);
