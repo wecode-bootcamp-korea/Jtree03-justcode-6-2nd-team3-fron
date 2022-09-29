@@ -63,7 +63,6 @@ const List = styled.ul`
 `;
 
 const ItemBtn = styled.li`
-  background-color: white;
   font-size: 16px;
   padding: 15px 20px;
   width: 100%;
@@ -82,18 +81,20 @@ const ItemImg = styled.img`
   opacity: 0.5;
 `;
 const ItemTitle = styled.span`
+  display: inline-block;
+  padding: 0 70px 0 0;
   margin-left: 10px;
   :hover {
     color: #0090f9;
   }
 `;
-const LogoutBtn = styled.button`
-  background-color: white;
-  font-size: 16px;
-  padding: 10px 20px;
-  width: 100%;
-  text-align: left;
-  :hover {
-    cursor: pointer;
-  }
-`;
+// const LogoutBtn = styled.button`
+//   background-color: white;
+//   font-size: 16px;
+//   padding: 10px 20px;
+//   width: 100%;
+//   text-align: left;
+//   :hover {
+//     cursor: pointer;
+//   }
+// `;
