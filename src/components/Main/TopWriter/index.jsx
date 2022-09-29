@@ -1,10 +1,11 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import medal from '../../../image/list/medal.png';
 
 function TopWriter() {
-  // const writer = ['1', '2', '3', '4', '5'];
+  const navigate = useNavigate();
   const [writer, setWriter] = useState([]);
   useEffect(() => {
     axios({
@@ -22,7 +23,10 @@ function TopWriter() {
         {writer.map(data => {
           return (
             <Writer key={data.user_id} url={data.profile_image}>
-              <div>
+              <div
+                className="link"
+                onClick={() => navigate(`/user/${data.user_id}`)}
+              >
                 <span></span>
                 <p className="long">{data.nickname}</p>
               </div>
@@ -50,6 +54,14 @@ const WriterList = styled.div`
 const Writer = styled.div`
   display: flex;
   justify-content: space-between;
+  .link {
+    cursor: pointer;
+    p {
+      :hover {
+        opacity: 0.7;
+      }
+    }
+  }
   .long {
     padding: 3px 0;
     max-width: 100px;

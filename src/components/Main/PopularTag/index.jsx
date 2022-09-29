@@ -1,9 +1,11 @@
 import styled from 'styled-components';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function PopularTag() {
   const [tagsInfo, setTag] = useState([]);
+
   useEffect(() => {
     axios({
       url: 'http://localhost:8000/ranking/topTags',
@@ -12,7 +14,7 @@ function PopularTag() {
       setTag(res.data.topTags);
     });
   }, []);
-  // const tags = ['1', '2', '3', '4', '5'];
+
   return (
     <PopularContainer>
       <Title>#인기태그</Title>
@@ -51,6 +53,10 @@ const Tags = styled.div`
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    cursor: pointer;
+    :hover {
+      opacity: 0.7;
+    }
   }
 
   padding: 10px 0;
