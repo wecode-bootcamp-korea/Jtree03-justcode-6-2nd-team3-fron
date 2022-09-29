@@ -5,22 +5,9 @@ import HeaderLogo from './HeaderLogo';
 import HeaderNav from './HeaderNav';
 import HeaderBtns from './HeaderBtns';
 import Account from './Account';
-import axios from 'axios';
 
 export default function Header() {
   const [isLogin, setIsLogin] = useState(false);
-
-  // useEffect(() => {
-  //   axios
-  //     .get('http://localhost:8000/profile', {
-  //       authorization:
-  //         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEzLCJpYXQiOjE2NjQzNjA5ODIsImV4cCI6MTY2NDM3MTc4Mn0.9IC-a6k6gL5OyGbptRa6G2kBluU4oKD9NTe_5CDYVgw',
-  //     })
-  //     .then(res => {
-  //       console.log(res.data.user);
-  //       localStorage.getItem(res.data);
-  //     });
-  // }, []);
 
   useEffect(() => {
     localStorage.getItem('login-token') ? setIsLogin(true) : setIsLogin(false);
