@@ -12,7 +12,7 @@ import Main from './pages/Main';
 //내 회원정보
 //import MyPage from './pages/myaccount/MyPage';
 // 글 목록
-import CategoryList from './pages/CategoryList';
+import CategoryList from './pages/Category';
 
 // 상세페이지
 import Detail from './pages/DetailPage/Detail';
