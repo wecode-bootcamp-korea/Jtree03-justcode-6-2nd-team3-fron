@@ -3,7 +3,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 
 export default function ProfileImg(props) {
-  const { profile_image, readProfile } = props;
+  const { profile_image } = props;
 
   const [view, setView] = useState(false);
 

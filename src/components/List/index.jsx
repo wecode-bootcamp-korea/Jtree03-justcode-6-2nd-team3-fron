@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import NavBar from './NavBar';
 import ListHeader from './ListHeader';
@@ -8,7 +9,7 @@ import SearchBar from './SearchBar';
 import PostList from './PostList';
 import ListLoading from './ListLoading';
 import Pagination from './Pagination';
-import { useLocation } from 'react-router-dom';
+// import OfferList from './OfferList';
 
 export default function List(props) {
   const { pageInfo } = props;

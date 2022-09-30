@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
+
 import HeaderLogo from './HeaderLogo';
 import HeaderNav from './HeaderNav';
 import HeaderBtns from './HeaderBtns';
 import Account from './Account';
-import axios from 'axios';
 
 export default function Header() {
   const [isLogin, setIsLogin] = useState(false);
