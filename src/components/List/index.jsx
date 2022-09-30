@@ -71,17 +71,6 @@ export default function List(props) {
         console.log('err1 =>', err1);
         console.log('err2 =>', err2);
       });
-      // axios.get(`http://localhost:8000/menus/${pageInfo.id}`)
-      // .then(res => {
-        //   let arr = [...res.data.sub_category];
-        //   arr.push({
-    //     sub_category_name: '전체',
-    //     sub_category_name_en: '',
-    //     unique_id: '',
-    //     view: true,
-    //   });
-    //   setSubMenu(arr);
-    // });
   }
   
   useEffect(loading, [pageInfo, subMenuId, keyword, sortId, page, limit, location.pathname, searchFilter]);
@@ -99,8 +88,9 @@ export default function List(props) {
         setSearch={setSearch}
         setPage={setPage}
         setSearchFilter={setSearchFilter}
+        setList={setList}
       />
-      <SearchBar loading={loading} search={search} setKeyword={setKeyword} />
+      <SearchBar loading={loading} search={search} setKeyword={setKeyword} setList={setList} />
       {list ? (
         list.map(list => {
           return (

@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import styled from 'styled-components';
 
 export default function SearchBar(props) {
-  const { loading, search, setKeyword } = props;
+  const { loading, search, setKeyword, setList } = props;
   const ref = useRef();
 
   const searchPost = () => {
@@ -18,7 +18,10 @@ export default function SearchBar(props) {
 
   return (
     <Bar>
-      <Refresh onClick={loading} />
+      <Refresh onClick={()=>{
+        setList('');
+        setTimeout(loading, 1);
+      }} />
       <Search>
         <Icon />
         <Input

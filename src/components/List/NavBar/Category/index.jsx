@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 export default function Category(props) {
-  const { pageInfo, categoryValue, setSubMenuId, setKeyword, setSortId, setSearch, setPage, setSortName } =
+  const { pageInfo, categoryValue, setSubMenuId, setKeyword, setSortId, setSearch, setPage, setSortName, setList } =
     props;
 
   const onClick = () => {
@@ -11,6 +11,7 @@ export default function Category(props) {
     } else {
       setSearch(categoryValue.sub_category_name);
     }
+    setList('');
     setKeyword('');
     setSortId('');
     setSortName('최신순');

@@ -65,16 +65,16 @@ export default function Router() {
         <Route path="/jobs/new" element={<JobsNew />} />
 
         {/* 내 프로필 */}
-        <Route path="settings/*" element={<Settings />}>
-          {/* 비밀번호 변경 */}
-          <Route path="password-changes" element={<ChangePasswordConfirm />} />
-        </Route>
+        <Route path="settings/*" element={<Settings />} />
 
-        {/* 활동 내역 */}
-        <Route path="user/:id" element={<UserActivities />} />
+        {/* 비밀번호 변경 */}
+        <Route path="settings/password-changes" element={<ChangePasswordConfirm />} />
 
         {/* 회원 탈퇴 */}
         <Route path="/user/withdrawConfirm" element={<SecessionTab />} />
+
+        {/* 활동 내역 */}
+        <Route path="user/:id" element={<UserActivities />} />
 
         {/* 회원가입 페이지 */}
         <Route path="/signup" element={<Signup />} />

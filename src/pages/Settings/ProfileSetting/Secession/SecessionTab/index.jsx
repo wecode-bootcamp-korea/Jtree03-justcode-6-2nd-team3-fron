@@ -9,14 +9,17 @@ function SecessionTab() {
     axios
       .delete('http://localhost:8000/users', {
         headers: {
-          Authorization:
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJpYXQiOjE2NjQyNjM0MDksImV4cCI6MTY2NDI3NDIwOX0.6M6jT_14ZlIoBBt6i1VMaNgOkw_KkMQxJNbVfoJyvgI',
+          Authorization: localStorage.getItem('login-token'),
         },
       })
-      .then(res => {if(res.data.message === 'success_userDoNotUse'){
-        alert('회원 탈퇴가 완료되었습니다.');
-        navigate('/');
-      }})
+      .then(res => {
+        if (res.data.message === 'success_userDoNotUse') {
+          localStorage.clear();
+          alert('회원 탈퇴가 완료되었습니다.');
+          navigate('/');
+          window.location.reload();
+        }
+      });
   };
 
   return (
