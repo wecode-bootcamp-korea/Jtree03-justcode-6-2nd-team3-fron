@@ -9,7 +9,6 @@ export default function Content(props) {
   }
 
   const tags = postData.tags;
-  console.log(tags);
 
   return (
     <Body>
@@ -61,7 +60,6 @@ export default function Content(props) {
               <Valuediv>{postData.contract_type}</Valuediv>
             </Secondinfor2>
           </Importantinforwrapper>
-
           <div>프로젝트 소개</div>
         </div>
       )}
@@ -77,7 +75,7 @@ export default function Content(props) {
               }
             })}
         </InlineDiv>
-        <Nbutton />
+        <Nbutton name={'게시글'} />
       </Footer>
 
       <BlankSpace />
@@ -231,8 +229,8 @@ const Tag = styled.div`
   margin: 0 4px;
   padding: 5px 10px;
   border-radius: 10px;
-  height: 75%;
-  font-size: 6px;
+  height: 85%;
+  font-size: 12px;
   color: #374151;
   background-color: #f1f1f1;
 `;
