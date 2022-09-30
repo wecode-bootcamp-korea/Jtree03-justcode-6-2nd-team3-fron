@@ -14,7 +14,7 @@ export default function WriteCommentSpace(props) {
     setShowEditor,
     setIWantWrite,
     setOpenComment,
-    updateData,
+    setCommentData,
   } = props;
 
   const [writecomment, setwritecomment] = useState();
@@ -27,15 +27,9 @@ export default function WriteCommentSpace(props) {
       setwritecomment(comment.content);
   }, []);
 
-  /////여기서부터
   const perMission = () => {
     navi(`/login`);
-    // axios.post(`http://localhost:8000/users/login`, body).then(res => {
-    //   localStorage.setItem('token', res.data.token);
-    //   setLogin(true); //임시 권한 부여 //TRUE상태 유지를 고민
-    // });
   };
-  ////여기까진 임시 코드
 
   useEffect(() => {
     if (localStorage.getItem('login-token'))
@@ -74,35 +68,35 @@ export default function WriteCommentSpace(props) {
         .post(`http://localhost:8000/comment`, body, {
           headers: { authorization: localStorage.getItem('login-token') },
         })
-        .then(updateData());
+        .then(res => setCommentData(res.data.postComment.reverse()));
       if (name === '대댓글작성') {
         setIWantWrite(false);
         setOpenComment(true);
       }
-    } else if (
-      name === '편집' ||
-      name === '편집의편집' ||
-      name === '편집의편집'
-    ) {
+    } else if (name === '편집' || name === '편집의편집') {
       axios
         .patch(`http://localhost:8000/comment`, body, {
           headers: { authorization: localStorage.getItem('login-token') },
         })
-        .then(updateData());
+        .then(res => setCommentData(res.data.postComment.reverse()));
       setShowEditor(false);
     }
+    setwritecomment('');
   };
 
   const canCelButton = () => {
     name === '대댓글작성' && setIWantWrite(false);
     (name === '편집' || name === '편집의편집') && setShowEditor(false);
   };
-
   return (
     <>
       <Inputspace>
         <Profile>
-          <ProfileImg src="https://cdn-icons-png.flaticon.com/512/149/149071.png" />
+          {localStorage.getItem('login-token') !== null ? (
+            <ProfileImg src="https://cdn-icons-png.flaticon.com/512/2173/2173478.png" />
+          ) : (
+            <ProfileImg src="https://cdn-icons-png.flaticon.com/512/149/149071.png" />
+          )}
         </Profile>
         {login ? (
           <TextEditorWrapper className="ql-snow">
@@ -122,7 +116,11 @@ export default function WriteCommentSpace(props) {
         {name !== '댓글작성' && (
           <CancelButton onClick={canCelButton}>취소</CancelButton>
         )}
-        <CommentButton onClick={sendComment}>댓글쓰기</CommentButton>
+        {localStorage.getItem('login-token') !== null ? (
+          <CommentButton onClick={sendComment}>댓글쓰기</CommentButton>
+        ) : (
+          <CommentButton2>댓글쓰기</CommentButton2>
+        )}
       </Buttonspace>
     </>
   );
@@ -160,6 +158,7 @@ const Inputspace = styled.div`
 `;
 
 const Profile = styled.span`
+  border-radius: 50%;
   padding-right: 8px;
   margin-right: 10px;
 `;
@@ -177,6 +176,16 @@ const Buttonspace = styled.div`
   width: 100%;
 `;
 
+const CommentButton2 = styled.button`
+  background-color: #0090f9;
+  opacity: 0.5;
+  padding: 8px 30px;
+  border-radius: 7px;
+  border: none;
+  color: white;
+  cursor: pointer;
+`;
+
 const CommentButton = styled.button`
   background-color: #0090f9;
   opacity: 0.5;
@@ -185,6 +194,10 @@ const CommentButton = styled.button`
   border: none;
   color: white;
   cursor: pointer;
+  &:hover {
+    background-color: rgb(13, 50, 83);
+    transition: 0.3s;
+  }
 `;
 
 const CancelButton = styled.button`

@@ -6,26 +6,23 @@ import WriteCommentSpace from './WriteCommentSpace';
 
 export default function CommentInComment({
   passnickname,
-  commentnickname,
   comment,
   login,
   setLogin,
-  updateData,
+  setCommentData,
 }) {
   const [showEditor2, setShowEditor2] = useState(false);
   const [iwantEdit, setiWantEdit] = useState(false);
   const outSection = useRef();
-
   function toHtml() {
     return { __html: comment.content };
   }
-
   return (
     <Comment>
       {showEditor2 ? (
         <WriteCommentSpaceWrapper>
           <WriteCommentSpace
-            updateData={updateData}
+            setCommentData={setCommentData}
             setLogin={setLogin}
             login={login}
             comment={comment}
@@ -51,8 +48,11 @@ export default function CommentInComment({
               </Writeinfor>
             </Rowdiv>
             <Rowdiv>
-              <Nbutton />
-              {passnickname === commentnickname && (
+              <Nbutton
+                name={'대댓글'}
+                commentincommentid={comment.comment_id}
+              />
+              {passnickname === comment.nickname && (
                 <Bttonstyle onClick={() => setiWantEdit(f => !f)}>
                   <CommentEdit src="https://cdn-icons-png.flaticon.com/512/2311/2311523.png" />
                 </Bttonstyle>
@@ -61,25 +61,17 @@ export default function CommentInComment({
           </Betweendiv>
           <CommentContent>
             <div dangerouslySetInnerHTML={toHtml()} />
-            {iwantEdit === true ? (
-              <EditSectionWrapper
-                ref={outSection}
-                onclick={e => {
-                  if (outSection.current === e.target) {
-                    setiWantEdit(false);
-                  }
-                }}
-              >
-                {iwantEdit && (
-                  <EditSection
-                    updateData={updateData}
-                    setShowEditor2={setShowEditor2}
-                    comment={comment}
-                    name={'대댓글수정'}
-                  />
-                )}
-              </EditSectionWrapper>
-            ) : null}
+            <EditSectionWrapper>
+              {iwantEdit && (
+                <EditSection
+                  setiWantEdit={setiWantEdit}
+                  setCommentData={setCommentData}
+                  setShowEditor2={setShowEditor2}
+                  comment={comment}
+                  name={'대댓글수정'}
+                />
+              )}
+            </EditSectionWrapper>
           </CommentContent>
         </div>
       )}
@@ -157,8 +149,6 @@ const Writeinfor = styled.div`
 `;
 
 const CommentContent = styled.div`
-  position: relative;
-  position: relative;
   position: relative;
   line-height: 1.3;
   margin: 15px 0;
