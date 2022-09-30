@@ -6,7 +6,7 @@ export default function Account(props) {
 
   const { profileImg } = props;
 
-  return (
+  return profileImg && (
     <AccountIcons>
       <AccountDropdown profileImg={profileImg} />
     </AccountIcons>
