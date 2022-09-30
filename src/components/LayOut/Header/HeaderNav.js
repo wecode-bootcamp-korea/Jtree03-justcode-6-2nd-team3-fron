@@ -28,7 +28,7 @@ export default function HeaderNav() {
   return (
     <Container>
       {category.map(el => (
-        <span>
+        <>
           <Category
             to={el.path}
             className={({ isActive }) => isActive && 'active'}
@@ -36,7 +36,7 @@ export default function HeaderNav() {
             {el.name}
           </Category>
           <Div />
-        </span>
+        </>
       ))}
     </Container>
   );
